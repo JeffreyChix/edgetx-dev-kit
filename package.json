@@ -188,11 +188,6 @@
       ]
     }
   },
-  "files": [
-    "bundled/**",
-    "webview/**",
-    "out/**"
-  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
