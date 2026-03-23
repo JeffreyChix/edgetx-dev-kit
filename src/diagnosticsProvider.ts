@@ -173,6 +173,7 @@ export class DiagnosticsProvider {
     version: string,
     fileName: string,
     scriptTypeRange: vscode.Range,
+    display: ScreenDisplayType,
   ): vscode.Diagnostic[] {
     const diagnostics: vscode.Diagnostic[] = [];
 
@@ -181,6 +182,15 @@ export class DiagnosticsProvider {
         this.error(
           scriptTypeRange,
           `EdgeTX: Widget scripts must be named 'main.lua' (current: '${fileName}')`,
+        ),
+      );
+    }
+
+    if (display !== "color") {
+      diagnostics.push(
+        this.warning(
+          scriptTypeRange,
+          `EdgeTX: widget scripts are not available on non-color displays (current display: '${display}')`,
         ),
       );
     }
@@ -416,12 +426,13 @@ export class DiagnosticsProvider {
                 profile.version,
                 fileName,
                 scriptTypeRange,
+                profile.display,
               )
             : []),
         ]
       : [];
 
-    const lintDiagnostics = this.lint(source, profile);
+    const lintDiagnostics = this.lint(source, profile, scriptKey);
 
     this.collection.set(document.uri, [
       ...structuralDiagnostics,
@@ -458,7 +469,11 @@ export class DiagnosticsProvider {
     });
   }
 
-  private lint(source: string, profile: EdgeTXProfile): vscode.Diagnostic[] {
+  private lint(
+    source: string,
+    profile: EdgeTXProfile,
+    scriptKey: string | null,
+  ): vscode.Diagnostic[] {
     const diagnostics: vscode.Diagnostic[] = [];
     const lines = source.split("\n");
 
@@ -565,6 +580,16 @@ export class DiagnosticsProvider {
             ),
           );
         }
+      }
+
+      // function scripts don't have access to lcd
+      if (scriptKey && scriptKey === "function" && /\blcd\.\w+/.test(line)) {
+        diagnostics.push(
+          this.error(
+            range,
+            "EdgeTX: function scripts don't have access to lcd",
+          ),
+        );
       }
     });
 

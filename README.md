@@ -5,7 +5,6 @@
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.85+-blue)](https://code.visualstudio.com)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-## What is this?
 
 EdgeTX Dev Kit brings a proper development environment to EdgeTX Lua scripting. If you've ever written a widget or telemetry script in a plain text editor, copy-pasted it to an SD card, flashed it to your radio, and stared at a blank screen wondering what went wrong, then this extension is for you.
 
@@ -31,7 +30,7 @@ The extension activates automatically on any `.lua` file. EdgeTX mode (IntelliSe
 
 ### IntelliSense & Type Checking
 
-The extension syncs versioned `.d.lua` stub files from the [edgetx-lua-gen](https://github.com/JeffreyChix/edgetx-lua-gen) pipeline — a GitHub Actions workflow that parses EdgeTX C++ source and generates LuaLS-compatible definitions automatically.
+The extension syncs versioned `.d.lua` stub files from the [edgetx-lua-gen](https://github.com/JeffreyChix/edgetx-lua-gen) pipeline — a GitHub Actions workflow that parses EdgeTX C++ source and generates LuaLS-compatible definitions.
 
 Once stubs are loaded, the Lua Language Server provides:
 
@@ -105,14 +104,17 @@ return script
 
 - `name` must be 10 characters or less
 - `options` maximum: 5 entries on EdgeTX ≤ 2.10, 10 entries from 2.11
-- Each option name (first element) must be 10 characters or less with no spaces
+- Each option name (first table value) must be 10 characters or less with no spaces
+- Widget scripts are only available on color displays
+
 
 #### Lint checks
 
-- **Unavailble APIs on display type** — errors if you use color-only apis: `lcd.setColor()`, `RGB()`, `COLOR_THEME_*`, `TINSIZE` etc. on a B&W profile and vice-versa
+- **Display-specific APIs** — errors if you use color-only apis: `lcd.setColor()`, `RGB()`, `COLOR_THEME_*`, `TINSIZE` etc. on a B&W profile and vice-versa
 - **Version-gated APIs** — errors if you use an API that requires a newer version than your profile (e.g. `touchState` requires 2.6+)
 - **Unsupported standard libraries** — errors for `os`, `coroutine`, `package`, `debug` usage; `table` flagged on B&W profiles
 - **Unsupported `io` functions** — errors for any `io.*` call outside the five supported functions: `io.open`, `io.close`, `io.read`, `io.write`, `io.seek`
+- **lcd unavailable in function scripts** - errors when `lcd` is used in a function script 
 
 ### API Search
 
@@ -256,6 +258,8 @@ Initial release.
 
 ## Contributing
 
-Issues and pull requests are welcome on [GitHub](https://github.com/JeffreyChix/edgetx-dev-kit).
+Found a bug or have a feature request? Open an issue with as much context as you can provide.
 
-If you find a bug or want to request a feature, open an issue with as much detail as possible — EdgeTX version, radio model, and a minimal script to reproduce the problem.
+Pull requests are welcome. If you're planning something substantial, open an issue first to discuss the approach.
+
+The stub pipeline lives in a separate repository — [edgetx-lua-gen](https://github.com/JeffreyChix/edgetx-lua-gen). If you spot missing or incorrect API definitions, contributions there improve the IntelliSense and diagnostics for everyone.

@@ -89,7 +89,8 @@
     "generic": {
       "name": "TWidget",
       "type": "table",
-      "description": "Base widget table returned by create() and passed to update(), background(), and refresh().<br>Extend this class to add your own widget state fields."
+      "description": "Base widget table returned by create() and passed to update(), background(), and refresh().<br>Extend this class to add your own widget state fields.",
+      "sample": "{item1:string; item2:number}"
     },
     "description": "Displayed in a widget zone on color LCD radios. Widgets must be created via the EdgeTX widget system.",
     "notices": [
@@ -115,7 +116,8 @@
           "create": {
             "optional": false,
             "signature": "fun(zone: Zone, options: WidgetOptions): TWidget",
-            "description": "Called when the widget is created. Must return a widget table"
+            "description": "Called when the widget is created. Must return a widget table",
+            "returnSample": "{item1:string; item2:number}"
           },
           "update": {
             "optional": true,
@@ -151,7 +153,8 @@
           "create": {
             "optional": false,
             "signature": "fun(zone: Zone, options: WidgetOptions): TWidget",
-            "description": "Called when the widget is created. Must return a widget table"
+            "description": "Called when the widget is created. Must return a widget table",
+            "returnSample": "{item1:string; item2:number}"
           },
           "update": {
             "optional": true,

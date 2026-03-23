@@ -1,6 +1,6 @@
 {
   "version": "2.4",
-  "generated": "2026-03-20T18:00:20.855Z",
+  "generated": "2026-03-23T22:31:44.190Z",
   "functions": [
     {
       "entityType": "function",
@@ -4023,66 +4023,10 @@
   "constants": [
     {
       "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "jumbo font  2.0.6",
-      "sourceFile": "api_general.cpp",
-      "name": "XXLSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "double size font",
-      "sourceFile": "api_general.cpp",
-      "name": "DBLSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "mid sized font",
-      "sourceFile": "api_general.cpp",
-      "name": "MIDSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "small font",
-      "sourceFile": "api_general.cpp",
-      "name": "SMLSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "blinking text",
-      "sourceFile": "api_general.cpp",
-      "name": "BLINK",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "inverted display",
-      "sourceFile": "api_general.cpp",
-      "name": "INVERS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "",
       "sourceFile": "api_general.cpp",
       "name": "TINSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "bold font    Only color displays",
-      "sourceFile": "api_general.cpp",
-      "name": "BOLD",
       "module": "general"
     },
     {
@@ -4120,6 +4064,86 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY3",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY2",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_INVERTED_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_FOCUS",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_INVERTED_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY3",
+      "sourceFile": "api_general.cpp",
+      "name": "LINE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY3",
+      "sourceFile": "api_general.cpp",
+      "name": "SCROLLBOX_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY2",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY3",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_DISABLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
       "description": "→ COLOR_THEME_WARNING",
       "sourceFile": "api_general.cpp",
       "name": "ALARM_COLOR",
@@ -4128,41 +4152,17 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
+      "description": "→ COLOR_THEME_WARNING",
       "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH1_COLOR",
+      "name": "WARNING_COLOR",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY2",
+      "description": "→ COLOR_THEME_DISABLED",
       "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH2_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BATTERY_CHARGE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "CHECKBOX_COLOR",
+      "name": "TEXT_DISABLE_COLOR",
       "module": "general"
     },
     {
@@ -4192,49 +4192,25 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "These are the theme colors plus , and they can be changed with the function lcd.setColor\\(color_index, color\\). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "description": "→ COLOR_THEME_SECONDARY1",
       "sourceFile": "api_general.cpp",
-      "name": "CUSTOM_COLOR",
+      "name": "TITLE_BGCOLOR",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "",
+      "description": "→ COLOR_THEME_FOCUS",
       "sourceFile": "api_general.cpp",
-      "name": "DEFAULT_BGCOLOR",
+      "name": "TRIM_BGCOLOR",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "",
+      "description": "→ COLOR_THEME_PRIMARY1",
       "sourceFile": "api_general.cpp",
-      "name": "DEFAULT_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "DISABLE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FOCUS_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FOCUS_COLOR",
+      "name": "TRIM_SHADOW_COLOR",
       "module": "general"
     },
     {
@@ -4250,7 +4226,7 @@
       "availableOn": "COLOR_LCD",
       "description": "→ COLOR_THEME_SECONDARY1",
       "sourceFile": "api_general.cpp",
-      "name": "HEADER_COLOR",
+      "name": "HEADER_ICON_BGCOLOR",
       "module": "general"
     },
     {
@@ -4264,25 +4240,9 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
+      "description": "→ COLOR_THEME_PRIMARY2",
       "sourceFile": "api_general.cpp",
-      "name": "HEADER_ICON_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "HIGHLIGHT_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "LINE_COLOR",
+      "name": "MAINVIEW_PANES_COLOR",
       "module": "general"
     },
     {
@@ -4296,25 +4256,41 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY2",
+      "description": "→ COLOR_THEME_PRIMARY1",
       "sourceFile": "api_general.cpp",
-      "name": "MAINVIEW_PANES_COLOR",
+      "name": "OVERLAY_COLOR",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "",
+      "description": "→ COLOR_THEME_SECONDARY1",
       "sourceFile": "api_general.cpp",
-      "name": "MENU_BGCOLOR",
+      "name": "BARGRAPH1_COLOR",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "",
+      "description": "→ COLOR_THEME_SECONDARY2",
       "sourceFile": "api_general.cpp",
-      "name": "MENU_COLOR",
+      "name": "BARGRAPH2_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY3",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "These are the theme colors plus , and they can be changed with the function lcd.setColor\\(color_index, color\\). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "CUSTOM_COLOR",
       "module": "general"
     },
     {
@@ -4328,110 +4304,6 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_HIGHLIGHT_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_HIGHLIGHT_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_LINE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "OVERLAY_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "SCROLLBAR_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TABLE_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TABLE_HEADER_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_DISABLED",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_DISABLE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_STATUSBAR_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "TITLE_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_WARNING",
-      "sourceFile": "api_general.cpp",
-      "name": "WARNING_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "WHITE | RGB: rgb(255, 255, 255) | Is Light: true | Is Dark: false",
       "sourceFile": "api_general.cpp",
       "name": "WHITE",
@@ -4439,7 +4311,7 @@
     },
     {
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
+      "availableOn": "NON_COLOR_LCD",
       "description": "GREY | RGB: rgb(128, 128, 128) | Is Light: true | Is Dark: false",
       "sourceFile": "api_general.cpp",
       "name": "GREY",
@@ -4531,6 +4403,62 @@
       "description": "",
       "sourceFile": "api_general.cpp",
       "name": "FULLSCALE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "jumbo font  2.0.6",
+      "sourceFile": "api_general.cpp",
+      "name": "XXLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "double size font",
+      "sourceFile": "api_general.cpp",
+      "name": "DBLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "mid sized font",
+      "sourceFile": "api_general.cpp",
+      "name": "MIDSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "small font",
+      "sourceFile": "api_general.cpp",
+      "name": "SMLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "inverted display",
+      "sourceFile": "api_general.cpp",
+      "name": "INVERS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "bold font    Only color displays",
+      "sourceFile": "api_general.cpp",
+      "name": "BOLD",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "blinking text",
+      "sourceFile": "api_general.cpp",
+      "name": "BLINK",
       "module": "general"
     },
     {
@@ -5251,6 +5179,142 @@
       "description": "",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_TEXT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "BATTERY_CHARGE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "CHECKBOX_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "DEFAULT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "DEFAULT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "DISABLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FOCUS_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FOCUS_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "HIGHLIGHT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HIGHLIGHT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HIGHLIGHT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_LINE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "SCROLLBAR_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "TABLE_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "TABLE_HEADER_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_STATUSBAR_COLOR",
       "module": "general"
     }
   ]

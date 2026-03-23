@@ -1,6 +1,6 @@
 {
   "version": "2.6",
-  "generated": "2026-03-20T18:00:27.111Z",
+  "generated": "2026-03-23T22:31:47.905Z",
   "functions": [
     {
       "entityType": "function",
@@ -5184,82 +5184,10 @@
   "constants": [
     {
       "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "jumbo font  2.0.6",
-      "sourceFile": "api_general.cpp",
-      "name": "XXLSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "double size font",
-      "sourceFile": "api_general.cpp",
-      "name": "DBLSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "mid sized font",
-      "sourceFile": "api_general.cpp",
-      "name": "MIDSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "small font",
-      "sourceFile": "api_general.cpp",
-      "name": "SMLSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "blinking text",
-      "sourceFile": "api_general.cpp",
-      "name": "BLINK",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "inverted display",
-      "sourceFile": "api_general.cpp",
-      "name": "INVERS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "",
       "sourceFile": "api_general.cpp",
       "name": "TINSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "bold font    Only color displays. This is a font size on its own - cannot be combined with other font size flags.",
-      "sourceFile": "api_general.cpp",
-      "name": "BOLD",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "center vertically  2.5.0  Only color displays",
-      "sourceFile": "api_general.cpp",
-      "name": "VCENTER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_DISABLE_TOUCH",
       "module": "general"
     },
     {
@@ -5297,113 +5225,9 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "",
+      "description": "→ COLOR_THEME_SECONDARY1",
       "sourceFile": "api_general.cpp",
-      "name": "MENU_HEADER_HEIGHT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_PRIMARY1",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_PRIMARY2",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_PRIMARY3",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_SECONDARY1",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_SECONDARY2",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_SECONDARY3",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_FOCUS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_EDIT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_ACTIVE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_WARNING",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR_THEME_DISABLED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "These are the theme colors plus , and they can be changed with the function lcd.setColor\\(color_index, color\\). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_general.cpp",
-      "name": "CUSTOM_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_WARNING",
-      "sourceFile": "api_general.cpp",
-      "name": "ALARM_COLOR",
+      "name": "TEXT_COLOR",
       "module": "general"
     },
     {
@@ -5411,47 +5235,15 @@
       "availableOn": "COLOR_LCD",
       "description": "→ COLOR_THEME_SECONDARY3",
       "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH_BGCOLOR",
+      "name": "TEXT_BGCOLOR",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
+      "description": "→ COLOR_THEME_PRIMARY2",
       "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH1_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY2",
-      "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH2_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY2",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_AXIS_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_WARNING",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_CURSOR_COLOR",
+      "name": "TEXT_INVERTED_COLOR",
       "module": "general"
     },
     {
@@ -5459,31 +5251,7 @@
       "availableOn": "COLOR_LCD",
       "description": "→ COLOR_THEME_FOCUS",
       "sourceFile": "api_general.cpp",
-      "name": "HEADER_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_FOCUS",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_CURRENT_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_ICON_BGCOLOR",
+      "name": "TEXT_INVERTED_BGCOLOR",
       "module": "general"
     },
     {
@@ -5497,17 +5265,9 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
+      "description": "→ COLOR_THEME_SECONDARY3",
       "sourceFile": "api_general.cpp",
-      "name": "MAINVIEW_GRAPHICS_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY2",
-      "sourceFile": "api_general.cpp",
-      "name": "MAINVIEW_PANES_COLOR",
+      "name": "SCROLLBOX_COLOR",
       "module": "general"
     },
     {
@@ -5537,33 +5297,25 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "OVERLAY_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "SCROLLBOX_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "→ COLOR_THEME_SECONDARY1",
       "sourceFile": "api_general.cpp",
-      "name": "TEXT_COLOR",
+      "name": "HEADER_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_WARNING",
+      "sourceFile": "api_general.cpp",
+      "name": "ALARM_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_WARNING",
+      "sourceFile": "api_general.cpp",
+      "name": "WARNING_COLOR",
       "module": "general"
     },
     {
@@ -5577,17 +5329,25 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_FOCUS",
+      "description": "→ COLOR_THEME_SECONDARY2",
       "sourceFile": "api_general.cpp",
-      "name": "TEXT_INVERTED_BGCOLOR",
+      "name": "CURVE_AXIS_COLOR",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY2",
+      "description": "→ COLOR_THEME_SECONDARY1",
       "sourceFile": "api_general.cpp",
-      "name": "TEXT_INVERTED_COLOR",
+      "name": "CURVE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_WARNING",
+      "sourceFile": "api_general.cpp",
+      "name": "CURVE_CURSOR_COLOR",
       "module": "general"
     },
     {
@@ -5617,17 +5377,89 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_WARNING",
+      "description": "→ COLOR_THEME_FOCUS",
       "sourceFile": "api_general.cpp",
-      "name": "WARNING_COLOR",
+      "name": "HEADER_BGCOLOR",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "BLACK | RGB: rgb(0, 0, 0) | Is Light: false | Is Dark: true",
+      "description": "→ COLOR_THEME_SECONDARY1",
       "sourceFile": "api_general.cpp",
-      "name": "BLACK",
+      "name": "HEADER_ICON_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_FOCUS",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_CURRENT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY2",
+      "sourceFile": "api_general.cpp",
+      "name": "MAINVIEW_PANES_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "sourceFile": "api_general.cpp",
+      "name": "MAINVIEW_GRAPHICS_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY1",
+      "sourceFile": "api_general.cpp",
+      "name": "OVERLAY_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH1_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY2",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH2_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY3",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "These are the theme colors plus , and they can be changed with the function lcd.setColor\\(color_index, color\\). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "CUSTOM_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HEADER_HEIGHT",
       "module": "general"
     },
     {
@@ -5640,10 +5472,26 @@
     },
     {
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
+      "availableOn": "NON_COLOR_LCD",
+      "description": "GREY | RGB: rgb(128, 128, 128) | Is Light: true | Is Dark: false",
       "sourceFile": "api_general.cpp",
-      "name": "LIGHTWHITE",
+      "name": "GREY",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "DARKGREY | RGB: rgb(169, 169, 169) | Is Light: true | Is Dark: false",
+      "sourceFile": "api_general.cpp",
+      "name": "DARKGREY",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "BLACK | RGB: rgb(0, 0, 0) | Is Light: false | Is Dark: true",
+      "sourceFile": "api_general.cpp",
+      "name": "BLACK",
       "module": "general"
     },
     {
@@ -5660,30 +5508,6 @@
       "description": "BLUE | RGB: rgb(0, 0, 255) | Is Light: false | Is Dark: true",
       "sourceFile": "api_general.cpp",
       "name": "BLUE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "DARKBLUE | RGB: rgb(0, 0, 139) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_general.cpp",
-      "name": "DARKBLUE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "GREY | RGB: rgb(128, 128, 128) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_general.cpp",
-      "name": "GREY",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "DARKGREY | RGB: rgb(169, 169, 169) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_general.cpp",
-      "name": "DARKGREY",
       "module": "general"
     },
     {
@@ -5708,54 +5532,6 @@
       "description": "DARKRED | RGB: rgb(139, 0, 0) | Is Light: false | Is Dark: true",
       "sourceFile": "api_general.cpp",
       "name": "DARKRED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "GREEN | RGB: rgb(0, 128, 0) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_general.cpp",
-      "name": "GREEN",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "DARKGREEN | RGB: rgb(0, 100, 0) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_general.cpp",
-      "name": "DARKGREEN",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LIGHTBROWN",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "DARKBROWN",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BRIGHTGREEN",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "ORANGE | RGB: rgb(255, 165, 0) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_general.cpp",
-      "name": "ORANGE",
       "module": "general"
     },
     {
@@ -5788,6 +5564,62 @@
       "description": "",
       "sourceFile": "api_general.cpp",
       "name": "FULLSCALE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "jumbo font  2.0.6",
+      "sourceFile": "api_general.cpp",
+      "name": "XXLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "double size font",
+      "sourceFile": "api_general.cpp",
+      "name": "DBLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "mid sized font",
+      "sourceFile": "api_general.cpp",
+      "name": "MIDSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "small font",
+      "sourceFile": "api_general.cpp",
+      "name": "SMLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "inverted display",
+      "sourceFile": "api_general.cpp",
+      "name": "INVERS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "bold font    Only color displays. This is a font size on its own - cannot be combined with other font size flags.",
+      "sourceFile": "api_general.cpp",
+      "name": "BOLD",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "blinking text",
+      "sourceFile": "api_general.cpp",
+      "name": "BLINK",
       "module": "general"
     },
     {
@@ -5955,343 +5787,7 @@
       "availableOn": "GENERAL",
       "description": "",
       "sourceFile": "api_general.cpp",
-      "name": "SWITCH_COUNT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
       "name": "MAX_SENSORS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_NONE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_VEQUAL",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_VALMOSTEQUAL",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_VPOS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_VNEG",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_RANGE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_APOS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_ANEG",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_AND",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_OR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_XOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_EDGE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_EQUAL",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_GREATER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_LESS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_DIFFEGREATER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_ADIFFEGREATER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_TIMER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LS_FUNC_STICKY",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_OVERRIDE_CHANNEL",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_TRAINER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_INSTANT_TRIM",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_RESET",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_SET_TIMER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_ADJUST_GVAR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_VOLUME",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_SET_FAILSAFE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_RANGECHECK",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_BIND",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_PLAY_SOUND",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_PLAY_TRACK",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_PLAY_VALUE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_PLAY_SCRIPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_BACKGND_MUSIC",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_BACKGND_MUSIC_PAUSE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_VARIO",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_HAPTIC",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_LOGS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_BACKLIGHT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_SCREENSHOT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FUNC_RACING_MODE",
       "module": "general"
     },
     {
@@ -6468,38 +5964,6 @@
       "description": "rotary encoder rotated right",
       "sourceFile": "api_general.cpp",
       "name": "EVT_ROT_RIGHT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "When the finger touches down on the screen",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_TOUCH_FIRST",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "If the finger leaves the screen without tap or slide",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_TOUCH_BREAK",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Repeats while the finger is sliding on the screen",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_TOUCH_SLIDE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "If the finger leaves the screen after a quick tap",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_TOUCH_TAP",
       "module": "general"
     },
     {
@@ -6880,6 +6344,334 @@
     },
     {
       "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "BATTERY_CHARGE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "CHECKBOX_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "DEFAULT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "DEFAULT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "DISABLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FOCUS_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FOCUS_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "HIGHLIGHT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HIGHLIGHT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HIGHLIGHT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_LINE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "SCROLLBAR_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "TABLE_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "TABLE_HEADER_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_STATUSBAR_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "center vertically  2.5.0  Only color displays",
+      "sourceFile": "api_general.cpp",
+      "name": "VCENTER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_PRIMARY1",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_PRIMARY2",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_PRIMARY3",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_SECONDARY1",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_SECONDARY2",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_SECONDARY3",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_FOCUS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_EDIT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_ACTIVE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_WARNING",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR_THEME_DISABLED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LIGHTWHITE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "DARKBLUE | RGB: rgb(0, 0, 139) | Is Light: false | Is Dark: true",
+      "sourceFile": "api_general.cpp",
+      "name": "DARKBLUE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "GREEN | RGB: rgb(0, 128, 0) | Is Light: false | Is Dark: true",
+      "sourceFile": "api_general.cpp",
+      "name": "GREEN",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "DARKGREEN | RGB: rgb(0, 100, 0) | Is Light: false | Is Dark: true",
+      "sourceFile": "api_general.cpp",
+      "name": "DARKGREEN",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LIGHTBROWN",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "DARKBROWN",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "BRIGHTGREEN",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "ORANGE | RGB: rgb(255, 165, 0) | Is Light: true | Is Dark: false",
+      "sourceFile": "api_general.cpp",
+      "name": "ORANGE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "When the finger touches down on the screen",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_TOUCH_FIRST",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "If the finger leaves the screen without tap or slide",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_TOUCH_BREAK",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Repeats while the finger is sliding on the screen",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_TOUCH_SLIDE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "If the finger leaves the screen after a quick tap",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_TOUCH_TAP",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
       "sourceFile": "api_general.cpp",
@@ -6916,6 +6708,350 @@
       "description": "",
       "sourceFile": "api_general.cpp",
       "name": "AM_ARC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_DISABLE_TOUCH",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "SWITCH_COUNT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_NONE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_VEQUAL",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_VALMOSTEQUAL",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_VPOS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_VNEG",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_RANGE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_APOS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_ANEG",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_AND",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_OR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_XOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_EDGE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_EQUAL",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_GREATER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_LESS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_DIFFEGREATER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_ADIFFEGREATER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_TIMER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "LS_FUNC_STICKY",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_OVERRIDE_CHANNEL",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_TRAINER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_INSTANT_TRIM",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_RESET",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_SET_TIMER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_ADJUST_GVAR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_VOLUME",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_SET_FAILSAFE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_RANGECHECK",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_BIND",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_PLAY_SOUND",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_PLAY_TRACK",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_PLAY_VALUE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_PLAY_SCRIPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_BACKGND_MUSIC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_BACKGND_MUSIC_PAUSE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_VARIO",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_HAPTIC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_LOGS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_BACKLIGHT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_SCREENSHOT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "sourceFile": "api_general.cpp",
+      "name": "FUNC_RACING_MODE",
       "module": "general"
     },
     {

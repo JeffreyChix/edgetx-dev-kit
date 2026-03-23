@@ -1,6 +1,6 @@
 {
   "version": "2.3",
-  "generated": "2026-03-20T18:00:17.532Z",
+  "generated": "2026-03-23T22:31:42.695Z",
   "functions": [
     {
       "entityType": "function",
@@ -4313,7 +4313,7 @@
     },
     {
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
+      "availableOn": "NON_COLOR_LCD",
       "description": "",
       "sourceFile": "api_general.cpp",
       "name": "GREY",
