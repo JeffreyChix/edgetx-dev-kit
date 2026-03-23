@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: var(--vscode-font-family);
+        background: var(--vscode-editor-background);
+        color: var(--vscode-editor-foreground);
+        padding: 24px;
+        font-size: 13px;
+      }
+      h1 {
+        font-size: 18px;
+        margin-bottom: 4px;
+      }
+      .profile-badge {
+        display: inline-flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        background: var(--vscode-badge-background);
+        color: var(--vscode-badge-foreground);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      .section h2 {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        opacity: 0.7;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+      }
+      input[type="text"],
+      select {
+        width: 100%;
+        background: var(--vscode-input-background);
+        color: var(--vscode-input-foreground);
+        border: 1px solid var(--vscode-input-border);
+        padding: 6px 8px;
+        border-radius: 3px;
+        font-size: 13px;
+        margin-top: 4px;
+      }
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .checkbox-group label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .radio-group {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .radio-btn {
+        padding: 6px 14px;
+        border-radius: 3px;
+        cursor: pointer;
+        border: 1px solid var(--vscode-button-background);
+        background: transparent;
+        color: var(--vscode-editor-foreground);
+        font-size: 12px;
+      }
+      .radio-btn.active {
+        background: var(--vscode-button-background);
+        color: var(--vscode-button-foreground);
+      }
+      .threshold-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      .threshold-row input[type="number"] {
+        width: 80px;
+        background: var(--vscode-input-background);
+        color: var(--vscode-input-foreground);
+        border: 1px solid var(--vscode-input-border);
+        padding: 6px 8px;
+        border-radius: 3px;
+      }
+      .generate-btn {
+        margin-top: 24px;
+        width: 100%;
+        padding: 10px;
+        background: var(--vscode-button-background);
+        color: var(--vscode-button-foreground);
+        border: none;
+        border-radius: 3px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .generate-btn:hover {
+        background: var(--vscode-button-hoverBackground);
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid var(--vscode-panel-border);
+        margin: 16px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>⚡ EdgeTX Script Wizard</h1>
+    <div class="profile-badge">
+      <span
+        >📻
+        <!--RADIO_NAME--></span
+      >
+      <span
+        >EdgeTX
+        <!--PROFILE_VERSION--></span
+      >
+      <span><!--PROFILE_DISPLAY_INFO--></span>
+    </div>
+
+    <div class="section">
+      <h2>Script Type</h2>
+      <div class="radio-group">
+        <button class="radio-btn" onclick="setType('oneTime', this)">
+          🚨 One Time
+        </button>
+        <button class="radio-btn active" onclick="setType('telemetry', this)">
+          📊 Telemetry
+        </button>
+        <button class="radio-btn" onclick="setType('widget', this)">
+          👀 Widget
+        </button>
+        <button class="radio-btn" onclick="setType('function', this)">
+          𝑓(𝑥) Function
+        </button>
+        <button class="radio-btn" onclick="setType('mix', this)">🔀 Mix</button>
+      </div>
+    </div>
+    <hr class="divider" />
+
+    <div class="section">
+      <h2>Script Name</h2>
+      <label
+        >File name (no .lua)
+        <input
+          type="text"
+          id="scriptName"
+          placeholder="script name"
+          value="my_script"
+        />
+      </label>
+    </div>
+
+    <button class="generate-btn" onclick="generate()">
+      ⚡ Generate Script
+    </button>
+
+    <script>
+      let scriptType = "telemetry";
+
+      const vscode =
+        typeof acquireVsCodeApi === "function"
+          ? acquireVsCodeApi()
+          : { postMessage: (m) => console.log("[mock postMessage]", m) };
+
+      function setType(type, btn) {
+        scriptType = type;
+        document
+          .querySelectorAll(".radio-group .radio-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+
+      function generate() {
+        vscode.postMessage({
+          command: "generate",
+          scriptType,
+          config: {
+            name: document.getElementById("scriptName").value || "my_script",
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

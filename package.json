@@ -1,0 +1,221 @@
+{
+  "name": "edgetx-dev-kit",
+  "displayName": "EdgeTX Dev Kit",
+  "description": "Lua scripting toolkit for EdgeTX RC radio firmware — IntelliSense, diagnostics, script generation, and API search.",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "edgetx",
+    "lua",
+    "rc",
+    "radio",
+    "fpv",
+    "elrs",
+    "opentx",
+    "widget",
+    "telemetry",
+    "firmware"
+  ],
+  "publisher": "jeffreychix",
+  "author": {
+    "name": "Jeffrey Nwankwo"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JeffreyChix/edgetx-dev-kit"
+  },
+  "bugs": {
+    "url": "https://github.com/JeffreyChix/edgetx-dev-kit/issues"
+  },
+  "icon": "bundled/images/icon.png",
+  "homepage": "https://github.com/JeffreyChix/edgetx-dev-kit#readme",
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onLanguage:lua"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "edgetx.toggle",
+        "title": "Toggle EdgeTX Mode",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.deployScript",
+        "title": "Deploy Script to SD Card",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.newScript",
+        "title": "New Script (Wizard)",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.newTelemetry",
+        "title": "New Telemetry Script",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.newWidget",
+        "title": "New Widget Script",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.newMix",
+        "title": "New Mix Script",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.newFunction",
+        "title": "New Function Script",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.newOneTime",
+        "title": "New OneTime Script",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.searchApi",
+        "title": "Search API",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.setProfile",
+        "title": "Set Radio Profile",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.checkUpdatesAndSync",
+        "title": "Check for API Updates and Sync",
+        "category": "EdgeTX"
+      },
+      {
+        "command": "edgetx.simulate",
+        "title": "Simulate Script (Coming Soon)",
+        "category": "EdgeTX"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "edgetx.deployScript",
+          "when": "editorLangId == lua && edgetx.active",
+          "group": "edgetx"
+        },
+        {
+          "command": "edgetx.newScript",
+          "when": "editorLangId == lua && edgetx.active",
+          "group": "edgetx"
+        },
+        {
+          "command": "edgetx.searchApi",
+          "when": "editorLangId == lua && edgetx.active",
+          "group": "edgetx"
+        },
+        {
+          "command": "edgetx.checkUpdatesAndSync",
+          "when": "editorLangId == lua && edgetx.active",
+          "group": "edgetx"
+        },
+        {
+          "command": "edgetx.simulate",
+          "when": "editorLangId == lua && edgetx.active",
+          "group": "edgetx"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "EdgeTX Dev Kit",
+      "properties": {
+        "edgetx.autoActivateOnStart": {
+          "type": "boolean",
+          "description": "Automatically activates EdgeTX mode when the extension activates and a Lua file is open",
+          "default": false
+        },
+        "edgetx.checkUpdatesOnStart": {
+          "type": "boolean",
+          "description": "Check for EdgeTX API stub updates when the extension activates",
+          "default": true
+        },
+        "edgetx.stubsRawBaseUrl": {
+          "description": "The base URL where EdgeTX stub files are hosted. This is used to download and update stubs.\n Format: `BASE_URL/stubs/version`",
+          "type": "string",
+          "format": "uri",
+          "default": "https://raw.githubusercontent.com/JeffreyChix/edgetx-stubs/main"
+        },
+        "edgetx.sdCardPath": {
+          "type": "string",
+          "markdownDescription": "Absolute path to the root of your EdgeTX SD card. Used to deploy scripts to the correct folder automatically.\n\nExamples:\n- Windows: `D:\\EdgeTX SD` or `D:/EdgeTX SD`\n- macOS/Linux: `/Volumes/EdgeTX` or `/media/user/EdgeTX`\n\n**Tip:** Use the same path configured in EdgeTX Companion under _Settings → SD Card_."
+        },
+        "edgetx.autoDeployOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically deploy script to SD card on save"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "edgetx-sidebar",
+          "title": "EdgeTX",
+          "icon": "bundled/images/sidebar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "edgetx-sidebar": [
+        {
+          "type": "webview",
+          "id": "edgetx.apiSearch",
+          "name": "API Search",
+          "icon": "$(search)"
+        }
+      ]
+    }
+  },
+  "files": [
+    "bundled/**",
+    "webview/**",
+    "out/**"
+  ],
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "extensionDependencies": [
+    "sumneko.lua"
+  ],
+  "devDependencies": {
+    "@types/luaparse": "^0.2.13",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.39.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1"
+  },
+  "dependencies": {
+    "luaparse": "^0.3.1"
+  }
+}

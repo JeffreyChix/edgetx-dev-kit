@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';"
+    />
+    <title>EdgeTX API Search</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--vscode-font-family, system-ui);
+        background: var(--vscode-editor-background, #1e1e1e);
+        color: var(--vscode-editor-foreground, #d4d4d4);
+        padding: 16px;
+        font-size: 13px;
+      }
+
+      /* ── toolbar ── */
+      .toolbar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
+        align-items: center;
+      }
+
+      #searchBox {
+        flex: 1;
+        padding: 7px 10px;
+        background: var(--vscode-input-background, #3c3c3c);
+        color: var(--vscode-input-foreground, #d4d4d4);
+        border: 1px solid var(--vscode-input-border, #555);
+        border-radius: 4px;
+        font-size: 13px;
+      }
+
+      #searchBox:focus {
+        outline: none;
+        border-color: var(--vscode-focusBorder, #007acc);
+      }
+
+      /* ── filters ── */
+      .filters {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      select {
+        padding: 6px 8px;
+        background: var(--vscode-input-background, #3c3c3c);
+        color: var(--vscode-input-foreground, #d4d4d4);
+        border: 1px solid var(--vscode-input-border, #555);
+        border-radius: 4px;
+        font-size: 12px;
+        width: 100%;
+      }
+
+      select:focus {
+        outline: none;
+      }
+
+      /* ── meta row ── */
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      #count {
+        font-size: 11px;
+        opacity: 0.5;
+      }
+
+      #clearBtn {
+        font-size: 11px;
+        padding: 2px 8px;
+        background: none;
+        border: 1px solid var(--vscode-input-border, #555);
+        border-radius: 4px;
+        color: var(--vscode-editor-foreground, #d4d4d4);
+        cursor: pointer;
+        opacity: 0.6;
+      }
+
+      #clearBtn:hover {
+        opacity: 1;
+      }
+
+      /* ── cards ── */
+      .results {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .card {
+        background: var(--vscode-editor-inactiveSelectionBackground, #2a2d2e);
+        border: 1px solid transparent;
+        border-radius: 6px;
+        padding: 10px 12px;
+        cursor: pointer;
+      }
+
+      .card:hover {
+        border-color: var(--vscode-input-border, #555);
+      }
+
+      .card.expanded {
+        border-color: var(--vscode-focusBorder, #007acc);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .card-left {
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* ── badges ── */
+      .entity-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-bottom: 4px;
+      }
+
+      .badge {
+        font-size: 10px;
+        padding: 1px 6px;
+        border-radius: 99px;
+        font-weight: 500;
+        line-height: 1.6;
+      }
+
+      .badge-fn {
+        background: #0e3a2b;
+        color: #4ec99a;
+      }
+      .badge-const {
+        background: #2a1f5c;
+        color: #a78bfa;
+      }
+      .badge-color {
+        background: #3b2a0a;
+        color: #f0a732;
+      }
+      .badge-noncolor {
+        background: #2a2a2a;
+        color: #9ca3af;
+      }
+      .badge-dep {
+        background: #3b0e0e;
+        color: #f87171;
+      }
+
+      .module-label {
+        font-size: 11px;
+        opacity: 0.5;
+      }
+
+      /* ── api name ── */
+      .api-name {
+        font-family: var(--vscode-editor-font-family, monospace);
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .api-desc {
+        font-size: 12px;
+        opacity: 0.75;
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+
+      /* ── insert button ── */
+      .insert-btn {
+        flex-shrink: 0;
+        font-size: 11px;
+        padding: 4px 10px;
+        border: 1px solid var(--vscode-input-border, #555);
+        border-radius: 4px;
+        background: none;
+        color: var(--vscode-editor-foreground, #d4d4d4);
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.1s;
+        white-space: nowrap;
+      }
+
+      .card:hover .insert-btn,
+      .card.expanded .insert-btn {
+        opacity: 1;
+      }
+
+      .insert-btn:hover {
+        background: var(--vscode-button-background, #0e639c);
+        color: var(--vscode-button-foreground, #fff);
+        border-color: transparent;
+      }
+
+      /* ── expanded detail ── */
+      .detail {
+        display: none;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--vscode-input-border, #555);
+      }
+
+      .card.expanded .detail {
+        display: block;
+      }
+
+      .sig-block {
+        font-family: var(--vscode-editor-font-family, monospace);
+        font-size: 11px;
+        opacity: 0.7;
+        background: var(--vscode-editor-background, #1e1e1e);
+        padding: 6px 8px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .params-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+
+      .params-table th {
+        text-align: left;
+        opacity: 0.5;
+        padding: 3px 0;
+        font-weight: 500;
+        border-bottom: 1px solid var(--vscode-input-border, #555);
+      }
+
+      .params-table td {
+        padding: 4px 0;
+        opacity: 0.8;
+        vertical-align: top;
+      }
+
+      .params-table td:first-child {
+        font-family: var(--vscode-editor-font-family, monospace);
+        opacity: 1;
+        padding-right: 12px;
+        white-space: nowrap;
+      }
+
+      .params-table td:nth-child(2) {
+        opacity: 0.5;
+        padding-right: 12px;
+        font-family: var(--vscode-editor-font-family, monospace);
+      }
+
+      /* ── misc ── */
+      .no-results {
+        text-align: center;
+        padding: 32px;
+        opacity: 0.4;
+      }
+
+      mark {
+        background: transparent;
+        color: inherit;
+        font-weight: 700;
+        text-decoration: underline;
+        text-decoration-color: var(--vscode-focusBorder, #007acc);
+        text-decoration-thickness: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <input
+        type="text"
+        id="searchBox"
+        placeholder="Search functions and constants… (e.g. lcd, getValue, BLINK)"
+      />
+    </div>
+
+    <div class="filters">
+      <select id="entityTypeFilter">
+        <option value="">All entities</option>
+        <option value="function">Functions</option>
+        <option value="constant">Constants</option>
+      </select>
+      <select id="moduleFilter">
+        <option value="">All modules</option>
+        <!--MODULES-->
+      </select>
+      <select id="versionFilter">
+        <!--VERSIONS-->
+      </select>
+    </div>
+
+    <div class="meta">
+      <span id="count"></span>
+      <button id="clearBtn">Clear filters</button>
+    </div>
+
+    <div class="results" id="results"></div>
+
+    <script>
+      const TYPE_MAP = {
+        nil: "nil",
+        boolean: "boolean",
+        number: "number",
+        integer: "integer",
+        string: "string",
+        table: "table",
+        function: "fun()",
+        mixed: "any",
+        unknown: "any",
+      };
+
+      /* ── injected data ── */
+      const APIS = /*APIS*/ {}; /*END_APIS*/
+
+      const vscode =
+        typeof acquireVsCodeApi === "function"
+          ? acquireVsCodeApi()
+          : { postMessage: (m) => console.log("[mock postMessage]", m) };
+
+      let expanded = null;
+      let debounceTimer = null;
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function highlight(text, query) {
+        if (!query) return escapeHtml(text);
+        const safe = escapeHtml(text);
+        const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        return safe.replace(
+          new RegExp(`(${escaped})`, "gi"),
+          "<mark>$1</mark>",
+        );
+      }
+
+      function buildSnippet(api) {
+        const prefix = api.module !== "general" ? api.module + "." : "";
+        const params = (api.parameters || [])
+          .map((p, i) => "${" + (i + 1) + ":" + p.name + "}")
+          .join(", ");
+        return prefix + api.name + "(" + params + ")";
+      }
+
+      function buildDisplayName(api, query) {
+        const prefix =
+          api.entityType === "function" && api.module !== "general"
+            ? api.module + "."
+            : "";
+        const suffix = api.entityType === "function" ? "()" : "";
+        return highlight(prefix + api.name, query) + escapeHtml(suffix);
+      }
+
+      function buildBadges(api) {
+        const badges = [
+          `<span class="badge badge-${api.entityType === "function" ? "fn" : "const"}">${api.entityType === "function" ? "fn" : "const"}</span>`,
+          api.availableOn === "COLOR_LCD"
+            ? `<span class="badge badge-color">color only</span>`
+            : "",
+          api.availableOn === "NON_COLOR_LCD"
+            ? `<span class="badge badge-noncolor">non-color only</span>`
+            : "",
+          api.deprecated
+            ? `<span class="badge badge-dep">deprecated ${escapeHtml(api.deprecatedIn || "")}</span>`
+            : "",
+        ];
+        return badges.join("");
+      }
+
+      function buildParamRows(params) {
+        if (!params || !params.length) return "";
+        const rows = params
+          .map(
+            (p) =>
+              `<tr>
+          <td>${escapeHtml(p.name)}</td>
+          <td>${escapeHtml(p.type ? TYPE_MAP[p.type] : "")}</td>
+          <td>${escapeHtml(p.description || "")}</td>
+        </tr>`,
+          )
+          .join("");
+        return `<table class="params-table">
+        <thead><tr><th>param</th><th>type</th><th>description</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+      }
+
+      function buildCard(api, query) {
+        const isExpanded = expanded === api.name;
+        const displayName = buildDisplayName(api, query);
+        const badges = buildBadges(api);
+        const moduleLabel =
+          api.module !== "general" && api.entityType === "function"
+            ? `<span class="module-label">${highlight(api.module, query)}</span>`
+            : "";
+        const insertBtn =
+          api.entityType === "function"
+            ? `<button class="insert-btn" data-name="${escapeHtml(api.name)}">Insert ↗</button>`
+            : "";
+        const detail = `<div class="detail">
+        ${api.signature ? `<div class="sig-block">${escapeHtml(api.signature)}</div>` : ""}
+        ${buildParamRows(api.parameters)}
+      </div>`;
+
+        return `<div class="card${isExpanded ? " expanded" : ""}"
+                   data-name="${escapeHtml(api.name)}"
+                   role="button"
+                   tabindex="0"
+                   aria-expanded="${isExpanded}">
+        <div class="card-header">
+          <div class="card-left">
+            <div class="entity-row">${badges}${moduleLabel}</div>
+            <div class="api-name">${displayName}</div>
+            <div class="api-desc">${highlight(api.description || "", query)}</div>
+          </div>
+          ${insertBtn}
+        </div>
+        ${detail}
+      </div>`;
+      }
+
+      function render() {
+        const query = document
+          .getElementById("searchBox")
+          .value.trim()
+          .toLowerCase();
+        const et = document.getElementById("entityTypeFilter").value;
+        const modEl = document.getElementById("moduleFilter");
+        let mod = modEl.value;
+        const version = document.getElementById("versionFilter").value;
+
+        if (et === "constant") {
+          modEl.disabled = true;
+          mod = "";
+        } else {
+          modEl.disabled = false;
+          mod = modEl.value;
+        }
+
+        const pool = APIS[version] || [];
+
+        const filtered = pool.filter((api) => {
+          if (et && api.entityType !== et) return false;
+          if (mod && api.module !== mod) return false;
+          if (!query) return true;
+          return (
+            api.name.toLowerCase().includes(query) ||
+            api.module.toLowerCase().includes(query) ||
+            (api.signature || "").toLowerCase().includes(query) ||
+            (api.description || "").toLowerCase().includes(query)
+          );
+        });
+
+        const fnCount = filtered.filter(
+          (a) => a.entityType === "function",
+        ).length;
+        const constCount = filtered.filter(
+          (a) => a.entityType === "constant",
+        ).length;
+        document.getElementById("count").textContent =
+          `${fnCount} function${fnCount !== 1 ? "s" : ""} · ${constCount} constant${constCount !== 1 ? "s" : ""}`;
+
+        const resultsEl = document.getElementById("results");
+
+        if (!filtered.length) {
+          resultsEl.innerHTML = `<div class="no-results">No results${query ? ` for "${escapeHtml(query)}"` : ""}</div>`;
+          return;
+        }
+
+        resultsEl.innerHTML = filtered
+          .map((api) => buildCard(api, query))
+          .join("");
+
+        resultsEl.querySelectorAll(".card").forEach((card) => {
+          card.addEventListener("click", (e) => {
+            if (e.target.closest(".insert-btn")) return;
+            const name = card.dataset.name;
+            expanded = expanded === name ? null : name;
+            render();
+          });
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              card.click();
+            }
+          });
+        });
+
+        resultsEl.querySelectorAll(".insert-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const name = btn.dataset.name;
+            const api = pool.find((a) => a.name === name);
+            if (!api) return;
+            const snippet = buildSnippet(api);
+            vscode.postMessage({ command: "insert", snippet });
+            btn.textContent = "Inserted!";
+            setTimeout(() => (btn.textContent = "Insert ↗"), 1200);
+          });
+        });
+      }
+
+      document.getElementById("searchBox").addEventListener("input", (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(render, 120);
+      });
+      ["entityTypeFilter", "moduleFilter", "versionFilter"].forEach((id) => {
+        document.getElementById(id).addEventListener("change", render);
+      });
+      document.getElementById("clearBtn").addEventListener("click", () => {
+        document.getElementById("searchBox").value = "";
+        document.getElementById("entityTypeFilter").value = "";
+        document.getElementById("moduleFilter").value = "";
+        expanded = null;
+        render();
+      });
+
+      render();
+    </script>
+  </body>
+</html>

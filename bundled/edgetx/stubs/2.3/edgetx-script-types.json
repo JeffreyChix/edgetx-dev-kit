@@ -1,0 +1,285 @@
+{
+  "oneTime": {
+    "description": "Runs once when activated. Useful for configuration or setup tasks.",
+    "notices": [],
+    "versions": [
+      {
+        "from": "2.3",
+        "to": "2.6",
+        "fields": {
+          "init": {
+            "optional": true,
+            "signature": "fun()",
+            "description": "Called once when the script is loaded"
+          },
+          "run": {
+            "optional": false,
+            "signature": "fun(event: number): string | number",
+            "description": "Called every cycle. If return value is zero, script will continue to run, non-zero, script will be halted.\nIf return value is a text string with the file path to a new Lua script, then the new script will be loaded and run."
+          }
+        }
+      },
+      {
+        "from": "2.7",
+        "to": null,
+        "fields": {
+          "init": {
+            "optional": true,
+            "signature": "fun()",
+            "description": "Called once when the script is loaded"
+          },
+          "run": {
+            "optional": false,
+            "signature": "fun(event: number, touchState?: TouchState): string | number",
+            "description": "Called every cycle. If return value is zero, script will continue to run, non-zero, script will be halted.\nIf return value is a text string with the file path to a new Lua script, then the new script will be loaded and run."
+          }
+        }
+      }
+    ]
+  },
+  "telemetry": {
+    "description": "Displayed on a telemetry screen page. Has full access to the LCD display.",
+    "notices": [],
+    "versions": [
+      {
+        "from": "2.3",
+        "to": "2.3",
+        "fields": {
+          "init": {
+            "optional": true,
+            "description": "Called once when the script is loaded",
+            "signature": "fun()"
+          },
+          "background": {
+            "optional": false,
+            "signature": "fun()",
+            "description": "Called when the script is not visible on screen"
+          },
+          "run": {
+            "optional": false,
+            "signature": "fun(event: number)",
+            "description": "Called every cycle when the telemetry page is active"
+          }
+        }
+      },
+      {
+        "from": "2.4",
+        "to": null,
+        "fields": {
+          "init": {
+            "optional": true,
+            "description": "Called once when the script is loaded",
+            "signature": "fun()"
+          },
+          "background": {
+            "optional": true,
+            "signature": "fun()",
+            "description": "Called when the script is not visible on screen"
+          },
+          "run": {
+            "optional": false,
+            "signature": "fun(event: number)",
+            "description": "Called every cycle when the telemetry page is active"
+          }
+        }
+      }
+    ]
+  },
+  "widget": {
+    "generic": {
+      "name": "TWidget",
+      "type": "table",
+      "description": "Base widget table returned by create() and passed to update(), background(), and refresh().<br>Extend this class to add your own widget state fields."
+    },
+    "description": "Displayed in a widget zone on color LCD radios. Widgets must be created via the EdgeTX widget system.",
+    "notices": [
+      "Widget name must be 10 characters or less",
+      "Maximum 5 options allowed from 2.3 to 2.10, maximum 10 options from 2.11",
+      "Option names must be 10 characters or less with no spaces"
+    ],
+    "versions": [
+      {
+        "from": "2.3",
+        "to": "2.3",
+        "fields": {
+          "name": {
+            "optional": false,
+            "signature": "string",
+            "description": "Widget name shown in the EdgeTX UI. Must be 10 characters or less"
+          },
+          "options": {
+            "optional": true,
+            "signature": "WidgetOptions",
+            "description": "Table of up to 5 widget options. Names must be 10 characters or less with no spaces"
+          },
+          "create": {
+            "optional": false,
+            "signature": "fun(zone: Zone, options: WidgetOptions): TWidget",
+            "description": "Called when the widget is created. Must return a widget table"
+          },
+          "update": {
+            "optional": true,
+            "signature": "fun(widget: TWidget, options: WidgetOptions)",
+            "description": "Called when the user changes widget options"
+          },
+          "background": {
+            "optional": true,
+            "signature": "fun(widget: TWidget)",
+            "description": "Called when the widget is not in the foreground"
+          },
+          "refresh": {
+            "optional": false,
+            "signature": "fun(widget: TWidget)",
+            "description": "Called every cycle to draw the widget. No touch support in 2.3"
+          }
+        }
+      },
+      {
+        "from": "2.4",
+        "to": null,
+        "fields": {
+          "name": {
+            "optional": false,
+            "signature": "string",
+            "description": "Widget name shown in the EdgeTX UI. Must be 10 characters or less"
+          },
+          "options": {
+            "optional": true,
+            "signature": "WidgetOptions",
+            "description": "Table of up to 5 widget options. Names must be 10 characters or less with no spaces"
+          },
+          "create": {
+            "optional": false,
+            "signature": "fun(zone: Zone, options: WidgetOptions): TWidget",
+            "description": "Called when the widget is created. Must return a widget table"
+          },
+          "update": {
+            "optional": true,
+            "signature": "fun(widget: TWidget, options: WidgetOptions)",
+            "description": "Called when the user changes widget options"
+          },
+          "background": {
+            "optional": true,
+            "signature": "fun(widget: TWidget)",
+            "description": "Called when the widget is not in the foreground"
+          },
+          "refresh": {
+            "optional": false,
+            "signature": "fun(widget: TWidget, event: number, touchState?: TouchState)",
+            "description": "Called every cycle to draw the widget. No touch support in 2.3"
+          }
+        }
+      }
+    ]
+  },
+  "function": {
+    "description": "Activated by a switch. Runs in the background alongside the main firmware. Does NOT have access to the LCD display.",
+    "notices": [
+      "Function scripts do NOT have access to the LCD display",
+      "File name (without extension) must be 6 characters or less",
+      "background function is not available in 2.3"
+    ],
+    "versions": [
+      {
+        "from": "2.3",
+        "to": "2.3",
+        "fields": {
+          "init": {
+            "optional": true,
+            "signature": "fun()",
+            "description": "Called once when the script is loaded"
+          },
+          "run": {
+            "optional": false,
+            "signature": "fun()",
+            "description": "Called every cycle while the activating switch is on"
+          }
+        }
+      },
+      {
+        "from": "2.4",
+        "to": null,
+        "fields": {
+          "init": {
+            "optional": true,
+            "signature": "fun()",
+            "description": "Called once when the script is loaded"
+          },
+          "run": {
+            "optional": false,
+            "signature": "fun()",
+            "description": "Called every cycle while the activating switch is on"
+          },
+          "background": {
+            "optional": false,
+            "signature": "fun()",
+            "description": "Called every cycle regardless of switch state"
+          }
+        }
+      }
+    ]
+  },
+  "mix": {
+    "description": "Custom mix script that reads inputs and produces outputs used in the mixer. Runs alongside built-in mixes.",
+    "notices": [
+      "Do NOT use mix scripts for anything safety-critical — if the script stops executing, your model could crash",
+      "Cannot update the LCD screen or handle user input",
+      "Custom scripts run at lower priority than built-in mixes. Execution period is approximately 30ms and is not guaranteed",
+      "Should not exceed the allowed run-time or instruction count"
+    ],
+    "versions": [
+      {
+        "from": "2.3",
+        "to": "2.10",
+        "fields": {
+          "input": {
+            "optional": true,
+            "signature": "MixInputs",
+            "description": "Declares the script inputs shown in the EdgeTX mixer UI. Each entry is either SOURCE or VALUE form"
+          },
+          "output": {
+            "optional": true,
+            "signature": "MixOutput",
+            "description": "Declares the output channel names. run() must return values matching this table"
+          },
+          "init": {
+            "optional": true,
+            "signature": "fun()",
+            "description": "Called once when the script is loaded"
+          },
+          "run": {
+            "optional": false,
+            "signature": "fun(input: MixInputs): string, string",
+            "description": "Called every mix cycle. Must return values matching the output table declarations"
+          }
+        }
+      },
+      {
+        "from": "2.11",
+        "to": null,
+        "fields": {
+          "input": {
+            "optional": false,
+            "signature": "MixInputs",
+            "description": "Declares the script inputs shown in the EdgeTX mixer UI. Each entry is either SOURCE or VALUE form"
+          },
+          "output": {
+            "optional": false,
+            "signature": "MixOutput",
+            "description": "Declares the output channel names. fun() must return values matching this table"
+          },
+          "init": {
+            "optional": true,
+            "signature": "fun()",
+            "description": "Called once when the script is loaded"
+          },
+          "run": {
+            "optional": false,
+            "signature": "fun(input: MixInputs): string, string",
+            "description": "Called every mix cycle. Must return values matching the output table declarations"
+          }
+        }
+      }
+    ]
+  }
+}
