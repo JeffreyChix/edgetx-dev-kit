@@ -617,7 +617,9 @@ export class DiagnosticsProvider {
             ),
           );
         }
-      } else if (isLvglLine && !lvglState.active) {
+      }
+
+      if (scriptKey && isLvglLine && !lvglState.active) {
         diagnostics.push(
           this.error(
             range,
