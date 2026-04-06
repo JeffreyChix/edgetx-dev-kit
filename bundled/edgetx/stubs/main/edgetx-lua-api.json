@@ -1,21 +1,23 @@
 {
   "version": "main",
-  "generated": "2026-03-23T22:32:01.772Z",
+  "generated": "2026-04-06T17:49:17.352Z",
   "functions": [
     {
       "entityType": "function",
       "module": "lcd",
       "name": "refresh",
       "signature": "lcd.refresh()",
-      "description": "Refresh the LCD screen\n\nFrom 2.4.0 on color LCDs, this is done automatically when the screen\nneeds to be refreshed (on events and depending on refresh period).",
+      "description": "Refresh the LCD screen",
       "parameters": [],
       "overloadParameters": [],
       "returns": [],
-      "notices": [],
-      "status": "current Only used on non-color LCDs.",
-      "sinceVersion": "",
+      "notices": [
+        "This function only works in stand-alone and telemetry scripts."
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -35,11 +37,13 @@
       ],
       "overloadParameters": [],
       "returns": [],
-      "notices": [],
+      "notices": [
+        "This function only works in stand-alone and telemetry scripts."
+      ],
       "status": "current Introduced in 2.0.0, `color` parameter introduced in 2.2.0 RC12",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -55,14 +59,14 @@
       "status": "current Introduced in 2.3.6",
       "sinceVersion": "2.3.6",
       "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
       "entityType": "function",
       "module": "lcd",
       "name": "drawPoint",
-      "signature": "lcd.drawPoint(x, y, [flags])",
+      "signature": "lcd.drawPoint(x, y)",
       "description": "Draw a single pixel at (x,y) position",
       "parameters": [
         {
@@ -82,7 +86,7 @@
         {
           "name": "flags",
           "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "description": "(optional) lcdflags",
           "optional": true,
           "flagHints": []
         }
@@ -95,14 +99,14 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
       "entityType": "function",
       "module": "lcd",
       "name": "drawLine",
-      "signature": "lcd.drawLine(x1, y1, x2, y2, pattern, [flags])",
+      "signature": "lcd.drawLine(x1, y1, x2, y2, pattern, flags)",
       "description": "Draw a straight line on LCD",
       "parameters": [
         {
@@ -143,7 +147,7 @@
         {
           "name": "flags",
           "type": "number",
-          "description": "(optional) lcdflags",
+          "description": "lcdflags",
           "optional": true,
           "flagHints": []
         }
@@ -156,14 +160,88 @@
       "status": "current Introduced in 2.0.0, flags introduced in 2.3.6",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
       "entityType": "function",
       "module": "lcd",
+      "name": "getLastPos",
+      "signature": "lcd.getLastPos()",
+      "description": "Returns the rightmost x position from previous output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis",
+        "For added clarity, it is recommended to use lcd.getLastRightPos()"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getLastRightPos",
+      "signature": "lcd.getLastRightPos()",
+      "description": "Returns the rightest x position from previous drawtext or drawNumber output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis",
+        "This is strictly equivalent to former lcd.getLastPos()"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getLastLeftPos",
+      "signature": "lcd.getLastLeftPos()",
+      "description": "Returns the leftmost x position from previous drawtext or drawNumber output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
       "name": "drawText",
-      "signature": "lcd.drawText(x, y, text [, flags [, inversColor]])",
+      "signature": "lcd.drawText(x, y, text [, flags])",
       "description": "Draw a text beginning at (x,y)",
       "parameters": [
         {
@@ -190,14 +268,7 @@
         {
           "name": "flags",
           "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html) for drawing flags and colors, and [Appendix](../../part_vii_-_appendix/fonts.md) for available characters in each font set.",
-          "optional": true,
-          "flagHints": []
-        },
-        {
-          "name": "inversColor",
-          "type": "string",
-          "description": "(optional with the INVERS flag) overrides the inverse text color for INVERS",
+          "description": "(unsigned number) drawing flags. All values can be\ncombined together using the + character. ie BLINK + DBLSIZE.\nSee the [Appendix](../appendix/fonts.md) for available characters in each font set.\n`0 or not specified` normal font\n`XXLSIZE` jumbo sized font\n`DBLSIZE` double size font\n`MIDSIZE` mid sized font\n`SMLSIZE` small font\n`INVERS` inverted display\n`BLINK` blinking text\n`SHADOWED` Horus only, apply a shadow effect",
           "optional": true,
           "flagHints": []
         }
@@ -208,8 +279,551 @@
       "status": "current Introduced in 2.0.0, `SHADOWED` introduced in 2.2.1",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawTimer",
+      "signature": "lcd.drawTimer(x, y, value [, flags])",
+      "description": "Display a value formatted as time at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(number) time in seconds",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags:\n`0 or not specified` normal representation (minutes and seconds)\n`TIMEHOUR` display hours\nother general LCD flag also apply\n`SHADOWED` Horus only, apply a shadow effect",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawNumber",
+      "signature": "lcd.drawNumber(x, y, value [, flags])",
+      "description": "Display a number at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(number) value to display",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags:\n`0 or not specified` display with no decimal (like abs())\n`PREC1` display with one decimal place (number 386 is displayed as 38.6)\n`PREC2` display with tow decimal places (number 386 is displayed as 3.86)\nother general LCD flag also apply\n`SHADOWED` Horus only, apply a shadow effect",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawChannel",
+      "signature": "lcd.drawChannel(x, y, source, flags)",
+      "description": "Display a telemetry value at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "source",
+          "type": "number|string",
+          "description": "can be a source identifier (number) or a source name (string).\nSee getValue()",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.6, changed in 2.1.0 (only telemetry sources are valid)",
+      "sinceVersion": "2.0.6",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawSwitch",
+      "signature": "lcd.drawSwitch(x, y, switch, flags)",
+      "description": "Draw a text representation of switch at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "switch",
+          "type": "number",
+          "description": "number of switch to display, negative number\ndisplays negated switch",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags, only SMLSIZE, BLINK and INVERS.",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawSource",
+      "signature": "lcd.drawSource(x, y, source [, flags])",
+      "description": "Displays the name of the corresponding input as defined by the source at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "source",
+          "type": "number",
+          "description": "source index",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawPixmap",
+      "signature": "lcd.drawPixmap(x, y, name)",
+      "description": "Draw a bitmap at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Maximum image size is [display width / 2] x [display height] pixels."
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawRectangle",
+      "signature": "lcd.drawRectangle(x, y, w, h [, flags [, t]])",
+      "description": "Draw a rectangle from top left corner (x,y) of specified width and height",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "h",
+          "type": "number",
+          "description": "(number) height in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        },
+        {
+          "name": "t",
+          "type": "number",
+          "description": "thickness in pixels, defaults to 1 (only on Horus)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, changed in 2.2.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawFilledRectangle",
+      "signature": "lcd.drawFilledRectangle(x, y, w, h [, flags])",
+      "description": "Draw a solid rectangle from top left corner (x,y) of specified width and height",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "h",
+          "type": "number",
+          "description": "(number) height in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawGauge",
+      "signature": "lcd.drawGauge(x, y, w, h, fill, maxfill [, flags])",
+      "description": "Draw a simple gauge that is filled based upon fill value",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "h",
+          "type": "number",
+          "description": "(number) height in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "fill",
+          "type": "number",
+          "description": "amount of fill to apply",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "maxfill",
+          "type": "number",
+          "description": "total value of fill",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, changed in 2.2.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawScreenTitle",
+      "signature": "lcd.drawScreenTitle(title, page, pages)",
+      "description": "Draw a title bar",
+      "parameters": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "(string) text for the title",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": "page number",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "pages",
+          "type": "number",
+          "description": "total number of pages. Only used as indicator on\nthe right side of title bar. (i.e. idx=2, cnt=5, display `2/5`)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawCombobox",
+      "signature": "lcd.drawCombobox(x, y, w, list, idx [, flags])",
+      "description": "Draw a combo box",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width of combo box in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "list",
+          "type": "table",
+          "description": "combo box elements, each element is a string",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "idx",
+          "type": "number",
+          "description": "(integer) index of entry to highlight",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags, the flags can not be combined:\n`BLINK` combo box is expanded\n`INVERS` combo box collapsed, text inversed\n`0 or not present` combo box collapsed, text normal",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_stdlcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
     },
     {
       "entityType": "function",
@@ -326,245 +940,6 @@
       "deprecated": false,
       "sourceFile": "api_colorlcd.cpp",
       "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawTimer",
-      "signature": "lcd.drawTimer(x, y, value [, flags [, inversColor]])",
-      "description": "Display a value formatted as time at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(number) time in seconds",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        },
-        {
-          "name": "inversColor",
-          "type": "string",
-          "description": "(optional with INVERS flag) overrides the inverse text color for INVERS",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawNumber",
-      "signature": "lcd.drawNumber(x, y, value [, flags [, inversColor]])",
-      "description": "Display a number at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(number) value to display",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        },
-        {
-          "name": "inversColor",
-          "type": "string",
-          "description": "(optional with INVERS flag) overrides the inverse text color for INVERS",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawChannel",
-      "signature": "lcd.drawChannel(x, y, source, flags)",
-      "description": "Display a telemetry value at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "source",
-          "type": "number|string",
-          "description": "can be a source identifier (number) or a source name (string).\nSee getValue()",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.6, changed in 2.1.0 (only telemetry sources are valid)",
-      "sinceVersion": "2.0.6",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawSwitch",
-      "signature": "lcd.drawSwitch(x, y, switch, flags)",
-      "description": "Draw a text representation of switch at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "switch",
-          "type": "number",
-          "description": "number of switch to display, negative number\ndisplays negated switch",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html), only SMLSIZE, BLINK and INVERS.",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawSource",
-      "signature": "lcd.drawSource(x, y, source [, flags])",
-      "description": "Displays the name of the corresponding input as defined by the source at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "source",
-          "type": "number",
-          "description": "source index",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
     },
     {
       "entityType": "function",
@@ -863,131 +1238,6 @@
     {
       "entityType": "function",
       "module": "lcd",
-      "name": "drawRectangle",
-      "signature": "lcd.drawRectangle(x, y, w, h [, flags [, t [, opacity]]])",
-      "description": "Draw a rectangle from top left corner (x,y) of specified width and height",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "(number) height in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        },
-        {
-          "name": "t",
-          "type": "number",
-          "description": "thickness in pixels, defaults to 1 (only on radios with color display)",
-          "optional": true,
-          "flagHints": []
-        },
-        {
-          "name": "opacity",
-          "type": "number",
-          "description": "opacity defaults to 0 (only on radios with color display)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, changed in 2.2.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawFilledRectangle",
-      "signature": "lcd.drawFilledRectangle(x, y, w, h [, flags [, opacity]])",
-      "description": "Draw a solid rectangle from top left corner (x,y) of specified width and height",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "(number) height in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        },
-        {
-          "name": "opacity",
-          "type": "number",
-          "description": "opacity defaults to 0 (only on radios with color display)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
       "name": "invertRect",
       "signature": "lcd.invertRect(x, y, w, h [, flags])",
       "description": "Invert a rectangle zone from top left corner (x,y) of specified width and height",
@@ -1038,72 +1288,6 @@
       "deprecated": false,
       "sourceFile": "api_colorlcd.cpp",
       "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawGauge",
-      "signature": "lcd.drawGauge(x, y, w, h, fill, maxfill [, flags])",
-      "description": "Draw a simple gauge that is filled based upon fill value",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "(number) height in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "fill",
-          "type": "number",
-          "description": "amount of fill to apply",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "maxfill",
-          "type": "number",
-          "description": "total value of fill",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, changed in 2.2.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
     },
     {
       "entityType": "function",
@@ -6180,996 +6364,230 @@
       "sinceVersion": "2.8.0",
       "deprecated": false,
       "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastPos",
-      "signature": "lcd.getLastPos()",
-      "description": "Returns the rightmost x position from previous output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis",
-        "For added clarity, it is recommended to use lcd.getLastRightPos()"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastRightPos",
-      "signature": "lcd.getLastRightPos()",
-      "description": "Returns the rightest x position from previous drawtext or drawNumber output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis",
-        "This is strictly equivalent to former lcd.getLastPos()"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastLeftPos",
-      "signature": "lcd.getLastLeftPos()",
-      "description": "Returns the leftmost x position from previous drawtext or drawNumber output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawPixmap",
-      "signature": "lcd.drawPixmap(x, y, name)",
-      "description": "Draw a bitmap at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Maximum image size is [display width / 2] x [display height] pixels."
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawScreenTitle",
-      "signature": "lcd.drawScreenTitle(title, page, pages)",
-      "description": "Draw a title bar",
-      "parameters": [
-        {
-          "name": "title",
-          "type": "string",
-          "description": "(string) text for the title",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "page",
-          "type": "number",
-          "description": "page number",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "pages",
-          "type": "number",
-          "description": "total number of pages. Only used as indicator on\nthe right side of title bar. (i.e. idx=2, cnt=5, display `2/5`)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawCombobox",
-      "signature": "lcd.drawCombobox(x, y, w, list, idx [, flags])",
-      "description": "Draw a combo box",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width of combo box in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "list",
-          "type": "table",
-          "description": "combo box elements, each element is a string",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "idx",
-          "type": "number",
-          "description": "(integer) index of entry to highlight",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags, the flags can not be combined:\n`BLINK` combo box is expanded\n`INVERS` combo box collapsed, text inversed\n`0 or not present` combo box collapsed, text normal",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
     }
   ],
   "constants": [
     {
+      "name": "EVT_PAGE_FIRST",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TINSIZE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGE_LONG",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "shadow font  2.3  Only color displays",
-      "sourceFile": "api_general.cpp",
-      "name": "SHADOWED",
-      "module": "general"
+      "description": "MENU key long press",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGE_REPT",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Displays a color picker, returns a color flag value",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Displays a toggle/checkbox, value toggles between 0 and 1",
-      "sourceFile": "api_general.cpp",
-      "name": "BOOL",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Text input option, limited to 8 characters",
-      "sourceFile": "api_general.cpp",
-      "name": "STRING",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY2",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_INVERTED_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_FOCUS",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_INVERTED_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "LINE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "SCROLLBOX_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_TITLE_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY2",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_TITLE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_TITLE_DISABLE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_WARNING",
-      "sourceFile": "api_general.cpp",
-      "name": "ALARM_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_WARNING",
-      "sourceFile": "api_general.cpp",
-      "name": "WARNING_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_DISABLED",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_DISABLE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY2",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_AXIS_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_WARNING",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_CURSOR_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "TITLE_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_FOCUS",
-      "sourceFile": "api_general.cpp",
-      "name": "TRIM_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "TRIM_SHADOW_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_FOCUS",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_ICON_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_FOCUS",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_CURRENT_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY2",
-      "sourceFile": "api_general.cpp",
-      "name": "MAINVIEW_PANES_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "MAINVIEW_GRAPHICS_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_PRIMARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "OVERLAY_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY1",
-      "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH1_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY2",
-      "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH2_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "→ COLOR_THEME_SECONDARY3",
-      "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "These are the theme colors plus , and they can be changed with the function lcd.setColor\\(color_index, color\\). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "CUSTOM_COLOR",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_HEADER_HEIGHT",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGE_BREAK",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "WHITE | RGB: rgb(255, 255, 255) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "WHITE",
-      "module": "lcd"
+      "description": "PAGE key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_MENU_FIRST",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "GREY | RGB: rgb(128, 128, 128) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "GREY",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "DARKGREY | RGB: rgb(169, 169, 169) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "DARKGREY",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "BLACK | RGB: rgb(0, 0, 0) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "BLACK",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "YELLOW | RGB: rgb(255, 255, 0) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "YELLOW",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "BLUE | RGB: rgb(0, 0, 255) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "BLUE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "LIGHTGREY | RGB: rgb(211, 211, 211) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "LIGHTGREY",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "RED",
-      "module": "lcd"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_MENU_LONG",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "DARKRED | RGB: rgb(139, 0, 0) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "DARKRED",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "NON_COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FIXEDWIDTH",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_MENU_REPT",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "NON_COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FILL_WHITE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
-      "availableOn": "NON_COLOR_LCD",
-      "description": "grey fill  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "GREY_DEFAULT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
+      "name": "EVT_MENU_BREAK",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "MENU key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_ENTER_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FULLSCALE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_ENTER_LONG",
       "availableOn": "GENERAL",
-      "description": "jumbo font  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "XXLSIZE",
-      "module": "general"
+      "entityType": "constant",
+      "description": "ENT key long press",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_ENTER_REPT",
       "availableOn": "GENERAL",
-      "description": "double size font  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "DBLSIZE",
-      "module": "general"
-    },
-    {
       "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "mid sized font  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "MIDSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "small font  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "SMLSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "inverted display  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "INVERS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "bold font  2.3  Only color displays. This is a font size on its own - cannot be combined with other font size flags.",
-      "sourceFile": "api_general.cpp",
-      "name": "BOLD",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "blinking text  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "BLINK",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "right justify  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "RIGHT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "left justify  2.3  Default for most functions not related to bitmaps",
-      "sourceFile": "api_general.cpp",
-      "name": "LEFT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "center justify  2.3  Only color displays",
-      "sourceFile": "api_general.cpp",
-      "name": "CENTER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "single decimal place  2.3  display with one decimal place (number 386 is displayed as 38.6)",
-      "sourceFile": "api_general.cpp",
-      "name": "PREC1",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "two decimal places  2.3  display with one decimal place (number 386 is displayed as 3.86)",
-      "sourceFile": "api_general.cpp",
-      "name": "PREC2",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Numerical input option, can specify default, min and max value",
-      "sourceFile": "api_general.cpp",
-      "name": "VALUE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Choice option, lets you pick from available sources (i.e. sticks, switches, LS)",
-      "sourceFile": "api_general.cpp",
-      "name": "SOURCE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "REPLACE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_ENTER_BREAK",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "ENT key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_EXIT_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_MAX",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_EXIT_LONG",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_FIRST_INPUT",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_EXIT_REPT",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SA",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SB",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SC",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SD",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SG",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SF",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SH",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_CH1",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "SWSRC_LAST",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MAX_SENSORS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for FIELDS navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_PREV",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for FIELDS navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_NEXT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for VALUES navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_DEC",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for VALUES navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_INC",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "ROTENC_LOWSPEED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "ROTENC_MIDSPEED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "ROTENC_HIGHSPEED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for FIELDS navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_PREV_REPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for FIELDS navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_NEXT_REPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for VALUES navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_DEC_REPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for VALUES navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_INC_REPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for PAGE navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_PREV_PAGE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for PAGE navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_NEXT_PAGE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_MENU",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_MENU_LONG",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_ENTER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_ENTER_LONG",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_EXIT",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "EXIT key release",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_EXIT_BREAK",
       "module": "general"
     },
     {
-      "entityType": "constant",
+      "name": "EVT_PLUS_FIRST",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "+ key press",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PLUS_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_RTN_FIRST",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PLUS_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "+ key repeat",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PLUS_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "+ key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MINUS_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "- key press",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MINUS_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MINUS_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "- key repeat",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MINUS_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "- key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "rotary encoder rotated left",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_ROT_LEFT",
       "module": "general"
@@ -7178,686 +6596,376 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "rotary encoder rotated right",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_ROT_RIGHT",
       "module": "general"
     },
     {
-      "entityType": "constant",
+      "name": "EVT_UP_FIRST",
       "availableOn": "GENERAL",
-      "description": "pixels will be black  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "FORCE",
-      "module": "general"
-    },
-    {
       "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "pixels will be white  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "ERASE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "ROUND",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_UP_LONG",
       "availableOn": "GENERAL",
-      "description": "lines will appear soild  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "SOLID",
-      "module": "general"
-    },
-    {
       "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "lines will appear dotted  2.3",
-      "sourceFile": "api_general.cpp",
-      "name": "DOTTED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "width in pixels",
-      "sourceFile": "api_general.cpp",
-      "name": "LCD_W",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "height in pixels",
-      "sourceFile": "api_general.cpp",
-      "name": "LCD_H",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "PLAY_NOW",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_UP_REPT",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "PLAY_BACKGROUND",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_UP_BREAK",
       "availableOn": "GENERAL",
-      "description": "display hours  2.3  Only for lcd/drawTimer",
-      "sourceFile": "api_general.cpp",
-      "name": "TIMEHOUR",
-      "module": "general"
-    },
-    {
       "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Raw unit \\(no unit\\)",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_RAW",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Volts",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_VOLTS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Amps",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_AMPS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Milliamps",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_MILLIAMPS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Knots",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_KTS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Meters per Second",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_METERS_PER_SECOND",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Feet per Second",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_FEET_PER_SECOND",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Kilometers per Hour",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_KMH",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Miles per Hour",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_MPH",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Meters",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_METERS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_KM",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_DOWN_FIRST",
       "availableOn": "GENERAL",
-      "description": "Feet",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_FEET",
-      "module": "general"
-    },
-    {
       "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Degrees Celsius",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_CELSIUS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Degrees Fahrenheit",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_FAHRENHEIT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Percent",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_PERCENT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Milliamp Hour",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_MAH",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Watts",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_WATTS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Milliwatts",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_MILLIWATTS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "dB",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_DB",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "RPM",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_RPMS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "G",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_G",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Degrees",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_DEGREE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Radians",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_RADIANS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Milliliters",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_MILLILITERS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Fluid Ounces",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_FLOZ",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "Ml per minute",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_MILLILITERS_PER_MINUTE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_HERTZ",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_DOWN_LONG",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_MS",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_DOWN_REPT",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_US",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_DOWN_BREAK",
       "availableOn": "GENERAL",
-      "description": "Hours",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_HOURS",
-      "module": "general"
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_RIGHT_FIRST",
       "availableOn": "GENERAL",
-      "description": "Minutes",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_MINUTES",
-      "module": "general"
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_RIGHT_LONG",
       "availableOn": "GENERAL",
-      "description": "Seconds",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_SECONDS",
-      "module": "general"
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_RIGHT_REPT",
       "availableOn": "GENERAL",
-      "description": "Virtual unit",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_CELLS",
-      "module": "general"
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_RIGHT_BREAK",
       "availableOn": "GENERAL",
-      "description": "Virtual unit",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_DATETIME",
-      "module": "general"
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_LEFT_FIRST",
       "availableOn": "GENERAL",
-      "description": "Virtual unit",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_GPS",
-      "module": "general"
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_LEFT_LONG",
       "availableOn": "GENERAL",
-      "description": "Virtual unit",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_BITFIELD",
-      "module": "general"
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_LEFT_REPT",
       "availableOn": "GENERAL",
-      "description": "Virtual unit",
-      "sourceFile": "api_general.cpp",
-      "name": "UNIT_TEXT",
-      "module": "general"
-    },
-    {
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BATTERY_CHARGE_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_LEFT_BREAK",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "CHECKBOX_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_SHIFT_FIRST",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "DEFAULT_BGCOLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_SHIFT_LONG",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "DEFAULT_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_SHIFT_REPT",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "DISABLE_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_SHIFT_BREAK",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FOCUS_BGCOLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGEUP_FIRST",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FOCUS_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGEUP_LONG",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "HIGHLIGHT_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGEUP_REPT",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_BGCOLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGEUP_BREAK",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGEDN_FIRST",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_HIGHLIGHT_BGCOLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGEDN_LONG",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_HIGHLIGHT_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGEDN_REPT",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_LINE_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_PAGEDN_BREAK",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "SCROLLBAR_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_SYS_FIRST",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TABLE_BGCOLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_SYS_LONG",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TABLE_HEADER_BGCOLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_SYS_REPT",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_STATUSBAR_COLOR",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_SYS_BREAK",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "center vertically  2.5.0  Only color displays",
-      "sourceFile": "api_general.cpp",
-      "name": "VCENTER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_PRIMARY1",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_PRIMARY2",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_PRIMARY3",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_SECONDARY1",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_SECONDARY2",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_SECONDARY3",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_FOCUS",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_EDIT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_ACTIVE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_WARNING",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "COLOR_THEME_DISABLED",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "LIGHTWHITE",
-      "module": "lcd"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_MODEL_FIRST",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "DARKBLUE | RGB: rgb(0, 0, 139) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "DARKBLUE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "GREEN | RGB: rgb(0, 128, 0) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "GREEN",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "DARKGREEN | RGB: rgb(0, 100, 0) | Is Light: false | Is Dark: true",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "DARKGREEN",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "LIGHTBROWN",
-      "module": "lcd"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_MODEL_LONG",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "DARKBROWN",
-      "module": "lcd"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_MODEL_REPT",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "BRIGHTGREEN",
-      "module": "lcd"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
+      "name": "EVT_MODEL_BREAK",
+      "availableOn": "GENERAL",
       "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "ORANGE | RGB: rgb(255, 165, 0) | Is Light: true | Is Dark: false",
-      "sourceFile": "api_colorlcd.cpp",
-      "name": "ORANGE",
-      "module": "lcd"
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TELEM_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TELEM_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TELEM_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TELEM_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "When the finger touches down on the screen",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_TOUCH_FIRST",
       "module": "general"
@@ -7866,6 +6974,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "If the finger leaves the screen without tap or slide",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_TOUCH_BREAK",
       "module": "general"
@@ -7874,6 +6983,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "Repeats while the finger is sliding on the screen",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_TOUCH_SLIDE",
       "module": "general"
@@ -7882,14 +6992,1627 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "If the finger leaves the screen after a quick tap",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_TOUCH_TAP",
       "module": "general"
     },
     {
       "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TINSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "shadow font  2.3  Only color displays",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SHADOWED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Displays a color picker, returns a color flag value",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Displays a toggle/checkbox, value toggles between 0 and 1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BOOL",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Text input option, limited to 8 characters",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "STRING",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY2",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_INVERTED_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_FOCUS",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_INVERTED_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "LINE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SCROLLBOX_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY2",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_DISABLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_WARNING",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ALARM_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_WARNING",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "WARNING_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_DISABLED",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_DISABLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY2",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CURVE_AXIS_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CURVE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_WARNING",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CURVE_CURSOR_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TITLE_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_FOCUS",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TRIM_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TRIM_SHADOW_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_FOCUS",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_ICON_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_FOCUS",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_CURRENT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY2",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MAINVIEW_PANES_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MAINVIEW_GRAPHICS_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_PRIMARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "OVERLAY_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY1",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH1_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY2",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH2_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "→ COLOR_THEME_SECONDARY3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "These are the theme colors plus , and they can be changed with the function lcd.setColor\\(color_index, color\\). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "CUSTOM_COLOR",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HEADER_HEIGHT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "WHITE | RGB: rgb(255, 255, 255) | Is Light: true | Is Dark: false",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "WHITE",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "GREY | RGB: rgb(128, 128, 128) | Is Light: true | Is Dark: false",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "GREY",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "DARKGREY | RGB: rgb(169, 169, 169) | Is Light: true | Is Dark: false",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "DARKGREY",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "BLACK | RGB: rgb(0, 0, 0) | Is Light: false | Is Dark: true",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "BLACK",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "YELLOW | RGB: rgb(255, 255, 0) | Is Light: true | Is Dark: false",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "YELLOW",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "BLUE | RGB: rgb(0, 0, 255) | Is Light: false | Is Dark: true",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "BLUE",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "LIGHTGREY | RGB: rgb(211, 211, 211) | Is Light: true | Is Dark: false",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "LIGHTGREY",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "RED",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "DARKRED | RGB: rgb(139, 0, 0) | Is Light: false | Is Dark: true",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "DARKRED",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "NON_COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FIXEDWIDTH",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "NON_COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FILL_WHITE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "NON_COLOR_LCD",
+      "description": "grey fill  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "GREY_DEFAULT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FULLSCALE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "jumbo font  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "XXLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "double size font  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "DBLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "mid sized font  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIDSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "small font  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SMLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "inverted display  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "INVERS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "bold font  2.3  Only color displays. This is a font size on its own - cannot be combined with other font size flags.",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BOLD",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "blinking text  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BLINK",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "right justify  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "RIGHT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "left justify  2.3  Default for most functions not related to bitmaps",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "LEFT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "center justify  2.3  Only color displays",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CENTER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "single decimal place  2.3  display with one decimal place (number 386 is displayed as 38.6)",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "PREC1",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "two decimal places  2.3  display with one decimal place (number 386 is displayed as 3.86)",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "PREC2",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Numerical input option, can specify default, min and max value",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "VALUE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Choice option, lets you pick from available sources (i.e. sticks, switches, LS)",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SOURCE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "REPLACE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_MAX",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_FIRST_INPUT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SA",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SB",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SD",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SG",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SF",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SH",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_CH1",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SWSRC_LAST",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MAX_SENSORS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_PREV",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_NEXT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for VALUES navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_DEC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for VALUES navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_INC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ROTENC_LOWSPEED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ROTENC_MIDSPEED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ROTENC_HIGHSPEED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_PREV_REPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_NEXT_REPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for VALUES navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_DEC_REPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for VALUES navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_INC_REPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for PAGE navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_PREV_PAGE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for PAGE navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_NEXT_PAGE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_MENU",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_MENU_LONG",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_ENTER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_ENTER_LONG",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_EXIT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_RTN_FIRST",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "pixels will be black  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FORCE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "pixels will be white  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ERASE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ROUND",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "lines will appear soild  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SOLID",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "lines will appear dotted  2.3",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "DOTTED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "width in pixels",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "LCD_W",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "height in pixels",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "LCD_H",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "PLAY_NOW",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "PLAY_BACKGROUND",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "display hours  2.3  Only for lcd/drawTimer",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TIMEHOUR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Raw unit \\(no unit\\)",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_RAW",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Volts",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_VOLTS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Amps",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_AMPS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Milliamps",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_MILLIAMPS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Knots",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_KTS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Meters per Second",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_METERS_PER_SECOND",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Feet per Second",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_FEET_PER_SECOND",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Kilometers per Hour",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_KMH",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Miles per Hour",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_MPH",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Meters",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_METERS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_KM",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Feet",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_FEET",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Degrees Celsius",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_CELSIUS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Degrees Fahrenheit",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_FAHRENHEIT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Percent",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_PERCENT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Milliamp Hour",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_MAH",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Watts",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_WATTS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Milliwatts",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_MILLIWATTS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "dB",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_DB",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "RPM",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_RPMS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "G",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_G",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Degrees",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_DEGREE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Radians",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_RADIANS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Milliliters",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_MILLILITERS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Fluid Ounces",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_FLOZ",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Ml per minute",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_MILLILITERS_PER_MINUTE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_HERTZ",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_MS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_US",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Hours",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_HOURS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Minutes",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_MINUTES",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Seconds",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_SECONDS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Virtual unit",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_CELLS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Virtual unit",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_DATETIME",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Virtual unit",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_GPS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Virtual unit",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_BITFIELD",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "Virtual unit",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "UNIT_TEXT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BATTERY_CHARGE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CHECKBOX_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "DEFAULT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "DEFAULT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "DISABLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FOCUS_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FOCUS_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HIGHLIGHT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HIGHLIGHT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HIGHLIGHT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_LINE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SCROLLBAR_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TABLE_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TABLE_HEADER_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_STATUSBAR_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "center vertically  2.5.0  Only color displays",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "VCENTER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_PRIMARY1",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_PRIMARY2",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_PRIMARY3",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_SECONDARY1",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_SECONDARY2",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_SECONDARY3",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_FOCUS",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_EDIT",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_ACTIVE",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_WARNING",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Theme color. They can be changed with the function lcd.setColor(color_index, color). Please note: if an indexed color is changed, then it changes everywhere that it is used. For the theme colors, this is not only in other widgets, but everywhere throughout the radio's user interface!",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "COLOR_THEME_DISABLED",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "LIGHTWHITE",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "DARKBLUE | RGB: rgb(0, 0, 139) | Is Light: false | Is Dark: true",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "DARKBLUE",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "GREEN | RGB: rgb(0, 128, 0) | Is Light: false | Is Dark: true",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "GREEN",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "DARKGREEN | RGB: rgb(0, 100, 0) | Is Light: false | Is Dark: true",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "DARKGREEN",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "LIGHTBROWN",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "DARKBROWN",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "BRIGHTGREEN",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "ORANGE | RGB: rgb(255, 165, 0) | Is Light: true | Is Dark: false",
+      "type": "number",
+      "sourceFile": "api_colorlcd.cpp",
+      "name": "ORANGE",
+      "module": "lcd"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "AM_RDO",
       "module": "general"
@@ -7898,6 +8621,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "AM_HID",
       "module": "general"
@@ -7906,6 +8630,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "AM_SYS",
       "module": "general"
@@ -7914,6 +8639,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "AM_DIR",
       "module": "general"
@@ -7922,6 +8648,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "AM_ARC",
       "module": "general"
@@ -7930,6 +8657,7 @@
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_DISABLE_TOUCH",
       "module": "general"
@@ -7938,6 +8666,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "SWITCH_COUNT",
       "module": "general"
@@ -7946,6 +8675,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "-",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_NONE",
       "module": "general"
@@ -7954,6 +8684,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a = x",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_VEQUAL",
       "module": "general"
@@ -7962,6 +8693,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a \\~ x",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_VALMOSTEQUAL",
       "module": "general"
@@ -7970,6 +8702,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a > x",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_VPOS",
       "module": "general"
@@ -7978,6 +8711,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a < x",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_VNEG",
       "module": "general"
@@ -7986,6 +8720,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_RANGE",
       "module": "general"
@@ -7994,6 +8729,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a > \\|x\\|",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_APOS",
       "module": "general"
@@ -8002,6 +8738,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a < \\|x\\|",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_ANEG",
       "module": "general"
@@ -8010,6 +8747,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "AND",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_AND",
       "module": "general"
@@ -8018,6 +8756,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "OR",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_OR",
       "module": "general"
@@ -8026,6 +8765,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "XOR",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_XOR",
       "module": "general"
@@ -8034,6 +8774,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "Edge",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_EDGE",
       "module": "general"
@@ -8042,6 +8783,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a = b",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_EQUAL",
       "module": "general"
@@ -8050,6 +8792,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a > b",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_GREATER",
       "module": "general"
@@ -8058,6 +8801,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "a < b",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_LESS",
       "module": "general"
@@ -8066,6 +8810,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "∆ ≥ x",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_DIFFEGREATER",
       "module": "general"
@@ -8074,6 +8819,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "\\|∆\\| ≥ x",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_ADIFFEGREATER",
       "module": "general"
@@ -8082,6 +8828,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "Timer",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_TIMER",
       "module": "general"
@@ -8090,6 +8837,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "Sticky",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LS_FUNC_STICKY",
       "module": "general"
@@ -8098,6 +8846,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_OVERRIDE_CHANNEL",
       "module": "general"
@@ -8106,6 +8855,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_TRAINER",
       "module": "general"
@@ -8114,6 +8864,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_INSTANT_TRIM",
       "module": "general"
@@ -8122,6 +8873,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_RESET",
       "module": "general"
@@ -8130,6 +8882,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_SET_TIMER",
       "module": "general"
@@ -8138,6 +8891,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_ADJUST_GVAR",
       "module": "general"
@@ -8146,6 +8900,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_VOLUME",
       "module": "general"
@@ -8154,6 +8909,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_SET_FAILSAFE",
       "module": "general"
@@ -8162,6 +8918,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_RANGECHECK",
       "module": "general"
@@ -8170,6 +8927,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_BIND",
       "module": "general"
@@ -8178,6 +8936,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_PLAY_SOUND",
       "module": "general"
@@ -8186,6 +8945,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_PLAY_TRACK",
       "module": "general"
@@ -8194,6 +8954,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_PLAY_VALUE",
       "module": "general"
@@ -8202,6 +8963,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_PLAY_SCRIPT",
       "module": "general"
@@ -8210,6 +8972,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_BACKGND_MUSIC",
       "module": "general"
@@ -8218,6 +8981,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_BACKGND_MUSIC_PAUSE",
       "module": "general"
@@ -8226,6 +8990,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_VARIO",
       "module": "general"
@@ -8234,6 +8999,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_HAPTIC",
       "module": "general"
@@ -8242,6 +9008,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_LOGS",
       "module": "general"
@@ -8250,6 +9017,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_BACKLIGHT",
       "module": "general"
@@ -8258,6 +9026,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_SCREENSHOT",
       "module": "general"
@@ -8266,6 +9035,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_RACING_MODE",
       "module": "general"
@@ -8274,6 +9044,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_RIGHT",
       "module": "general"
@@ -8282,6 +9053,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_LEFT",
       "module": "general"
@@ -8290,6 +9062,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_UP",
       "module": "general"
@@ -8298,6 +9071,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_DOWN",
       "module": "general"
@@ -8306,6 +9080,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_DELTA",
       "module": "general"
@@ -8314,6 +9089,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_STICK",
       "module": "general"
@@ -8322,6 +9098,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_POT",
       "module": "general"
@@ -8330,6 +9107,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_SLIDER",
       "module": "general"
@@ -8338,6 +9116,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_SWITCH",
       "module": "general"
@@ -8346,6 +9125,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_TRIM",
       "module": "general"
@@ -8354,6 +9134,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_INPUT",
       "module": "general"
@@ -8362,6 +9143,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_FUNCTION",
       "module": "general"
@@ -8370,6 +9152,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_CYC",
       "module": "general"
@@ -8378,6 +9161,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_TRAINER",
       "module": "general"
@@ -8386,6 +9170,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_CHANNEL",
       "module": "general"
@@ -8394,6 +9179,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_TELEMETRY",
       "module": "general"
@@ -8402,6 +9188,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_LUA",
       "module": "general"
@@ -8410,6 +9197,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_SET_SCREEN",
       "module": "general"
@@ -8418,6 +9206,7 @@
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "Choice option, lets you pick from available timers",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "TIMER",
       "module": "general"
@@ -8426,6 +9215,7 @@
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "Choice option, lets you pick from the available text sizes (i.e. small, large)",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "TEXT_SIZE",
       "module": "general"
@@ -8434,6 +9224,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "MAX_OUTPUT_CHANNELS",
       "module": "general"
@@ -8442,6 +9233,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LIMIT_EXT_PERCENT",
       "module": "general"
@@ -8450,6 +9242,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LIMIT_STD_PERCENT",
       "module": "general"
@@ -8458,6 +9251,7 @@
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "Choice option, lets you pick from available alignment options (i.e. left, center, right)",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "ALIGNMENT",
       "module": "general"
@@ -8465,7 +9259,8 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"switch\"",
+      "description": "Choice option to select from available switches.",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "SWITCH",
       "module": "general"
@@ -8474,6 +9269,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_DBM",
       "module": "general"
@@ -8482,6 +9278,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "MIXSRC_MIN",
       "module": "general"
@@ -8490,6 +9287,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LED_STRIP_LENGTH",
       "module": "general"
@@ -8497,503 +9295,8 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Sets flex layout flow.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "FLOW_ROW",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Set flex layout flow.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "FLOW_COLUMN",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  2 pixel padding.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PAD_TINY",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  4 pixel padding.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PAD_SMALL",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  6 pixel padding.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PAD_MEDIUM",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  8 pixel padding.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PAD_LARGE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Padding required around controls for focus outline.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PAD_OUTLINE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Padding size of the default border around controls.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PAD_BORDER",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Allow all source types, enable the 'Clear' button and the 'Invert' button.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_ALL",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Inputs",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_INPUT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Custom Lua mix script outputs",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_LUA",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Analog sticks",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_STICK",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Pots and sliders",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_POT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  MIN, MAX, tx battery, timers etc.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_OTHER",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Heli channels",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_HELI",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Trims",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_TRIM",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Switches",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_SWITCH",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Logical switches",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_LOGICAL_SWITCH",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Trainer channels",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_TRAINER",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Outputs",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_CHANNEL",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Global variables",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_GVAR",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Telemetry sensors",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_TELEM",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Special value to control the 'Clear' button in the source chooser.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_CLEAR",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Special value to control the 'Invert' button in the source chooser.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SRC_INVERT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Allow all switch types, enable the 'Clear' button.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SW_ALL",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Switches",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SW_SWITCH",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Trims",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SW_TRIM",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Logical switches",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SW_LOGICAL_SWITCH",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Telemetry sensors",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SW_TELEM",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  ON, ONE, trainer connected, radio activity, etc",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SW_OTHER",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Special value to control the 'Clear' button in the switch chooser.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SW_CLEAR",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  No scrolling allowed. Objects outside the containers boundary will be clipped",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SCROLL_OFF",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Horizontal scrolling only",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SCROLL_HOR",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Vertical scrolling only",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SCROLL_VER",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Both horizontal and vertical scrolling allowed",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SCROLL_ALL",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Used to create percentage based position and size values for objects., based on the size of the parent container.To use a percentage size set the desired property to lvgl.PERCENT_SIZE + N, where N is the percentage value from 1 to 100. E.G. w=lvgl.PERCENT_SIZE + 50.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PERCENT_SIZE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Height of the body section for a 'page' object.",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PAGE_BODY_HEIGHT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  Default height for controls (buttons, toggle, etc)",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "UI_ELEMENT_HEIGHT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"label\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "LABEL",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"rectangle\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "RECTANGLE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"circle\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "CIRCLE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
       "description": "",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "ARC",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"hline\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "HLINE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"vline\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "VLINE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"line\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "LINE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"triangle\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "TRIANGLE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"image\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "IMAGE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"qrcode\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "QRCODE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "BOX",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"button\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "BUTTON",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"momentaryButton\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "MOMENTARY_BUTTON",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"toggle\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "TOGGLE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"textEdit\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "TEXT_EDIT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"numbeEdit\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "NUMBER_EDIT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"choice\"",
-      "sourceFile": "api_general.cpp",
-      "name": "CHOICE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"slider\"",
-      "sourceFile": "api_general.cpp",
-      "name": "SLIDER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"verticalSlider\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "VERTICAL_SLIDER",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"page\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "PAGE",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"font\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "FONT",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"align\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "ALIGN",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"file\"",
-      "sourceFile": "api_general.cpp",
-      "name": "FILE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "lvgl.  \"setting\"",
-      "sourceFile": "api_colorlcd_lvgl.cpp",
-      "name": "SETTING",
-      "module": "lcd"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "STDSIZE",
       "module": "general"
@@ -9001,7 +9304,8 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "",
+      "description": "align to top  2.11.4  Only for color displays using the LVGL API.",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "VTOP",
       "module": "general"
@@ -9009,15 +9313,44 @@
     {
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
-      "description": "",
+      "description": "align to bottom  2.11.4  Only for color displays using hte LVGL API.",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "VBOTTOM",
       "module": "general"
     },
     {
       "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Select numerical value using a slider control (available in 2.11)",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SLIDER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Select numerical value using a custom popup list (available in 2.11)",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CHOICE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "Select a file from SD card / internal storage (available in 2.11). Filename is limited to 12 characters maximum.",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FILE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FUNC_PUSH_CUST_SWITCH",
       "module": "general"
@@ -9026,6 +9359,7 @@
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "",
+      "type": "number",
       "sourceFile": "api_colorlcd.cpp",
       "name": "LIGHTRED",
       "module": "lcd"
@@ -9034,6 +9368,7 @@
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "",
+      "type": "number",
       "sourceFile": "api_colorlcd.cpp",
       "name": "CYAN",
       "module": "lcd"
@@ -9042,6 +9377,7 @@
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "",
+      "type": "number",
       "sourceFile": "api_colorlcd.cpp",
       "name": "MAGENTA",
       "module": "lcd"
@@ -9050,6 +9386,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_LS",
       "module": "general"
@@ -9058,6 +9395,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "CHAR_CURVE",
       "module": "general"
@@ -9066,9 +9404,150 @@
       "entityType": "constant",
       "availableOn": "COLOR_LCD",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "XLSIZE",
       "module": "general"
+    },
+    {
+      "name": "FIRST",
+      "description": "when a key is pressed a `` event is generated",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "LONG",
+      "description": "if the key continues to be pressed, then after a while a `` event is generated",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "REPEAT",
+      "description": "if the key continues to be pressed, then a `` events are being generated",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "BREAK",
+      "description": "when the key is released a `` event is generated",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_ROT_BREAK",
+      "description": "rotary encoder release",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_ROT_LONG",
+      "description": "rotary encoder long press",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "VIRTUAL",
+      "description": "Given the large number of radios supported by OpenTX, and the large difference in keys available on those, a set of  KEYS has been defined and are mapped to best fit available hardware",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_VIRTUAL_PREVIOUS_PAGE",
+      "description": "for PAGE navigation",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_VIRTUAL_PREVIOUS",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_TOUCH___FIRST",
+      "description": "When the finger touches down on the screen",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_TOUCH___TAP",
+      "description": "If the finger leaves the screen after a quick tap",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_TOUCH___BREAK",
+      "description": "If the finger leaves the screen without tap or slide",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_TOUCH___SLIDE",
+      "description": "Repeats while the finger is sliding on the screen",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "SLIDE",
+      "description": "slideX, SlideY  Movement since previous  event \\(or start of slide\\)",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "FUNC_RESERVE5",
+      "description": "",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
     }
-  ]
+  ],
+  "lvgl": {
+    "functions": [],
+    "constants": [],
+    "classes": []
+  }
 }

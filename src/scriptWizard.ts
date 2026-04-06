@@ -69,6 +69,7 @@ export class ScriptWizard {
     for (const [name, field] of Object.entries(entry.fields)) {
       const isFunction = field.signature.startsWith("fun");
       const isString = field.signature === "string";
+      const isBoolean = field.signature === "boolean";
 
       if (isFunction) {
         const { formatted, returnType } = this.parseSignature(field.signature);
@@ -86,7 +87,7 @@ export class ScriptWizard {
 
         source += "\nend\n";
       } else {
-        const value = isString ? '""' : "{ }";
+        const value = isString ? '""' : isBoolean ? false : "{ }";
         source += `${scriptName}.${name} = ${value}\n`;
       }
 

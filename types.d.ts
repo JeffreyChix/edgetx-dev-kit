@@ -105,9 +105,23 @@ interface LuaConstant {
   module: string;
   name: string;
   description: string;
+  type: "number" | "string";
   availableOn: Availability;
-  // group: ConstantGroup;
   sourceFile: string;
+}
+
+interface LuaClass {
+  entityType: "class";
+  name: string;
+  fields: {
+    name: string;
+    type: string;
+    description: string;
+    notices: string[];
+    returns: LuaReturn[];
+    flagHints: string[];
+    sinceVersion: string;
+  }[];
 }
 
 interface ApiDoc {
@@ -115,6 +129,11 @@ interface ApiDoc {
   generated: string;
   functions: LuaFunction[];
   constants: LuaConstant[];
+  lvgl: {
+    functions: LuaFunction[];
+    constants: LuaConstant[];
+    classes: LuaClass[];
+  };
 }
 
 interface WizardConfig {

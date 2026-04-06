@@ -1,7 +1,1051 @@
 {
   "version": "2.3",
-  "generated": "2026-03-23T22:31:42.695Z",
+  "generated": "2026-04-06T17:48:53.670Z",
   "functions": [
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "refresh",
+      "signature": "lcd.refresh()",
+      "description": "Refresh the LCD screen",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "This function only works in stand-alone and telemetry scripts."
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "clear",
+      "signature": "lcd.clear([color])",
+      "description": "Clear the LCD screen",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "number",
+          "description": "(optional, only on color screens)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "This function only works in stand-alone and telemetry scripts."
+      ],
+      "status": "current Introduced in 2.0.0, `color` parameter introduced in 2.2.0 RC12",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "resetBacklightTimeout",
+      "signature": "lcd.resetBacklightTimeout()",
+      "description": "Reset the backlight timeout",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.3.6",
+      "sinceVersion": "2.3.6",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawPoint",
+      "signature": "lcd.drawPoint(x, y)",
+      "description": "Draw a single pixel at (x,y) position",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive number) x position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive number) y position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) lcdflags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Taranis has an LCD display width of 212 pixels and height of 64 pixels.\nPosition (0,0) is at top left. Y axis is negative, top line is 0,\nbottom line is 63. Drawing on an existing black pixel produces white pixel (TODO check this!)"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawLine",
+      "signature": "lcd.drawLine(x1, y1, x2, y2, pattern, flags)",
+      "description": "Draw a straight line on LCD",
+      "parameters": [
+        {
+          "name": "x1",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y1",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "x2",
+          "type": "number",
+          "description": "(positive numbers) end coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y2",
+          "type": "number",
+          "description": "(positive numbers) end coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "pattern",
+          "type": "number",
+          "description": "SOLID or DOTTED",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "lcdflags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "If the start or the end of the line is outside the LCD dimensions, then the\nwhole line will not be drawn (starting from OpenTX 2.1.5)"
+      ],
+      "status": "current Introduced in 2.0.0, flags introduced in 2.3.6",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getLastPos",
+      "signature": "lcd.getLastPos()",
+      "description": "Returns the rightmost x position from previous output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis",
+        "For added clarity, it is recommended to use lcd.getLastRightPos()"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getLastRightPos",
+      "signature": "lcd.getLastRightPos()",
+      "description": "Returns the rightest x position from previous drawtext or drawNumber output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis",
+        "This is strictly equivalent to former lcd.getLastPos()"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getLastLeftPos",
+      "signature": "lcd.getLastLeftPos()",
+      "description": "Returns the leftmost x position from previous drawtext or drawNumber output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawText",
+      "signature": "lcd.drawText(x, y, text [, flags])",
+      "description": "Draw a text beginning at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "description": "(string) text to display",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags. All values can be\ncombined together using the + character. ie BLINK + DBLSIZE.\nSee the [Appendix](../appendix/fonts.md) for available characters in each font set.\n`0 or not specified` normal font\n`XXLSIZE` jumbo sized font\n`DBLSIZE` double size font\n`MIDSIZE` mid sized font\n`SMLSIZE` small font\n`INVERS` inverted display\n`BLINK` blinking text\n`SHADOWED` Horus only, apply a shadow effect",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, `SHADOWED` introduced in 2.2.1",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawTimer",
+      "signature": "lcd.drawTimer(x, y, value [, flags])",
+      "description": "Display a value formatted as time at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(number) time in seconds",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags:\n`0 or not specified` normal representation (minutes and seconds)\n`TIMEHOUR` display hours\nother general LCD flag also apply\n`SHADOWED` Horus only, apply a shadow effect",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawNumber",
+      "signature": "lcd.drawNumber(x, y, value [, flags])",
+      "description": "Display a number at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(number) value to display",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags:\n`0 or not specified` display with no decimal (like abs())\n`PREC1` display with one decimal place (number 386 is displayed as 38.6)\n`PREC2` display with tow decimal places (number 386 is displayed as 3.86)\nother general LCD flag also apply\n`SHADOWED` Horus only, apply a shadow effect",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawChannel",
+      "signature": "lcd.drawChannel(x, y, source, flags)",
+      "description": "Display a telemetry value at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "source",
+          "type": "number|string",
+          "description": "can be a source identifier (number) or a source name (string).\nSee getValue()",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.6, changed in 2.1.0 (only telemetry sources are valid)",
+      "sinceVersion": "2.0.6",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawSwitch",
+      "signature": "lcd.drawSwitch(x, y, switch, flags)",
+      "description": "Draw a text representation of switch at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "switch",
+          "type": "number",
+          "description": "number of switch to display, negative number\ndisplays negated switch",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags, only SMLSIZE, BLINK and INVERS.",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawSource",
+      "signature": "lcd.drawSource(x, y, source [, flags])",
+      "description": "Displays the name of the corresponding input as defined by the source at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "source",
+          "type": "number",
+          "description": "source index",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "Bitmap",
+      "name": "open",
+      "signature": "Bitmap.open(name)",
+      "description": "Loads a bitmap in memory, for later use with lcd.drawBitmap(). Bitmaps should be loaded only\nonce, returned object should be stored and used for drawing. If loading fails for whatever\nreason the resulting bitmap object will have width and height set to zero.\n\nBitmap loading can fail if:\nFile is not found or contains invalid image\nSystem is low on memory\nCombined memory usage of all Lua script bitmaps exceeds certain value",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "bitmap",
+          "type": "unknown",
+          "description": "(object) a bitmap object that can be used with other bitmap functions"
+        }
+      ],
+      "notices": [
+        "Only available on Horus"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "Bitmap",
+      "name": "getSize",
+      "signature": "Bitmap.getSize(name)",
+      "description": "Return width, height of a bitmap object",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "bitmap",
+          "type": "unknown",
+          "description": "(pointer) point to a bitmap previously opened with Bitmap.open()",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "multiple",
+          "type": "number",
+          "description": "returns 2 values:\n(number) width in pixels\n(number) height in pixels"
+        }
+      ],
+      "notices": [
+        "Only available on Horus"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawBitmap",
+      "signature": "lcd.drawBitmap(bitmap, x, y [, scale])",
+      "description": "Displays a bitmap at (x,y)",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "unknown",
+          "description": "(pointer) point to a bitmap previously opened with Bitmap.open()",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "scale",
+          "type": "number",
+          "description": "(positive numbers) scale in %, 50 divides size by two, 100 is unchanged, 200 doubles size.\nOmitting scale draws image in 1:1 scale and is faster than specifying 100 for scale.",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Horus"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawPixmap",
+      "signature": "lcd.drawPixmap(x, y, name)",
+      "description": "Draw a bitmap at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Maximum image size is [display width / 2] x [display height] pixels."
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawRectangle",
+      "signature": "lcd.drawRectangle(x, y, w, h [, flags [, t]])",
+      "description": "Draw a rectangle from top left corner (x,y) of specified width and height",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "h",
+          "type": "number",
+          "description": "(number) height in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        },
+        {
+          "name": "t",
+          "type": "number",
+          "description": "thickness in pixels, defaults to 1 (only on Horus)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, changed in 2.2.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawFilledRectangle",
+      "signature": "lcd.drawFilledRectangle(x, y, w, h [, flags])",
+      "description": "Draw a solid rectangle from top left corner (x,y) of specified width and height",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "h",
+          "type": "number",
+          "description": "(number) height in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawGauge",
+      "signature": "lcd.drawGauge(x, y, w, h, fill, maxfill [, flags])",
+      "description": "Draw a simple gauge that is filled based upon fill value",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "h",
+          "type": "number",
+          "description": "(number) height in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "fill",
+          "type": "number",
+          "description": "amount of fill to apply",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "maxfill",
+          "type": "number",
+          "description": "total value of fill",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, changed in 2.2.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawScreenTitle",
+      "signature": "lcd.drawScreenTitle(title, page, pages)",
+      "description": "Draw a title bar",
+      "parameters": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "(string) text for the title",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": "page number",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "pages",
+          "type": "number",
+          "description": "total number of pages. Only used as indicator on\nthe right side of title bar. (i.e. idx=2, cnt=5, display `2/5`)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawCombobox",
+      "signature": "lcd.drawCombobox(x, y, w, list, idx [, flags])",
+      "description": "Draw a combo box",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width of combo box in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "list",
+          "type": "table",
+          "description": "combo box elements, each element is a string",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "idx",
+          "type": "number",
+          "description": "(integer) index of entry to highlight",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags, the flags can not be combined:\n`BLINK` combo box is expanded\n`INVERS` combo box collapsed, text inversed\n`0 or not present` combo box collapsed, text normal",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "setColor",
+      "signature": "lcd.setColor(area, color)",
+      "description": "Set a color for specific area",
+      "parameters": [
+        {
+          "name": "area",
+          "type": "number",
+          "description": "(unsigned number) specific screen area in the list bellow\n`TEXT_COLOR`\n`TEXT_BGCOLOR`\n`TEXT_INVERTED_COLOR`\n`TEXT_INVERTED_BGCOLOR`\n`LINE_COLOR`\n`SCROLLBOX_COLOR`\n`MENU_TITLE_BGCOLOR`\n`MENU_TITLE_COLOR`\n`MENU_TITLE_DISABLE_COLOR`\n`HEADER_COLOR`\n`ALARM_COLOR`\n`WARNING_COLOR`\n`TEXT_DISABLE_COLOR`\n`CURVE_AXIS_COLOR`\n`CURVE_COLOR`\n`CURVE_CURSOR_COLOR`\n`TITLE_BGCOLOR`\n`TRIM_BGCOLOR`\n`TRIM_SHADOW_COLOR`\n`HEADER_BGCOLOR`\n`HEADER_ICON_BGCOLOR`\n`HEADER_CURRENT_BGCOLOR`\n`MAINVIEW_PANES_COLOR`\n`MAINVIEW_GRAPHICS_COLOR`\n`OVERLAY_COLOR`\n`BARGRAPH1_COLOR`\n`BARGRAPH2_COLOR`\n`BARGRAPH_BGCOLOR`\n`CUSTOM_COLOR`",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "color",
+          "type": "number",
+          "description": "(number) color in 5/6/5 rgb format. The following prefined colors are available\n`WHITE`\n`GREY`\n`LIGHTGREY`\n`DARKGREY`\n`BLACK`\n`YELLOW`\n`BLUE`\n`RED`\n`DARKRED`",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Colorlcd radios"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getColor",
+      "signature": "lcd.getColor(area)",
+      "description": "Get the color for specific area : see lcd.setColor for area list",
+      "parameters": [
+        {
+          "name": "area",
+          "type": "unknown",
+          "description": "",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Colorlcd radios"
+      ],
+      "status": "current Introduced in 2.3.11",
+      "sinceVersion": "2.3.11",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "RGB",
+      "signature": "lcd.RGB(r, g, b)",
+      "description": "Returns a 5/6/5 rgb color code, that can be used with lcd.setColor",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "number",
+          "description": "a number between 0x00 and 0xff that expresses te amount of red in the color",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "g",
+          "type": "number",
+          "description": "a number between 0x00 and 0xff that expresses te amount of green in the color",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "b",
+          "type": "number",
+          "description": "a number between 0x00 and 0xff that expresses te amount of blue in the color",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) rgb color expressed in 5/6/5 format"
+        }
+      ],
+      "notices": [
+        "Only available on Colorlcd radios"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
     {
       "entityType": "function",
       "module": "general",
@@ -1494,1050 +2538,6 @@
     },
     {
       "entityType": "function",
-      "module": "lcd",
-      "name": "refresh",
-      "signature": "lcd.refresh()",
-      "description": "Refresh the LCD screen",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "This function only works in stand-alone and telemetry scripts."
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "clear",
-      "signature": "lcd.clear([color])",
-      "description": "Clear the LCD screen",
-      "parameters": [
-        {
-          "name": "color",
-          "type": "number",
-          "description": "(optional, only on color screens)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "This function only works in stand-alone and telemetry scripts."
-      ],
-      "status": "current Introduced in 2.0.0, `color` parameter introduced in 2.2.0 RC12",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "resetBacklightTimeout",
-      "signature": "lcd.resetBacklightTimeout()",
-      "description": "Reset the backlight timeout",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.3.6",
-      "sinceVersion": "2.3.6",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawPoint",
-      "signature": "lcd.drawPoint(x, y)",
-      "description": "Draw a single pixel at (x,y) position",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive number) x position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive number) y position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) lcdflags",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Taranis has an LCD display width of 212 pixels and height of 64 pixels.\nPosition (0,0) is at top left. Y axis is negative, top line is 0,\nbottom line is 63. Drawing on an existing black pixel produces white pixel (TODO check this!)"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawLine",
-      "signature": "lcd.drawLine(x1, y1, x2, y2, pattern, flags)",
-      "description": "Draw a straight line on LCD",
-      "parameters": [
-        {
-          "name": "x1",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y1",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "x2",
-          "type": "number",
-          "description": "(positive numbers) end coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y2",
-          "type": "number",
-          "description": "(positive numbers) end coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "pattern",
-          "type": "number",
-          "description": "SOLID or DOTTED",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "lcdflags",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "If the start or the end of the line is outside the LCD dimensions, then the\nwhole line will not be drawn (starting from OpenTX 2.1.5)"
-      ],
-      "status": "current Introduced in 2.0.0, flags introduced in 2.3.6",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastPos",
-      "signature": "lcd.getLastPos()",
-      "description": "Returns the rightmost x position from previous output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis",
-        "For added clarity, it is recommended to use lcd.getLastRightPos()"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastRightPos",
-      "signature": "lcd.getLastRightPos()",
-      "description": "Returns the rightest x position from previous drawtext or drawNumber output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis",
-        "This is strictly equivalent to former lcd.getLastPos()"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastLeftPos",
-      "signature": "lcd.getLastLeftPos()",
-      "description": "Returns the leftmost x position from previous drawtext or drawNumber output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawText",
-      "signature": "lcd.drawText(x, y, text [, flags])",
-      "description": "Draw a text beginning at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "text",
-          "type": "string",
-          "description": "(string) text to display",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags. All values can be\ncombined together using the + character. ie BLINK + DBLSIZE.\nSee the [Appendix](../appendix/fonts.md) for available characters in each font set.\n`0 or not specified` normal font\n`XXLSIZE` jumbo sized font\n`DBLSIZE` double size font\n`MIDSIZE` mid sized font\n`SMLSIZE` small font\n`INVERS` inverted display\n`BLINK` blinking text\n`SHADOWED` Horus only, apply a shadow effect",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, `SHADOWED` introduced in 2.2.1",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawTimer",
-      "signature": "lcd.drawTimer(x, y, value [, flags])",
-      "description": "Display a value formatted as time at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(number) time in seconds",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags:\n`0 or not specified` normal representation (minutes and seconds)\n`TIMEHOUR` display hours\nother general LCD flag also apply\n`SHADOWED` Horus only, apply a shadow effect",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawNumber",
-      "signature": "lcd.drawNumber(x, y, value [, flags])",
-      "description": "Display a number at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(number) value to display",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags:\n`0 or not specified` display with no decimal (like abs())\n`PREC1` display with one decimal place (number 386 is displayed as 38.6)\n`PREC2` display with tow decimal places (number 386 is displayed as 3.86)\nother general LCD flag also apply\n`SHADOWED` Horus only, apply a shadow effect",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawChannel",
-      "signature": "lcd.drawChannel(x, y, source, flags)",
-      "description": "Display a telemetry value at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "source",
-          "type": "number|string",
-          "description": "can be a source identifier (number) or a source name (string).\nSee getValue()",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.6, changed in 2.1.0 (only telemetry sources are valid)",
-      "sinceVersion": "2.0.6",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawSwitch",
-      "signature": "lcd.drawSwitch(x, y, switch, flags)",
-      "description": "Draw a text representation of switch at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "switch",
-          "type": "number",
-          "description": "number of switch to display, negative number\ndisplays negated switch",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags, only SMLSIZE, BLINK and INVERS.",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawSource",
-      "signature": "lcd.drawSource(x, y, source [, flags])",
-      "description": "Displays the name of the corresponding input as defined by the source at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "source",
-          "type": "number",
-          "description": "source index",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "Bitmap",
-      "name": "open",
-      "signature": "Bitmap.open(name)",
-      "description": "Loads a bitmap in memory, for later use with lcd.drawBitmap(). Bitmaps should be loaded only\nonce, returned object should be stored and used for drawing. If loading fails for whatever\nreason the resulting bitmap object will have width and height set to zero.\n\nBitmap loading can fail if:\nFile is not found or contains invalid image\nSystem is low on memory\nCombined memory usage of all Lua script bitmaps exceeds certain value",
-      "parameters": [
-        {
-          "name": "name",
-          "type": "string",
-          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "bitmap",
-          "type": "unknown",
-          "description": "(object) a bitmap object that can be used with other bitmap functions"
-        }
-      ],
-      "notices": [
-        "Only available on Horus"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "Bitmap",
-      "name": "getSize",
-      "signature": "Bitmap.getSize(name)",
-      "description": "Return width, height of a bitmap object",
-      "parameters": [
-        {
-          "name": "name",
-          "type": "string",
-          "description": "",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "bitmap",
-          "type": "unknown",
-          "description": "(pointer) point to a bitmap previously opened with Bitmap.open()",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "multiple",
-          "type": "number",
-          "description": "returns 2 values:\n(number) width in pixels\n(number) height in pixels"
-        }
-      ],
-      "notices": [
-        "Only available on Horus"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawBitmap",
-      "signature": "lcd.drawBitmap(bitmap, x, y [, scale])",
-      "description": "Displays a bitmap at (x,y)",
-      "parameters": [
-        {
-          "name": "bitmap",
-          "type": "unknown",
-          "description": "(pointer) point to a bitmap previously opened with Bitmap.open()",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "scale",
-          "type": "number",
-          "description": "(positive numbers) scale in %, 50 divides size by two, 100 is unchanged, 200 doubles size.\nOmitting scale draws image in 1:1 scale and is faster than specifying 100 for scale.",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Horus"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawPixmap",
-      "signature": "lcd.drawPixmap(x, y, name)",
-      "description": "Draw a bitmap at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Maximum image size is [display width / 2] x [display height] pixels."
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawRectangle",
-      "signature": "lcd.drawRectangle(x, y, w, h [, flags [, t]])",
-      "description": "Draw a rectangle from top left corner (x,y) of specified width and height",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "(number) height in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags",
-          "optional": true,
-          "flagHints": []
-        },
-        {
-          "name": "t",
-          "type": "number",
-          "description": "thickness in pixels, defaults to 1 (only on Horus)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, changed in 2.2.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawFilledRectangle",
-      "signature": "lcd.drawFilledRectangle(x, y, w, h [, flags])",
-      "description": "Draw a solid rectangle from top left corner (x,y) of specified width and height",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "(number) height in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawGauge",
-      "signature": "lcd.drawGauge(x, y, w, h, fill, maxfill [, flags])",
-      "description": "Draw a simple gauge that is filled based upon fill value",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "(number) height in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "fill",
-          "type": "number",
-          "description": "amount of fill to apply",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "maxfill",
-          "type": "number",
-          "description": "total value of fill",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, changed in 2.2.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawScreenTitle",
-      "signature": "lcd.drawScreenTitle(title, page, pages)",
-      "description": "Draw a title bar",
-      "parameters": [
-        {
-          "name": "title",
-          "type": "string",
-          "description": "(string) text for the title",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "page",
-          "type": "number",
-          "description": "page number",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "pages",
-          "type": "number",
-          "description": "total number of pages. Only used as indicator on\nthe right side of title bar. (i.e. idx=2, cnt=5, display `2/5`)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawCombobox",
-      "signature": "lcd.drawCombobox(x, y, w, list, idx [, flags])",
-      "description": "Draw a combo box",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width of combo box in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "list",
-          "type": "table",
-          "description": "combo box elements, each element is a string",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "idx",
-          "type": "number",
-          "description": "(integer) index of entry to highlight",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags, the flags can not be combined:\n`BLINK` combo box is expanded\n`INVERS` combo box collapsed, text inversed\n`0 or not present` combo box collapsed, text normal",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "setColor",
-      "signature": "lcd.setColor(area, color)",
-      "description": "Set a color for specific area",
-      "parameters": [
-        {
-          "name": "area",
-          "type": "number",
-          "description": "(unsigned number) specific screen area in the list bellow\n`TEXT_COLOR`\n`TEXT_BGCOLOR`\n`TEXT_INVERTED_COLOR`\n`TEXT_INVERTED_BGCOLOR`\n`LINE_COLOR`\n`SCROLLBOX_COLOR`\n`MENU_TITLE_BGCOLOR`\n`MENU_TITLE_COLOR`\n`MENU_TITLE_DISABLE_COLOR`\n`HEADER_COLOR`\n`ALARM_COLOR`\n`WARNING_COLOR`\n`TEXT_DISABLE_COLOR`\n`CURVE_AXIS_COLOR`\n`CURVE_COLOR`\n`CURVE_CURSOR_COLOR`\n`TITLE_BGCOLOR`\n`TRIM_BGCOLOR`\n`TRIM_SHADOW_COLOR`\n`HEADER_BGCOLOR`\n`HEADER_ICON_BGCOLOR`\n`HEADER_CURRENT_BGCOLOR`\n`MAINVIEW_PANES_COLOR`\n`MAINVIEW_GRAPHICS_COLOR`\n`OVERLAY_COLOR`\n`BARGRAPH1_COLOR`\n`BARGRAPH2_COLOR`\n`BARGRAPH_BGCOLOR`\n`CUSTOM_COLOR`",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "color",
-          "type": "number",
-          "description": "(number) color in 5/6/5 rgb format. The following prefined colors are available\n`WHITE`\n`GREY`\n`LIGHTGREY`\n`DARKGREY`\n`BLACK`\n`YELLOW`\n`BLUE`\n`RED`\n`DARKRED`",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Colorlcd radios"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getColor",
-      "signature": "lcd.getColor(area)",
-      "description": "Get the color for specific area : see lcd.setColor for area list",
-      "parameters": [
-        {
-          "name": "area",
-          "type": "unknown",
-          "description": "",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Colorlcd radios"
-      ],
-      "status": "current Introduced in 2.3.11",
-      "sinceVersion": "2.3.11",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "RGB",
-      "signature": "lcd.RGB(r, g, b)",
-      "description": "Returns a 5/6/5 rgb color code, that can be used with lcd.setColor",
-      "parameters": [
-        {
-          "name": "r",
-          "type": "number",
-          "description": "a number between 0x00 and 0xff that expresses te amount of red in the color",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "g",
-          "type": "number",
-          "description": "a number between 0x00 and 0xff that expresses te amount of green in the color",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "b",
-          "type": "number",
-          "description": "a number between 0x00 and 0xff that expresses te amount of blue in the color",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) rgb color expressed in 5/6/5 format"
-        }
-      ],
-      "notices": [
-        "Only available on Colorlcd radios"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
       "module": "model",
       "name": "getInfo",
       "signature": "model.getInfo()",
@@ -4024,777 +4024,226 @@
   ],
   "constants": [
     {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TINSIZE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "SHADOWED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BOOL",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "STRING",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_INVERTED_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_INVERTED_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LINE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "SCROLLBOX_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_TITLE_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_TITLE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_TITLE_DISABLE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "ALARM_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "WARNING_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TEXT_DISABLE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_AXIS_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "CURVE_CURSOR_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TITLE_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TRIM_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "TRIM_SHADOW_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_ICON_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "HEADER_CURRENT_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MAINVIEW_PANES_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MAINVIEW_GRAPHICS_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "OVERLAY_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH1_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH2_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BARGRAPH_BGCOLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "CUSTOM_COLOR",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MENU_HEADER_HEIGHT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "WHITE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "NON_COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "GREY",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "DARKGREY",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BLACK",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "YELLOW",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BLUE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LIGHTGREY",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "RED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "DARKRED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "NON_COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FIXEDWIDTH",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "NON_COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FILL_WHITE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "NON_COLOR_LCD",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "GREY_DEFAULT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
+      "name": "EVT_PAGE_FIRST",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "FULLSCALE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_PAGE_LONG",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "MENU key long press",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGE_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "XXLSIZE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_PAGE_BREAK",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "PAGE key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MENU_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "DBLSIZE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_MENU_LONG",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIDSIZE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_MENU_REPT",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "SMLSIZE",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_MENU_BREAK",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "MENU key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_ENTER_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "INVERS",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_ENTER_LONG",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "ENT key long press",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_ENTER_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BOLD",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_ENTER_BREAK",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "ENT key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_EXIT_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "BLINK",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_EXIT_LONG",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "RIGHT",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
-      "entityType": "constant",
+      "name": "EVT_EXIT_REPT",
       "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "LEFT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "CENTER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "PREC1",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "PREC2",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "VALUE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "SOURCE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "REPLACE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_MAX",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_FIRST_INPUT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SA",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SB",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SC",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SD",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SG",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SF",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_SH",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MIXSRC_CH1",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "SWSRC_LAST",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "MAX_SENSORS",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_PREV",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for FIELDS navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_NEXT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for VALUES navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_DEC",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for VALUES navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_INC",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "ROTENC_LOWSPEED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "ROTENC_MIDSPEED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "ROTENC_HIGHSPEED",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for FIELDS navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_PREV_REPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for FIELDS navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_NEXT_REPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for VALUES navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_DEC_REPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for VALUES navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_INC_REPT",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_PREV_PAGE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "for PAGE navigation",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_NEXT_PAGE",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_MENU",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_MENU_LONG",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_ENTER",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_ENTER_LONG",
-      "module": "general"
-    },
-    {
-      "entityType": "constant",
-      "availableOn": "GENERAL",
-      "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_VIRTUAL_EXIT",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "EXIT key release",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_EXIT_BREAK",
       "module": "general"
     },
     {
-      "entityType": "constant",
+      "name": "EVT_PLUS_FIRST",
       "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "+ key press",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PLUS_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
       "description": "",
-      "sourceFile": "api_general.cpp",
-      "name": "EVT_RTN_FIRST",
-      "module": "general"
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PLUS_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "+ key repeat",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PLUS_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "+ key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MINUS_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "- key press",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MINUS_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MINUS_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "- key repeat",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MINUS_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "- key release",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
     },
     {
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "rotary encoder rotated left",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_ROT_LEFT",
       "module": "general"
@@ -4803,14 +4252,1267 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "rotary encoder rotated right",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "EVT_ROT_RIGHT",
+      "module": "general"
+    },
+    {
+      "name": "EVT_UP_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_UP_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_UP_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_UP_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_DOWN_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_DOWN_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_DOWN_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_DOWN_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_RIGHT_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_RIGHT_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_RIGHT_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_RIGHT_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_LEFT_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_LEFT_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_LEFT_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_LEFT_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_SHIFT_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_SHIFT_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_SHIFT_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_SHIFT_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGEUP_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGEUP_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGEUP_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGEUP_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGEDN_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGEDN_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGEDN_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_PAGEDN_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_SYS_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_SYS_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_SYS_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_SYS_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MODEL_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MODEL_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MODEL_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_MODEL_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TELEM_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TELEM_LONG",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TELEM_REPT",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TELEM_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TOUCH_FIRST",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TOUCH_BREAK",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TOUCH_SLIDE",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "name": "EVT_TOUCH_TAP",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "description": "",
+      "type": "number",
+      "module": "general",
+      "sourceFile": ""
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TINSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SHADOWED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BOOL",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "STRING",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_INVERTED_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_INVERTED_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "LINE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SCROLLBOX_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_TITLE_DISABLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ALARM_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "WARNING_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TEXT_DISABLE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CURVE_AXIS_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CURVE_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CURVE_CURSOR_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TITLE_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TRIM_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "TRIM_SHADOW_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_ICON_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "HEADER_CURRENT_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MAINVIEW_PANES_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MAINVIEW_GRAPHICS_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "OVERLAY_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH1_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH2_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BARGRAPH_BGCOLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CUSTOM_COLOR",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MENU_HEADER_HEIGHT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "WHITE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "NON_COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "GREY",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "DARKGREY",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BLACK",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "YELLOW",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BLUE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "LIGHTGREY",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "RED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "DARKRED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "NON_COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FIXEDWIDTH",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "NON_COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FILL_WHITE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "NON_COLOR_LCD",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "GREY_DEFAULT",
       "module": "general"
     },
     {
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "FULLSCALE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "XXLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "DBLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIDSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SMLSIZE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "INVERS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BOLD",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "BLINK",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "RIGHT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "LEFT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "CENTER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "PREC1",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "PREC2",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "VALUE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SOURCE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "REPLACE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_MAX",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_FIRST_INPUT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SA",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SB",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SD",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SG",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SF",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_SH",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MIXSRC_CH1",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "SWSRC_LAST",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "MAX_SENSORS",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_PREV",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_NEXT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for VALUES navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_DEC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for VALUES navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_INC",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ROTENC_LOWSPEED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ROTENC_MIDSPEED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "ROTENC_HIGHSPEED",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_PREV_REPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_NEXT_REPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for VALUES navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_DEC_REPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for VALUES navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_INC_REPT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_PREV_PAGE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "for PAGE navigation",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_NEXT_PAGE",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_MENU",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_MENU_LONG",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_ENTER",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_ENTER_LONG",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_VIRTUAL_EXIT",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
+      "sourceFile": "api_general.cpp",
+      "name": "EVT_RTN_FIRST",
+      "module": "general"
+    },
+    {
+      "entityType": "constant",
+      "availableOn": "GENERAL",
+      "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "FORCE",
       "module": "general"
@@ -4819,6 +5521,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "ERASE",
       "module": "general"
@@ -4827,6 +5530,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "ROUND",
       "module": "general"
@@ -4835,6 +5539,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "SOLID",
       "module": "general"
@@ -4843,6 +5548,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "DOTTED",
       "module": "general"
@@ -4851,6 +5557,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LCD_W",
       "module": "general"
@@ -4859,6 +5566,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "LCD_H",
       "module": "general"
@@ -4867,6 +5575,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "PLAY_NOW",
       "module": "general"
@@ -4875,6 +5584,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "PLAY_BACKGROUND",
       "module": "general"
@@ -4883,6 +5593,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "TIMEHOUR",
       "module": "general"
@@ -4891,6 +5602,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_RAW",
       "module": "general"
@@ -4899,6 +5611,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_VOLTS",
       "module": "general"
@@ -4907,6 +5620,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_AMPS",
       "module": "general"
@@ -4915,6 +5629,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_MILLIAMPS",
       "module": "general"
@@ -4923,6 +5638,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_KTS",
       "module": "general"
@@ -4931,6 +5647,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_METERS_PER_SECOND",
       "module": "general"
@@ -4939,6 +5656,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_FEET_PER_SECOND",
       "module": "general"
@@ -4947,6 +5665,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_KMH",
       "module": "general"
@@ -4955,6 +5674,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_MPH",
       "module": "general"
@@ -4963,6 +5683,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_METERS",
       "module": "general"
@@ -4971,6 +5692,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_KM",
       "module": "general"
@@ -4979,6 +5701,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_FEET",
       "module": "general"
@@ -4987,6 +5710,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_CELSIUS",
       "module": "general"
@@ -4995,6 +5719,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_FAHRENHEIT",
       "module": "general"
@@ -5003,6 +5728,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_PERCENT",
       "module": "general"
@@ -5011,6 +5737,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_MAH",
       "module": "general"
@@ -5019,6 +5746,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_WATTS",
       "module": "general"
@@ -5027,6 +5755,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_MILLIWATTS",
       "module": "general"
@@ -5035,6 +5764,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_DB",
       "module": "general"
@@ -5043,6 +5773,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_RPMS",
       "module": "general"
@@ -5051,6 +5782,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_G",
       "module": "general"
@@ -5059,6 +5791,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_DEGREE",
       "module": "general"
@@ -5067,6 +5800,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_RADIANS",
       "module": "general"
@@ -5075,6 +5809,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_MILLILITERS",
       "module": "general"
@@ -5083,6 +5818,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_FLOZ",
       "module": "general"
@@ -5091,6 +5827,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_MILLILITERS_PER_MINUTE",
       "module": "general"
@@ -5099,6 +5836,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_HERTZ",
       "module": "general"
@@ -5107,6 +5845,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_MS",
       "module": "general"
@@ -5115,6 +5854,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_US",
       "module": "general"
@@ -5123,6 +5863,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_HOURS",
       "module": "general"
@@ -5131,6 +5872,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_MINUTES",
       "module": "general"
@@ -5139,6 +5881,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_SECONDS",
       "module": "general"
@@ -5147,6 +5890,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_CELLS",
       "module": "general"
@@ -5155,6 +5899,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_DATETIME",
       "module": "general"
@@ -5163,6 +5908,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_GPS",
       "module": "general"
@@ -5171,6 +5917,7 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_BITFIELD",
       "module": "general"
@@ -5179,9 +5926,96 @@
       "entityType": "constant",
       "availableOn": "GENERAL",
       "description": "",
+      "type": "number",
       "sourceFile": "api_general.cpp",
       "name": "UNIT_TEXT",
       "module": "general"
+    },
+    {
+      "name": "FIRST",
+      "description": "when a key is pressed a `` event is generated",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "LONG",
+      "description": "if the key continues to be pressed, then after a while a `` event is generated",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "REPEAT",
+      "description": "if the key continues to be pressed, then a `` events are being generated",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "BREAK",
+      "description": "when the key is released a `` event is generated",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_ROT_BREAK",
+      "description": "rotary encoder release",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_ROT_LONG",
+      "description": "rotary encoder long press",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "VIRTUAL",
+      "description": "Given the large number of radios supported by OpenTX, and the large difference in keys available on those, a set of  KEYS has been defined and are mapped to best fit available hardware",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_VIRTUAL_PREVIOUS_PAGE",
+      "description": "for PAGE navigation",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
+    },
+    {
+      "name": "EVT_VIRTUAL_PREVIOUS",
+      "description": "for FIELDS navigation",
+      "type": "number",
+      "availableOn": "GENERAL",
+      "entityType": "constant",
+      "sourceFile": "",
+      "module": "general"
     }
-  ]
+  ],
+  "lvgl": {
+    "functions": [],
+    "constants": [],
+    "classes": []
+  }
 }

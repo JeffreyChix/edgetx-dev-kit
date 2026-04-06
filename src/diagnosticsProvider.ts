@@ -32,7 +32,7 @@ export class DiagnosticsProvider {
       ast = luaparse.parse(source, {
         locations: true,
         ranges: true,
-        luaVersion: versionGte(version, "2.11") ? "5.3" : "5.2",
+        luaVersion: "5.2",
       });
     } catch {}
 
@@ -432,7 +432,7 @@ export class DiagnosticsProvider {
         ]
       : [];
 
-    const lintDiagnostics = this.lint(source, profile, scriptKey);
+    const lintDiagnostics = this.lint(source, profile, scriptKey, table);
 
     this.collection.set(document.uri, [
       ...structuralDiagnostics,
@@ -473,8 +473,10 @@ export class DiagnosticsProvider {
     source: string,
     profile: EdgeTXProfile,
     scriptKey: string | null,
+    table: luaparse.TableConstructorExpression | null,
   ): vscode.Diagnostic[] {
     const diagnostics: vscode.Diagnostic[] = [];
+    console.log(table);
     const lines = source.split("\n");
 
     const unavailableApis = this.getUnavailableApis(
@@ -587,7 +589,39 @@ export class DiagnosticsProvider {
         diagnostics.push(
           this.error(
             range,
-            "EdgeTX: function scripts don't have access to lcd",
+            "EdgeTX: Function scripts don't have access to lcd",
+          ),
+        );
+      }
+
+      // Lvgl
+      const isLvglLine = /lvgl\./.test(line);
+      const lvglState = this.getLvglState(table);
+      const isWrongScript =
+        scriptKey && !["oneTime", "widget"].includes(scriptKey);
+
+      if (isWrongScript) {
+        if (isLvglLine) {
+          diagnostics.push(
+            this.error(
+              range,
+              "EdgeTX: LVGL is only supported in 'oneTime' and 'widget' script types.",
+            ),
+          );
+        }
+        if (lvglState.range) {
+          diagnostics.push(
+            this.error(
+              lvglState.range,
+              "EdgeTX: 'useLvgl' is only valid in 'oneTime' and 'widget' script types.",
+            ),
+          );
+        }
+      } else if (isLvglLine && !lvglState.active) {
+        diagnostics.push(
+          this.error(
+            range,
+            "EdgeTX: 'useLvgl = true' is required to use the LVGL API in this script.",
           ),
         );
       }
@@ -606,7 +640,12 @@ export class DiagnosticsProvider {
       return [];
     }
 
-    return [...apiDoc.functions, ...apiDoc.constants]
+    return [
+      ...apiDoc.functions,
+      ...apiDoc.constants,
+      ...apiDoc.lvgl.functions,
+      ...apiDoc.lvgl.constants,
+    ]
       .filter(
         (api) =>
           api.availableOn &&
@@ -620,11 +659,35 @@ export class DiagnosticsProvider {
           : new RegExp(`\\b${this.escapeRegExp(api.name)}\\b`);
 
         const msg = isFunction
-          ? `${api.name}() is not available on ${displayType === "COLOR_LCD" ? "color" : "non-color"} displays.`
+          ? `${api.module !== "general" ? `${api.module}.${api.name}` : api.name}() is not available on ${displayType === "COLOR_LCD" ? "color" : "non-color"} displays.`
           : `${api.name} is not available on ${displayType === "NON_COLOR_LCD" ? "non-color" : "color"} displays.`;
 
         return { pattern, msg };
       });
+  }
+
+  private getLvglState(table: luaparse.TableConstructorExpression | null): {
+    active: boolean;
+    range: vscode.Range | null;
+  } {
+    const useLvglField = table?.fields.find(
+      (f): f is luaparse.TableKeyString =>
+        f.type === "TableKeyString" &&
+        f.key.type === "Identifier" &&
+        f.key.name === "useLvgl",
+    );
+
+    if (!useLvglField) {
+      return { active: false, range: null };
+    }
+
+    if (useLvglField.value.type !== "BooleanLiteral") {
+      return { active: true, range: this.nodeToRange(useLvglField.key) };
+    }
+    return {
+      active: useLvglField.value.value,
+      range: this.nodeToRange(useLvglField.key),
+    };
   }
 
   private escapeRegExp(str: string): string {

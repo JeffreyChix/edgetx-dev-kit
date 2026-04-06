@@ -161,12 +161,12 @@
 ---@alias WidgetOptions WidgetOption[]
 
 --- Runs once when activated. Useful for configuration or setup tasks.
----@class (exact) OneTimeScript
+---@class OneTimeScript
 ---@field init? fun() #Called once when the script is loaded
 ---@field run fun(event: number): string | number #Called every cycle. If return value is zero, script will continue to run, non-zero, script will be halted.. If return value is a text string with the file path to a new Lua script, then the new script will be loaded and run.
 
 --- Displayed on a telemetry screen page. Has full access to the LCD display.
----@class (exact) TelemetryScript
+---@class TelemetryScript
 ---@field init? fun() #Called once when the script is loaded
 ---@field background fun() #Called when the script is not visible on screen
 ---@field run fun(event: number) #Called every cycle when the telemetry page is active
@@ -176,7 +176,7 @@
 --- >⚠️ Widget name must be 10 characters or less<br>
 --- >⚠️ Maximum 5 options allowed from 2.3 to 2.10, maximum 10 options from 2.11<br>
 --- >⚠️ Option names must be 10 characters or less with no spaces<br>
----@class (exact) WidgetScript<TWidget>
+---@class WidgetScript<TWidget>
 ---@field name string #Widget name shown in the EdgeTX UI. Must be 10 characters or less
 ---@field options? WidgetOptions #Table of up to 5 widget options. Names must be 10 characters or less with no spaces
 ---@field create fun(zone: Zone, options: WidgetOptions): TWidget #Called when the widget is created. Must return a widget table
@@ -188,7 +188,7 @@
 --- >⚠️ Function scripts do NOT have access to the LCD display<br>
 --- >⚠️ File name (without extension) must be 6 characters or less<br>
 --- >⚠️ background function is not available in 2.3<br>
----@class (exact) FunctionScript
+---@class FunctionScript
 ---@field init? fun() #Called once when the script is loaded
 ---@field run fun() #Called every cycle while the activating switch is on
 
@@ -197,7 +197,7 @@
 --- >⚠️ Cannot update the LCD screen or handle user input<br>
 --- >⚠️ Custom scripts run at lower priority than built-in mixes. Execution period is approximately 30ms and is not guaranteed<br>
 --- >⚠️ Should not exceed the allowed run-time or instruction count<br>
----@class (exact) MixScript
+---@class MixScript
 ---@field input? MixInputs #Declares the script inputs shown in the EdgeTX mixer UI. Each entry is either SOURCE or VALUE form
 ---@field output? MixOutput #Declares the output channel names. run() must return values matching this table
 ---@field init? fun() #Called once when the script is loaded

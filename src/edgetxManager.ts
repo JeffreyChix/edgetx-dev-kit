@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import { ProfileManager } from "./profileManager";
 import { VersionManager } from "./versionManager";
-import { versionGte } from "./utils/general";
 
 export class EdgeTXManager {
   private _active = false;
@@ -13,8 +12,32 @@ export class EdgeTXManager {
     private profileManager: ProfileManager,
     private versionManager: VersionManager,
   ) {
-    this._active = this.context.workspaceState.get("edgetx.active", false);
+    this._active = this.getActiveState();
     vscode.commands.executeCommand("setContext", "edgetx.active", this._active);
+  }
+
+  private hasWorkspace(): boolean {
+    return !!vscode.workspace.workspaceFolders?.[0];
+  }
+
+  private getConfigTarget(): vscode.ConfigurationTarget {
+    return this.hasWorkspace()
+      ? vscode.ConfigurationTarget.Workspace
+      : vscode.ConfigurationTarget.Global;
+  }
+
+  private getActiveState(): boolean {
+    return this.hasWorkspace()
+      ? this.context.workspaceState.get("edgetx.active", false)
+      : this.context.globalState.get("edgetx.active", false);
+  }
+
+  private async saveActiveState(value: boolean) {
+    if (this.hasWorkspace()) {
+      await this.context.workspaceState.update("edgetx.active", value);
+    } else {
+      await this.context.globalState.update("edgetx.active", value);
+    }
   }
 
   isActive(): boolean {
@@ -55,7 +78,7 @@ export class EdgeTXManager {
     await this.injectLuaLsSettings(profile.version);
 
     this._active = true;
-    await this.context.workspaceState.update("edgetx.active", true);
+    await this.saveActiveState(true);
     this._onDidChangeActive.fire(true);
 
     this.showActiveStatus();
@@ -68,11 +91,16 @@ export class EdgeTXManager {
     await luaConfig.update(
       "workspace.library",
       current.filter((p) => !p.includes("stubs")),
-      vscode.ConfigurationTarget.Workspace,
+      this.getConfigTarget(),
+    );
+    await luaConfig.update(
+      "runtime.version",
+      undefined,
+      this.getConfigTarget(),
     );
 
     this._active = false;
-    await this.context.workspaceState.update("edgetx.active", false);
+    await this.saveActiveState(false);
     this._onDidChangeActive.fire(false);
     await vscode.window.showInformationMessage("EdgeTX mode OFF");
   }
@@ -94,7 +122,7 @@ export class EdgeTXManager {
     );
 
     if (action === "Change Profile") {
-      vscode.commands.executeCommand("edgetx.setProfile");
+      await vscode.commands.executeCommand("edgetx.setProfile");
     }
     if (action === "Turn Off") {
       await this.runOnDeactivate();
@@ -110,18 +138,18 @@ export class EdgeTXManager {
 
     const cleaned = current.filter((p) => !p.includes("stubs"));
 
-    const luaVersion = versionGte(version, "2.11") ? "Lua 5.3" : "Lua 5.2";
+    //TODO: find a way to get edgetx radio lua supported version
+    const luaVersion = "Lua 5.2"; // let's stay at 5.2 for now
 
     await luaConfig.update(
       "workspace.library",
       [...cleaned, stubsDir],
-      vscode.ConfigurationTarget.Workspace,
+      this.getConfigTarget(),
     );
-
     await luaConfig.update(
       "runtime.version",
       luaVersion,
-      vscode.ConfigurationTarget.Workspace,
+      this.getConfigTarget(),
     );
   }
 }

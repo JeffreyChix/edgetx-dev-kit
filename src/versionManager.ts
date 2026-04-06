@@ -8,7 +8,8 @@ const DEFAULT_VERSIONS = Array.from({ length: 10 }).map(
   (_, index) => `2.${index + 3}`,
 ); // 2.3 to 2.12
 
-const SUPPORTED_SCHEMA_VERSION = 1;
+// DO NOT TOUCH;
+const SUPPORTED_MANIFEST_SCHEMA_VERSION = 2;
 
 export class VersionManager {
   private manifest: Manifest | null;
@@ -62,13 +63,11 @@ export class VersionManager {
   }
 
   getSupportedVersions() {
-    if (!this.manifest) {
-      return DEFAULT_VERSIONS;
-    }
-
-    const versions = Object.entries(this.manifest.versions)
-      .filter(([v]) => v !== "main")
-      .map(([v]) => v);
+    const versions = !this.manifest
+      ? DEFAULT_VERSIONS
+      : Object.entries(this.manifest.versions)
+          .filter(([v]) => v !== "main")
+          .map(([v]) => v);
 
     return this.sortVersionsDesc(versions);
   }
@@ -107,10 +106,22 @@ export class VersionManager {
       const remoteManifest = await fetchRemoteManifest();
       const batchDownloads: Promise<void>[] = [];
 
-      if (remoteManifest.manifestVersion > SUPPORTED_SCHEMA_VERSION) {
-        await vscode.window.showInformationMessage(
-          "Update edgetx-dev-kit for the latest API stubs",
-        );
+      if (
+        remoteManifest.manifestVersion !== SUPPORTED_MANIFEST_SCHEMA_VERSION
+      ) {
+        if (
+          remoteManifest.manifestVersion > SUPPORTED_MANIFEST_SCHEMA_VERSION
+        ) {
+          const action = await vscode.window.showInformationMessage(
+            "Update edgetx-dev-kit for the latest API stubs",
+            "Update Now",
+          );
+          if (action === "Update Now") {
+            await vscode.commands.executeCommand(
+              "workbench.extensions.action.checkForUpdates",
+            );
+          }
+        }
         return 0;
       }
 
@@ -202,6 +213,6 @@ export class VersionManager {
     if (!apiDoc) {
       return [];
     }
-    return [...new Set(apiDoc.functions.map((f) => f.module))].sort();
+    return [...new Set(apiDoc.functions.map((f) => f.module)), "lvgl"].sort();
   }
 }

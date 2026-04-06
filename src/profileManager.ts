@@ -87,9 +87,9 @@ export class ProfileManager {
       }
       this.profilePath = path.join(vscodePath, "edgetx.json");
       fs.writeFileSync(this.profilePath, JSON.stringify(this.profile, null, 2));
+    } else {
+      await this.context.globalState.update("edgetx.profile", this.profile);
     }
-
-    await this.context.workspaceState.update("edgetx.profile", this.profile);
   }
 
   private loadProfile() {
@@ -108,6 +108,6 @@ export class ProfileManager {
       }
     }
 
-    this.profile = this.context.workspaceState.get("edgetx.profile");
+    this.profile = this.context.globalState.get("edgetx.profile");
   }
 }

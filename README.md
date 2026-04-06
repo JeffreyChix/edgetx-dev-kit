@@ -5,7 +5,6 @@
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.85+-blue)](https://code.visualstudio.com)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-
 EdgeTX Dev Kit brings a proper development environment to EdgeTX Lua scripting. If you've ever written a widget or telemetry script in a plain text editor, copy-pasted it to an SD card, flashed it to your radio, and stared at a blank screen wondering what went wrong, then this extension is for you.
 
 It connects to auto-generated stubs from the EdgeTX source, gives you real IntelliSense for every API, catches mistakes before you ever touch your radio, and deploys directly to your SD card on save.
@@ -107,14 +106,14 @@ return script
 - Each option name (first table value) must be 10 characters or less with no spaces
 - Widget scripts are only available on color displays
 
-
 #### Lint checks
 
 - **Display-specific APIs** — errors if you use color-only apis: `lcd.setColor()`, `RGB()`, `COLOR_THEME_*`, `TINSIZE` etc. on a B&W profile and vice-versa
 - **Version-gated APIs** — errors if you use an API that requires a newer version than your profile (e.g. `touchState` requires 2.6+)
 - **Unsupported standard libraries** — errors for `os`, `coroutine`, `package`, `debug` usage; `table` flagged on B&W profiles
 - **Unsupported `io` functions** — errors for any `io.*` call outside the five supported functions: `io.open`, `io.close`, `io.read`, `io.write`, `io.seek`
-- **lcd unavailable in function scripts** - errors when `lcd` is used in a function script 
+- **lcd unavailable in function scripts** - errors when `lcd` is used in a function script
+- **lvgl support** - errors when `lvgl` apis is used in a wrong way or unsupported script types
 
 ### API Search
 
@@ -181,6 +180,8 @@ EdgeTX: Jumper T20 2.10
 Stubs are fetched from a remote pipeline that tracks EdgeTX releases. On activation, the extension checks for stub updates silently in the background.
 
 Run `EdgeTX: Check for API Updates and Sync` to force a manual sync.
+
+`SUPPORTED_MANIFEST_VERSION = 2`
 
 The base URL is configurable if you host your own stubs:
 PLEASE BE CAREFUL HERE.

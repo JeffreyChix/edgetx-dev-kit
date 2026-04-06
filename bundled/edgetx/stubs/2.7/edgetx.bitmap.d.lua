@@ -18,16 +18,16 @@ Bitmap = {}
 ---
 --- **Since:** 2.2.0
 --- > **Notice:** Only available on Horus
----@param name string (string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)
----@return any bitmap # (object) a bitmap object that can be used with other bitmap functions
+---@param name string #(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)
+---@return any bitmap #(object) a bitmap object that can be used with other bitmap functions
 function Bitmap.open(name) end
 --- Return width, height of a bitmap object
 ---
 --- **Since:** 2.2.0
 --- > **Notice:** Only available on Horus
 ---@param name string
----@param bitmap? any (pointer) point to a bitmap previously opened with Bitmap.open()
----@return number multiple # returns 2 values:
+---@param bitmap? any #(pointer) point to a bitmap previously opened with Bitmap.open()
+---@return number multiple #returns 2 values:
 --- (number) width in pixels
 --- (number) height in pixels
 function Bitmap.getSize(name, bitmap) end

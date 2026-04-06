@@ -6,6 +6,16 @@ All notable changes to EdgeTX Dev Kit are documented here.
 
 Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-kit) to stay up to date.
 
+## [1.1.0] — 2026-04-06
+
+### Added
+- LVGL API support — Full LVGL widget API coverage including widget constructors, settings table intellisense, and both functional and OOP call styles
+- Workspace-free activation — EdgeTX Dev Kit can now be activated without an active workspace or folder open. Just open a lua file and work.
+
+### Fixed
+- `bit32` library unavailable — Resolved an issue where bit32 was not recognized due to the Lua version target; the extension now correctly defaults to Lua 5.2
+- Bundled EdgeTX versions not sorted — Fixed incorrect ordering of bundled EdgeTX versions; they now appear sorted from latest to oldest
+- Various stability improvements — Additional bug fixes and reliability improvements across the extension
 
 ## [1.0.0] — 2026-03-23
 
@@ -24,5 +34,6 @@ Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-k
 
 ---
 
-[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/JeffreyChix/edgetx-dev-kit/releases/tag/v1.0.0

@@ -124,7 +124,12 @@ function getSearchHtml(
   const apis = Object.fromEntries(
     Object.entries(apiDocs).map(([version, apiDoc]) => [
       version,
-      [...apiDoc.functions, ...apiDoc.constants],
+      [
+        ...apiDoc.functions,
+        ...apiDoc.constants,
+        ...apiDoc.lvgl.functions,
+        ...apiDoc.lvgl.constants,
+      ],
     ]),
   );
 
