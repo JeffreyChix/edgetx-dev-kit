@@ -133,6 +133,16 @@ function lcd.drawSwitch(x, y, switch, flags) end
 ---@param source number #source index
 ---@param flags? number #(unsigned number) drawing flags
 function lcd.drawSource(x, y, source, flags) end
+--- Displays a bitmap at (x,y)
+---
+--- **Since:** 2.2.0
+--- > **Notice:** Only available on Horus
+---@param bitmap any #(pointer) point to a bitmap previously opened with Bitmap.open()
+---@param x number #(positive numbers) starting coordinates
+---@param y number #(positive numbers) starting coordinates
+---@param scale? number #(positive numbers) scale in %, 50 divides size by two, 100 is unchanged, 200 doubles size.
+--- Omitting scale draws image in 1:1 scale and is faster than specifying 100 for scale.
+function lcd.drawBitmap(bitmap, x, y, scale) end
 --- Draw a bitmap at (x,y)
 ---
 --- **Since:** 2.0.0
@@ -194,6 +204,69 @@ function lcd.drawScreenTitle(title, page, pages) end
 --- `INVERS` combo box collapsed, text inversed
 --- `0 or not present` combo box collapsed, text normal
 function lcd.drawCombobox(x, y, w, list, idx, flags) end
+--- Set a color for specific area
+---
+--- **Since:** 2.2.0
+--- > **Notice:** Only available on Colorlcd radios
+---@param area number #(unsigned number) specific screen area in the list bellow
+--- `CUSTOM_COLOR`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_SECONDARY3`
+--- `COLOR_THEME_PRIMARY2`
+--- `COLOR_THEME_FOCUS`
+--- `COLOR_THEME_PRIMARY3`
+--- `COLOR_THEME_FOCUS`
+--- `COLOR_THEME_PRIMARY2`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_PRIMARY3`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_WARNING`
+--- `COLOR_THEME_ACTIVE`
+--- `COLOR_THEME_DISABLED`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_DISABLED`
+--- `COLOR_THEME_WARNING`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_FOCUS`
+--- `COLOR_THEME_PRIMARY1`
+--- `COLOR_THEME_PRIMARY2`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_PRIMARY2`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_FOCUS`
+--- `COLOR_THEME_PRIMARY2`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_PRIMARY1`
+--- `COLOR_THEME_SECONDARY1`
+--- `COLOR_THEME_SECONDARY2`
+--- `COLOR_THEME_SECONDARY3`
+--- `CUSTOM_COLOR`
+---@param color number #(number) color in 5/6/5 rgb format. The following prefined colors are available
+--- `WHITE`
+--- `GREY`
+--- `LIGHTGREY`
+--- `DARKGREY`
+--- `BLACK`
+--- `YELLOW`
+--- `BLUE`
+--- `RED`
+--- `DARKRED`
+function lcd.setColor(area, color) end
+--- Get the color for specific area : see lcd.setColor for area list
+---
+--- **Since:** 2.3.11
+--- > **Notice:** Only available on Colorlcd radios
+---@param area any
+function lcd.getColor(area) end
+--- Returns a 5/6/5 rgb color code, that can be used with lcd.setColor
+---
+--- **Since:** 2.2.0
+--- > **Notice:** Only available on Colorlcd radios
+---@param r number #a number between 0x00 and 0xff that expresses te amount of red in the color
+---@param g number #a number between 0x00 and 0xff that expresses te amount of green in the color
+---@param b number #a number between 0x00 and 0xff that expresses te amount of blue in the color
+---@return number number #(integer) rgb color expressed in 5/6/5 format
+function lcd.RGB(r, g, b) end
 --- Get the width and height of a text string drawn with flags
 ---
 --- **Since:** 2.5.0
@@ -212,42 +285,6 @@ function lcd.sizeText(text, flags) end
 ---@param text string #(string) text to display
 ---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html) for drawing flags and colors, and [Appendix](../../part_vii_-_appendix/fonts.md) for available characters in each font set. RIGHT, CENTER and VCENTER are not implemented.
 function lcd.drawTextLines(x, y, w, h, text, flags) end
---- Displays a bitmap at (x,y)
----
---- **Since:** 2.2.0
---- > **Notice:** Only available on Horus
----@param bitmap any #(pointer) point to a bitmap previously opened with Bitmap.open()
----@param x number #(positive numbers) starting coordinates
----@param y number #(positive numbers) starting coordinates
----@param scale? number #(positive numbers) scale in %, 50 divides size by two, 100 is unchanged, 200 doubles size.
---- Omitting scale draws image in 1:1 scale and is faster than specifying 100 for scale.
-function lcd.drawBitmap(bitmap, x, y, scale) end
---- Change an indexed color (theme colors and CUSTOM_COLOR). Please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html#color-constants)
---- 
---- Please notice that changing theme colors affects not only other Lua widgets, but the entire radio interface.
----
---- **Since:** 2.2.0
---- > **Notice:** Only available on radios with color display
----@param colorIndex number
----@param color number
-function lcd.setColor(colorIndex, color) end
---- Get the color value from flags
----
---- **Since:** 2.3.11
---- > **Notice:** Only available on radios with color display
----@param flags? number #(flags) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
----@return number color #(flag) only the RGB565 color value of the input
-function lcd.getColor(flags) end
---- Returns a drawing flag with RGB color code
----
---- **Since:** 2.2.0
---- > **Notice:** Only available on radios with color display. Use *either* lcd.RGB(r,g,b) *or* lcd.RGB(rgb)
----@param r number #a number between 0 and 255 that expresses the amount of red in the color
----@param g number #a number between 0 and 255 that expresses the amount of green in the color
----@param b number #a number between 0 and 255 that expresses the amount of blue in the color
----@overload fun(rgb: number): number #a number between 0 and 0xFFFFFF that expresses the RGB value (0xFF000=RED, 0x00FF00=GREEN, 0x0000FF=BLUE)
----@return number flag #with RGB565 color
-function lcd.RGB(r, g, b) end
 --- Draw a circle at (x, y) of specified radius
 ---
 --- **Since:** 2.4.0

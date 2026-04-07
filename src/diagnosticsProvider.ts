@@ -32,7 +32,7 @@ export class DiagnosticsProvider {
       ast = luaparse.parse(source, {
         locations: true,
         ranges: true,
-        luaVersion: "5.2",
+        luaVersion: versionGte(version, "2.11") ? "5.3" : "5.2",
       });
     } catch {}
 
@@ -624,6 +624,18 @@ export class DiagnosticsProvider {
           this.error(
             range,
             "EdgeTX: 'useLvgl = true' is required to use the LVGL API in this script.",
+          ),
+        );
+      }
+
+      // bit32 deprecated in Lua 5.3 used in v2.11+
+      if (versionGte(profile.version, "2.11") && /bit32\./.test(line)) {
+        const col = line.indexOf("bit32");
+        const _range = new vscode.Range(i, col, i, col + 5);
+        diagnostics.push(
+          this.warning(
+            _range,
+            "bit32 is deprecated in Lua 5.3+. EdgeTX currently supports it, but consider using bitwise operators (&, |, ~) for future compatibility.",
           ),
         );
       }

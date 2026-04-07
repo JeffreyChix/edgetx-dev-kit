@@ -6,6 +6,11 @@ All notable changes to EdgeTX Dev Kit are documented here.
 
 Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-kit) to stay up to date.
 
+## [1.1.2] — 2026-04-06
+
+### Added
+- **`bit32` deprecation warning** — Warns when using `bit32` in EdgeTX v2.11+ (Lua 5.3), where it is deprecated in favor of native bitwise operators (`&`, `|`, `~`)
+
 ## [1.1.1] — 2026-04-06
 
 ### Fixed
@@ -40,6 +45,7 @@ Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-k
 ---
 
 [Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.0...HEAD
+[1.1.2]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.0.0...v1.1.2
 [1.1.1]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.0.0...v1.1.1
 [1.1.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/JeffreyChix/edgetx-dev-kit/releases/tag/v1.0.0

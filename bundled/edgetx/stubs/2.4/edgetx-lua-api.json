@@ -1,23 +1,21 @@
 {
   "version": "2.4",
-  "generated": "2026-04-06T17:48:55.298Z",
+  "generated": "2026-04-07T00:52:20.349Z",
   "functions": [
     {
       "entityType": "function",
       "module": "lcd",
       "name": "refresh",
       "signature": "lcd.refresh()",
-      "description": "Refresh the LCD screen",
+      "description": "Refresh the LCD screen\n\nFrom 2.4.0 on color LCDs, this is done automatically when the screen\nneeds to be refreshed (on events and depending on refresh period).",
       "parameters": [],
       "overloadParameters": [],
       "returns": [],
-      "notices": [
-        "This function only works in stand-alone and telemetry scripts."
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
+      "notices": [],
+      "status": "current Only used on non-color LCDs.",
+      "sinceVersion": "",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -43,7 +41,7 @@
       "status": "current Introduced in 2.0.0, `color` parameter introduced in 2.2.0 RC12",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -59,7 +57,7 @@
       "status": "current Introduced in 2.3.6",
       "sinceVersion": "2.3.6",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -99,7 +97,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -160,82 +158,8 @@
       "status": "current Introduced in 2.0.0, flags introduced in 2.3.6",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastPos",
-      "signature": "lcd.getLastPos()",
-      "description": "Returns the rightmost x position from previous output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis",
-        "For added clarity, it is recommended to use lcd.getLastRightPos()"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastRightPos",
-      "signature": "lcd.getLastRightPos()",
-      "description": "Returns the rightest x position from previous drawtext or drawNumber output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis",
-        "This is strictly equivalent to former lcd.getLastPos()"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getLastLeftPos",
-      "signature": "lcd.getLastLeftPos()",
-      "description": "Returns the leftmost x position from previous drawtext or drawNumber output",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "(integer) x position"
-        }
-      ],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
     },
     {
       "entityType": "function",
@@ -279,7 +203,7 @@
       "status": "current Introduced in 2.0.0, `SHADOWED` introduced in 2.2.1",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -324,7 +248,7 @@
       "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -369,7 +293,7 @@
       "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -414,7 +338,7 @@
       "status": "current Introduced in 2.0.6, changed in 2.1.0 (only telemetry sources are valid)",
       "sinceVersion": "2.0.6",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -459,7 +383,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -504,7 +428,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -536,7 +460,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp"
+      "sourceFile": "api_colorlcd.cpp"
     },
     {
       "entityType": "function",
@@ -574,7 +498,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp"
+      "sourceFile": "api_colorlcd.cpp"
     },
     {
       "entityType": "function",
@@ -620,48 +544,8 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawPixmap",
-      "signature": "lcd.drawPixmap(x, y, name)",
-      "description": "Draw a bitmap at (x,y)",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Maximum image size is [display width / 2] x [display height] pixels."
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
     },
     {
       "entityType": "function",
@@ -719,7 +603,7 @@
       "status": "current Introduced in 2.0.0, changed in 2.2.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -771,7 +655,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -837,109 +721,8 @@
       "status": "current Introduced in 2.0.0, changed in 2.2.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawScreenTitle",
-      "signature": "lcd.drawScreenTitle(title, page, pages)",
-      "description": "Draw a title bar",
-      "parameters": [
-        {
-          "name": "title",
-          "type": "string",
-          "description": "(string) text for the title",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "page",
-          "type": "number",
-          "description": "page number",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "pages",
-          "type": "number",
-          "description": "total number of pages. Only used as indicator on\nthe right side of title bar. (i.e. idx=2, cnt=5, display `2/5`)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawCombobox",
-      "signature": "lcd.drawCombobox(x, y, w, list, idx [, flags])",
-      "description": "Draw a combo box",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) top left corner position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(number) width of combo box in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "list",
-          "type": "table",
-          "description": "combo box elements, each element is a string",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "idx",
-          "type": "number",
-          "description": "(integer) index of entry to highlight",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(unsigned number) drawing flags, the flags can not be combined:\n`BLINK` combo box is expanded\n`INVERS` combo box collapsed, text inversed\n`0 or not present` combo box collapsed, text normal",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Taranis"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
-      "availableOn": "NON_COLOR_LCD"
     },
     {
       "entityType": "function",
@@ -951,7 +734,7 @@
         {
           "name": "area",
           "type": "number",
-          "description": "(unsigned number) specific screen area in the list bellow\n`CUSTOM_COLOR`\n`DEFAULT_COLOR`\n`DEFAULT_BGCOLOR`\n`FOCUS_COLOR`\n`FOCUS_BGCOLOR`\n`LINE_COLOR`\n`CHECKBOX_COLOR`\n`MENU_BGCOLOR`\n`MENU_COLOR`\n`MENU_TITLE_DISABLE_COLOR`\n`HEADER_COLOR`\n`ALARM_COLOR`\n`HIGHLIGHT_COLOR`\n`TEXT_DISABLE_COLOR`\n`HEADER_COLOR`\n`DISABLE_COLOR`\n`CURVE_CURSOR_COLOR`\n`TITLE_BGCOLOR`\n`TRIM_BGCOLOR`\n`TRIM_SHADOW_COLOR`\n`MAINVIEW_PANES_COLOR`\n`MAINVIEW_GRAPHICS_COLOR`\n`MENU_BGCOLOR`\n`HEADER_ICON_BGCOLOR`\n`HEADER_CURRENT_BGCOLOR`\n`MAINVIEW_PANES_COLOR`\n`MAINVIEW_GRAPHICS_COLOR`\n`OVERLAY_COLOR`\n`BARGRAPH1_COLOR`\n`BARGRAPH2_COLOR`\n`BARGRAPH_BGCOLOR`\n`CUSTOM_COLOR`",
+          "description": "(unsigned number) specific screen area in the list bellow\n`TEXT_COLOR`\n`TEXT_BGCOLOR`\n`TEXT_INVERTED_COLOR`\n`TEXT_INVERTED_BGCOLOR`\n`LINE_COLOR`\n`SCROLLBOX_COLOR`\n`MENU_TITLE_BGCOLOR`\n`MENU_TITLE_COLOR`\n`MENU_TITLE_DISABLE_COLOR`\n`HEADER_COLOR`\n`ALARM_COLOR`\n`WARNING_COLOR`\n`TEXT_DISABLE_COLOR`\n`CURVE_AXIS_COLOR`\n`CURVE_COLOR`\n`CURVE_CURSOR_COLOR`\n`TITLE_BGCOLOR`\n`TRIM_BGCOLOR`\n`TRIM_SHADOW_COLOR`\n`HEADER_BGCOLOR`\n`HEADER_ICON_BGCOLOR`\n`HEADER_CURRENT_BGCOLOR`\n`MAINVIEW_PANES_COLOR`\n`MAINVIEW_GRAPHICS_COLOR`\n`OVERLAY_COLOR`\n`BARGRAPH1_COLOR`\n`BARGRAPH2_COLOR`\n`BARGRAPH_BGCOLOR`\n`CUSTOM_COLOR`",
           "optional": false,
           "flagHints": []
         },
@@ -971,7 +754,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -997,7 +780,7 @@
       "status": "current Introduced in 2.3.11",
       "sinceVersion": "2.3.11",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -1043,7 +826,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_colorlcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -2535,6 +2318,221 @@
       "sinceVersion": "2.3.8",
       "deprecated": false,
       "sourceFile": "api_general.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getLastPos",
+      "signature": "lcd.getLastPos()",
+      "description": "Returns the rightmost x position from previous output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis",
+        "For added clarity, it is recommended to use lcd.getLastRightPos()"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getLastRightPos",
+      "signature": "lcd.getLastRightPos()",
+      "description": "Returns the rightest x position from previous drawtext or drawNumber output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis",
+        "This is strictly equivalent to former lcd.getLastPos()"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getLastLeftPos",
+      "signature": "lcd.getLastLeftPos()",
+      "description": "Returns the leftmost x position from previous drawtext or drawNumber output",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) x position"
+        }
+      ],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawPixmap",
+      "signature": "lcd.drawPixmap(x, y, name)",
+      "description": "Draw a bitmap at (x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Maximum image size is [display width / 2] x [display height] pixels."
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawScreenTitle",
+      "signature": "lcd.drawScreenTitle(title, page, pages)",
+      "description": "Draw a title bar",
+      "parameters": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "(string) text for the title",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": "page number",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "pages",
+          "type": "number",
+          "description": "total number of pages. Only used as indicator on\nthe right side of title bar. (i.e. idx=2, cnt=5, display `2/5`)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawCombobox",
+      "signature": "lcd.drawCombobox(x, y, w, list, idx [, flags])",
+      "description": "Draw a combo box",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) top left corner position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(number) width of combo box in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "list",
+          "type": "table",
+          "description": "combo box elements, each element is a string",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "idx",
+          "type": "number",
+          "description": "(integer) index of entry to highlight",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(unsigned number) drawing flags, the flags can not be combined:\n`BLINK` combo box is expanded\n`INVERS` combo box collapsed, text inversed\n`0 or not present` combo box collapsed, text normal",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Taranis"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "NON_COLOR_LCD"
     },
     {
       "entityType": "function",

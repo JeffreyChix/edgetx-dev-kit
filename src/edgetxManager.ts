@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { ProfileManager } from "./profileManager";
 import { VersionManager } from "./versionManager";
+import { versionGte } from "./utils/general";
 
 export class EdgeTXManager {
   private _active = false;
@@ -138,8 +139,7 @@ export class EdgeTXManager {
 
     const cleaned = current.filter((p) => !p.includes("stubs"));
 
-    //TODO: find a way to get edgetx radio lua supported version
-    const luaVersion = "Lua 5.2"; // let's stay at 5.2 for now
+    const luaVersion = versionGte(version, "2.11") ? "Lua 5.3" : "Lua 5.2";
 
     await luaConfig.update(
       "workspace.library",

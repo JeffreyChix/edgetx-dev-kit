@@ -1,6 +1,6 @@
 {
   "version": "2.7",
-  "generated": "2026-04-06T17:49:01.564Z",
+  "generated": "2026-04-07T00:52:25.747Z",
   "functions": [
     {
       "entityType": "function",
@@ -17,7 +17,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -43,7 +43,7 @@
       "status": "current Introduced in 2.0.0, `color` parameter introduced in 2.2.0 RC12",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -59,7 +59,7 @@
       "status": "current Introduced in 2.3.6",
       "sinceVersion": "2.3.6",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -99,7 +99,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -160,7 +160,7 @@
       "status": "current Introduced in 2.0.0, flags introduced in 2.3.6",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -185,7 +185,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -210,7 +210,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -234,7 +234,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -279,7 +279,7 @@
       "status": "current Introduced in 2.0.0, `SHADOWED` introduced in 2.2.1",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -324,7 +324,7 @@
       "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -369,7 +369,7 @@
       "status": "current Introduced in 2.0.0,  `SHADOWED` introduced in 2.2.1",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -414,7 +414,7 @@
       "status": "current Introduced in 2.0.6, changed in 2.1.0 (only telemetry sources are valid)",
       "sinceVersion": "2.0.6",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -459,7 +459,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -504,7 +504,123 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "Bitmap",
+      "name": "open",
+      "signature": "Bitmap.open(name)",
+      "description": "Loads a bitmap in memory, for later use with lcd.drawBitmap(). Bitmaps should be loaded only\nonce, returned object should be stored and used for drawing. If loading fails for whatever\nreason the resulting bitmap object will have width and height set to zero.\n\nBitmap loading can fail if:\nFile is not found or contains invalid image\nSystem is low on memory\nCombined memory usage of all Lua script bitmaps exceeds certain value",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "bitmap",
+          "type": "unknown",
+          "description": "(object) a bitmap object that can be used with other bitmap functions"
+        }
+      ],
+      "notices": [
+        "Only available on Horus"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "Bitmap",
+      "name": "getSize",
+      "signature": "Bitmap.getSize(name)",
+      "description": "Return width, height of a bitmap object",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "bitmap",
+          "type": "unknown",
+          "description": "(pointer) point to a bitmap previously opened with Bitmap.open()",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "multiple",
+          "type": "number",
+          "description": "returns 2 values:\n(number) width in pixels\n(number) height in pixels"
+        }
+      ],
+      "notices": [
+        "Only available on Horus"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawBitmap",
+      "signature": "lcd.drawBitmap(bitmap, x, y [, scale])",
+      "description": "Displays a bitmap at (x,y)",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "unknown",
+          "description": "(pointer) point to a bitmap previously opened with Bitmap.open()",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinates",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "scale",
+          "type": "number",
+          "description": "(positive numbers) scale in %, 50 divides size by two, 100 is unchanged, 200 doubles size.\nOmitting scale draws image in 1:1 scale and is faster than specifying 100 for scale.",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Horus"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -544,7 +660,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -603,7 +719,7 @@
       "status": "current Introduced in 2.0.0, changed in 2.2.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -655,7 +771,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -721,7 +837,7 @@
       "status": "current Introduced in 2.0.0, changed in 2.2.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "GENERAL"
     },
     {
@@ -761,7 +877,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -822,8 +938,113 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_stdlcd.cpp",
+      "sourceFile": "api_lcd.cpp",
       "availableOn": "NON_COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "setColor",
+      "signature": "lcd.setColor(area, color)",
+      "description": "Set a color for specific area",
+      "parameters": [
+        {
+          "name": "area",
+          "type": "number",
+          "description": "(unsigned number) specific screen area in the list bellow\n`CUSTOM_COLOR`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_SECONDARY3`\n`COLOR_THEME_PRIMARY2`\n`COLOR_THEME_FOCUS`\n`COLOR_THEME_PRIMARY3`\n`COLOR_THEME_FOCUS`\n`COLOR_THEME_PRIMARY2`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_PRIMARY3`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_WARNING`\n`COLOR_THEME_ACTIVE`\n`COLOR_THEME_DISABLED`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_DISABLED`\n`COLOR_THEME_WARNING`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_FOCUS`\n`COLOR_THEME_PRIMARY1`\n`COLOR_THEME_PRIMARY2`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_PRIMARY2`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_FOCUS`\n`COLOR_THEME_PRIMARY2`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_PRIMARY1`\n`COLOR_THEME_SECONDARY1`\n`COLOR_THEME_SECONDARY2`\n`COLOR_THEME_SECONDARY3`\n`CUSTOM_COLOR`",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "color",
+          "type": "number",
+          "description": "(number) color in 5/6/5 rgb format. The following prefined colors are available\n`WHITE`\n`GREY`\n`LIGHTGREY`\n`DARKGREY`\n`BLACK`\n`YELLOW`\n`BLUE`\n`RED`\n`DARKRED`",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Colorlcd radios"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "getColor",
+      "signature": "lcd.getColor(area)",
+      "description": "Get the color for specific area : see lcd.setColor for area list",
+      "parameters": [
+        {
+          "name": "area",
+          "type": "unknown",
+          "description": "",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on Colorlcd radios"
+      ],
+      "status": "current Introduced in 2.3.11",
+      "sinceVersion": "2.3.11",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "RGB",
+      "signature": "lcd.RGB(r, g, b)",
+      "description": "Returns a 5/6/5 rgb color code, that can be used with lcd.setColor",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "number",
+          "description": "a number between 0x00 and 0xff that expresses te amount of red in the color",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "g",
+          "type": "number",
+          "description": "a number between 0x00 and 0xff that expresses te amount of green in the color",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "b",
+          "type": "number",
+          "description": "a number between 0x00 and 0xff that expresses te amount of blue in the color",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "(integer) rgb color expressed in 5/6/5 format"
+        }
+      ],
+      "notices": [
+        "Only available on Colorlcd radios"
+      ],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_lcd.cpp",
+      "availableOn": "GENERAL"
     },
     {
       "entityType": "function",
@@ -918,919 +1139,6 @@
       "sinceVersion": "2.5.0",
       "deprecated": false,
       "sourceFile": "api_filesystem.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "sizeText",
-      "signature": "lcd.sizeText(text [, flags])",
-      "description": "Get the width and height of a text string drawn with flags",
-      "parameters": [
-        {
-          "name": "text",
-          "type": "string",
-          "description": "(string)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(integers) width and height of the text"
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "(integers) width and height of the text"
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.5.0",
-      "sinceVersion": "2.5.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawTextLines",
-      "signature": "lcd.drawTextLines(x, y, w, h, text [, flags])",
-      "description": "Draw text inside rectangle (x,y,w,h) with line breaks",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinate",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "w",
-          "type": "number",
-          "description": "(positive numbers) width and height of bounding rectangle",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "(positive numbers) width and height of bounding rectangle",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "text",
-          "type": "string",
-          "description": "(string) text to display",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html) for drawing flags and colors, and [Appendix](../../part_vii_-_appendix/fonts.md) for available characters in each font set. RIGHT, CENTER and VCENTER are not implemented.",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.5.0",
-      "sinceVersion": "2.5.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "Bitmap",
-      "name": "open",
-      "signature": "Bitmap.open(name)",
-      "description": "Loads a bitmap in memory, for later use with lcd.drawBitmap(). Bitmaps should be loaded only\nonce, returned object should be stored and used for drawing. If loading fails for whatever\nreason the resulting bitmap object will have width and height set to zero.\n\nBitmap loading can fail if:\nFile is not found or contains invalid image\nSystem is low on memory\nCombined memory usage of all Lua script bitmaps exceeds certain value",
-      "parameters": [
-        {
-          "name": "name",
-          "type": "string",
-          "description": "(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "bitmap",
-          "type": "unknown",
-          "description": "(object) a bitmap object that can be used with other bitmap functions"
-        }
-      ],
-      "notices": [
-        "Only available on Horus"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "Bitmap",
-      "name": "getSize",
-      "signature": "Bitmap.getSize(name)",
-      "description": "Return width, height of a bitmap object",
-      "parameters": [
-        {
-          "name": "name",
-          "type": "string",
-          "description": "",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "bitmap",
-          "type": "unknown",
-          "description": "(pointer) point to a bitmap previously opened with Bitmap.open()",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "multiple",
-          "type": "number",
-          "description": "returns 2 values:\n(number) width in pixels\n(number) height in pixels"
-        }
-      ],
-      "notices": [
-        "Only available on Horus"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawBitmap",
-      "signature": "lcd.drawBitmap(bitmap, x, y [, scale])",
-      "description": "Displays a bitmap at (x,y)",
-      "parameters": [
-        {
-          "name": "bitmap",
-          "type": "unknown",
-          "description": "(pointer) point to a bitmap previously opened with Bitmap.open()",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) starting coordinates",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "scale",
-          "type": "number",
-          "description": "(positive numbers) scale in %, 50 divides size by two, 100 is unchanged, 200 doubles size.\nOmitting scale draws image in 1:1 scale and is faster than specifying 100 for scale.",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on Horus"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "setColor",
-      "signature": "lcd.setColor(colorIndex, color)",
-      "description": "Change an indexed color (theme colors and CUSTOM_COLOR). Please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html#color-constants)\n\nPlease notice that changing theme colors affects not only other Lua widgets, but the entire radio interface.",
-      "parameters": [
-        {
-          "name": "colorIndex",
-          "type": "number",
-          "description": "",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "color",
-          "type": "number",
-          "description": "",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on radios with color display"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "getColor",
-      "signature": "lcd.getColor(flags)",
-      "description": "Get the color value from flags",
-      "parameters": [
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(flags) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "color",
-          "type": "number",
-          "description": "(flag) only the RGB565 color value of the input"
-        }
-      ],
-      "notices": [
-        "Only available on radios with color display"
-      ],
-      "status": "current Introduced in 2.3.11",
-      "sinceVersion": "2.3.11",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "RGB",
-      "signature": "lcd.RGB(r, g, b | rgb)",
-      "description": "Returns a drawing flag with RGB color code",
-      "parameters": [
-        {
-          "name": "r",
-          "type": "number",
-          "description": "a number between 0 and 255 that expresses the amount of red in the color",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "g",
-          "type": "number",
-          "description": "a number between 0 and 255 that expresses the amount of green in the color",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "b",
-          "type": "number",
-          "description": "a number between 0 and 255 that expresses the amount of blue in the color",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [
-        {
-          "name": "rgb",
-          "type": "number",
-          "description": "a number between 0 and 0xFFFFFF that expresses the RGB value (0xFF000=RED, 0x00FF00=GREEN, 0x0000FF=BLUE)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "returns": [
-        {
-          "name": "flag",
-          "type": "number",
-          "description": "with RGB565 color"
-        }
-      ],
-      "notices": [
-        "Only available on radios with color display. Use *either* lcd.RGB(r,g,b) *or* lcd.RGB(rgb)"
-      ],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "GENERAL"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawCircle",
-      "signature": "lcd.drawCircle(x, y, r [, flags])",
-      "description": "Draw a circle at (x, y) of specified radius",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) center position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) center position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "r",
-          "type": "number",
-          "description": "radius in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawFilledCircle",
-      "signature": "lcd.drawFilledCircle(x, y, r [, flags])",
-      "description": "Draw a filled circle at (x, y) of specified radius",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) center position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) center position",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "r",
-          "type": "number",
-          "description": "radius in pixels",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawTriangle",
-      "signature": "lcd.drawTriangle(x1, y1, x2, y2, x3, y3 [, flags])",
-      "description": "Draw a triangle",
-      "parameters": [
-        {
-          "name": "x1",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y1",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "x2",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y2",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "x3",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y3",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawFilledTriangle",
-      "signature": "lcd.drawFilledTriangle(x1, y1, x2, y2, x3, y3 [, flags])",
-      "description": "Draw a filled triangle",
-      "parameters": [
-        {
-          "name": "x1",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y1",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "x2",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y2",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "x3",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y3",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the three vertices",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawArc",
-      "signature": "lcd.drawArc(x, y, r, start, end [, flags])",
-      "description": "Draw an arc",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the center",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the center",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "r",
-          "type": "number",
-          "description": "(positive number) radius",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "start",
-          "type": "number",
-          "description": "(positive numbers) start and end of the arc",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "end",
-          "type": "number",
-          "description": "(positive numbers) start and end of the arc",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawPie",
-      "signature": "lcd.drawPie(x, y, r, start, end [, flags])",
-      "description": "Draw a pie slice",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the center",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the center",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "r",
-          "type": "number",
-          "description": "(positive number) radius",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "start",
-          "type": "number",
-          "description": "(positive numbers) start and end of the pie slice",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "end",
-          "type": "number",
-          "description": "(positive numbers) start and end of the pie slice",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawAnnulus",
-      "signature": "lcd.drawAnnulus(x, y, r1, r2, start, end [, flags])",
-      "description": "Draw an arc",
-      "parameters": [
-        {
-          "name": "x",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the center",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the center",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "r1",
-          "type": "number",
-          "description": "(positive numbers) radii of the inside and outside of the annulus",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "r2",
-          "type": "number",
-          "description": "(positive numbers) radii of the inside and outside of the annulus",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "start",
-          "type": "number",
-          "description": "(positive numbers) start and end of the annulus",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "end",
-          "type": "number",
-          "description": "(positive numbers) start and end of the annulus",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawLineWithClipping",
-      "signature": "lcd.drawLineWithClipping(x1, y1, x2, y2, xmin, xmax, ymin, ymax, pattern [, flags])",
-      "description": "Draw a line only inside a rectangle",
-      "parameters": [
-        {
-          "name": "x1",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the start and end of the unclipped line",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y1",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the start and end of the unclipped line",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "x2",
-          "type": "number",
-          "description": "(positive numbers) coordinates of the start and end of the unclipped line",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "y2",
-          "type": "unknown",
-          "description": "",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "xmin",
-          "type": "number",
-          "description": "(positive numbers) the limits of the rectangle inside which the line is drawn",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "xmax",
-          "type": "number",
-          "description": "(positive numbers) the limits of the rectangle inside which the line is drawn",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "ymin",
-          "type": "number",
-          "description": "(positive numbers) the limits of the rectangle inside which the line is drawn",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "ymax",
-          "type": "number",
-          "description": "(positive numbers) the limits of the rectangle inside which the line is drawn",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "pattern",
-          "type": "number",
-          "description": "(FORCE, ERASE, DOTTED) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "drawHudRectangle",
-      "signature": "lcd.drawHudRectangle(pitch, roll, xmin, xmax, ymin, ymax [, flags])",
-      "description": "Draw a rectangle in perspective",
-      "parameters": [
-        {
-          "name": "pitch",
-          "type": "number",
-          "description": "(positive numbers) pitch and roll to define the orientation of the rectangle",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "roll",
-          "type": "number",
-          "description": "(positive numbers) pitch and roll to define the orientation of the rectangle",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "xmin",
-          "type": "number",
-          "description": "(positive numbers) the limits of the rectangle",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "xmax",
-          "type": "number",
-          "description": "(positive numbers) the limits of the rectangle",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "ymin",
-          "type": "number",
-          "description": "(positive numbers) the limits of the rectangle",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "ymax",
-          "type": "number",
-          "description": "(positive numbers) the limits of the rectangle",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flags",
-          "type": "number",
-          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
-          "optional": true,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.4.0",
-      "sinceVersion": "2.4.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "lcd",
-      "name": "exitFullScreen",
-      "signature": "lcd.exitFullScreen()",
-      "description": "Exit full screen widget mode.",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Only available on radios with color display"
-      ],
-      "status": "current Introduced in 2.5.0",
-      "sinceVersion": "2.5.0",
-      "deprecated": false,
-      "sourceFile": "api_colorlcd.cpp",
-      "availableOn": "COLOR_LCD"
     },
     {
       "entityType": "function",
@@ -3321,6 +2629,684 @@
       "sinceVersion": "2.3.11",
       "deprecated": false,
       "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "sizeText",
+      "signature": "lcd.sizeText(text [, flags])",
+      "description": "Get the width and height of a text string drawn with flags",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "(string)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(integers) width and height of the text"
+        },
+        {
+          "name": "h",
+          "type": "number",
+          "description": "(integers) width and height of the text"
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.5.0",
+      "sinceVersion": "2.5.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawTextLines",
+      "signature": "lcd.drawTextLines(x, y, w, h, text [, flags])",
+      "description": "Draw text inside rectangle (x,y,w,h) with line breaks",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) starting coordinate",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "w",
+          "type": "number",
+          "description": "(positive numbers) width and height of bounding rectangle",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "h",
+          "type": "number",
+          "description": "(positive numbers) width and height of bounding rectangle",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "description": "(string) text to display",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html) for drawing flags and colors, and [Appendix](../../part_vii_-_appendix/fonts.md) for available characters in each font set. RIGHT, CENTER and VCENTER are not implemented.",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.5.0",
+      "sinceVersion": "2.5.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawCircle",
+      "signature": "lcd.drawCircle(x, y, r [, flags])",
+      "description": "Draw a circle at (x, y) of specified radius",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) center position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) center position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "r",
+          "type": "number",
+          "description": "radius in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawFilledCircle",
+      "signature": "lcd.drawFilledCircle(x, y, r [, flags])",
+      "description": "Draw a filled circle at (x, y) of specified radius",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) center position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) center position",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "r",
+          "type": "number",
+          "description": "radius in pixels",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawTriangle",
+      "signature": "lcd.drawTriangle(x1, y1, x2, y2, x3, y3 [, flags])",
+      "description": "Draw a triangle",
+      "parameters": [
+        {
+          "name": "x1",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y1",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "x2",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y2",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "x3",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y3",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawFilledTriangle",
+      "signature": "lcd.drawFilledTriangle(x1, y1, x2, y2, x3, y3 [, flags])",
+      "description": "Draw a filled triangle",
+      "parameters": [
+        {
+          "name": "x1",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y1",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "x2",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y2",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "x3",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y3",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the three vertices",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawArc",
+      "signature": "lcd.drawArc(x, y, r, start, end [, flags])",
+      "description": "Draw an arc",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the center",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the center",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "r",
+          "type": "number",
+          "description": "(positive number) radius",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "start",
+          "type": "number",
+          "description": "(positive numbers) start and end of the arc",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "end",
+          "type": "number",
+          "description": "(positive numbers) start and end of the arc",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawPie",
+      "signature": "lcd.drawPie(x, y, r, start, end [, flags])",
+      "description": "Draw a pie slice",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the center",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the center",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "r",
+          "type": "number",
+          "description": "(positive number) radius",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "start",
+          "type": "number",
+          "description": "(positive numbers) start and end of the pie slice",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "end",
+          "type": "number",
+          "description": "(positive numbers) start and end of the pie slice",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawAnnulus",
+      "signature": "lcd.drawAnnulus(x, y, r1, r2, start, end [, flags])",
+      "description": "Draw an arc",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the center",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the center",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "r1",
+          "type": "number",
+          "description": "(positive numbers) radii of the inside and outside of the annulus",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "r2",
+          "type": "number",
+          "description": "(positive numbers) radii of the inside and outside of the annulus",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "start",
+          "type": "number",
+          "description": "(positive numbers) start and end of the annulus",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "end",
+          "type": "number",
+          "description": "(positive numbers) start and end of the annulus",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawLineWithClipping",
+      "signature": "lcd.drawLineWithClipping(x1, y1, x2, y2, xmin, xmax, ymin, ymax, pattern [, flags])",
+      "description": "Draw a line only inside a rectangle",
+      "parameters": [
+        {
+          "name": "x1",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the start and end of the unclipped line",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y1",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the start and end of the unclipped line",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "x2",
+          "type": "number",
+          "description": "(positive numbers) coordinates of the start and end of the unclipped line",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "y2",
+          "type": "unknown",
+          "description": "",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "xmin",
+          "type": "number",
+          "description": "(positive numbers) the limits of the rectangle inside which the line is drawn",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "xmax",
+          "type": "number",
+          "description": "(positive numbers) the limits of the rectangle inside which the line is drawn",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "ymin",
+          "type": "number",
+          "description": "(positive numbers) the limits of the rectangle inside which the line is drawn",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "ymax",
+          "type": "number",
+          "description": "(positive numbers) the limits of the rectangle inside which the line is drawn",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "pattern",
+          "type": "number",
+          "description": "(FORCE, ERASE, DOTTED) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "drawHudRectangle",
+      "signature": "lcd.drawHudRectangle(pitch, roll, xmin, xmax, ymin, ymax [, flags])",
+      "description": "Draw a rectangle in perspective",
+      "parameters": [
+        {
+          "name": "pitch",
+          "type": "number",
+          "description": "(positive numbers) pitch and roll to define the orientation of the rectangle",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "roll",
+          "type": "number",
+          "description": "(positive numbers) pitch and roll to define the orientation of the rectangle",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "xmin",
+          "type": "number",
+          "description": "(positive numbers) the limits of the rectangle",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "xmax",
+          "type": "number",
+          "description": "(positive numbers) the limits of the rectangle",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "ymin",
+          "type": "number",
+          "description": "(positive numbers) the limits of the rectangle",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "ymax",
+          "type": "number",
+          "description": "(positive numbers) the limits of the rectangle",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)",
+          "optional": true,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.4.0",
+      "sinceVersion": "2.4.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
+    },
+    {
+      "entityType": "function",
+      "module": "lcd",
+      "name": "exitFullScreen",
+      "signature": "lcd.exitFullScreen()",
+      "description": "Exit full screen widget mode.",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Only available on radios with color display"
+      ],
+      "status": "current Introduced in 2.5.0",
+      "sinceVersion": "2.5.0",
+      "deprecated": false,
+      "sourceFile": "api_colorlcd.cpp",
+      "availableOn": "COLOR_LCD"
     },
     {
       "entityType": "function",

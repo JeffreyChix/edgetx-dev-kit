@@ -8,14 +8,14 @@
 lcd = {}
 
 --- Refresh the LCD screen
+--- 
+--- From 2.4.0 on color LCDs, this is done automatically when the screen
+--- needs to be refreshed (on events and depending on refresh period).
 ---
---- **Since:** 2.2.0
---- > **Notice:** This function only works in stand-alone and telemetry scripts.
 function lcd.refresh() end
 --- Clear the LCD screen
 ---
 --- **Since:** 2.0.0
---- > **Notice:** This function only works in stand-alone and telemetry scripts.
 ---@param color? number #(optional, only on color screens)
 function lcd.clear(color) end
 --- Reset the backlight timeout
@@ -30,7 +30,7 @@ function lcd.resetBacklightTimeout() end
 --- > bottom line is 63. Drawing on an existing black pixel produces white pixel (TODO check this!)
 ---@param x number #(positive number) x position
 ---@param y number #(positive number) y position
----@param flags? number #(optional) lcdflags
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
 function lcd.drawPoint(x, y, flags) end
 --- Draw a straight line on LCD
 ---
@@ -42,231 +42,17 @@ function lcd.drawPoint(x, y, flags) end
 ---@param x2 number #(positive numbers) end coordinate
 ---@param y2 number #(positive numbers) end coordinate
 ---@param pattern number #SOLID or DOTTED
----@param flags? number #lcdflags
+---@param flags? number #(optional) lcdflags
 function lcd.drawLine(x1, y1, x2, y2, pattern, flags) end
---- Returns the rightmost x position from previous output
----
---- **Since:** 2.0.0
---- > **Notice:** Only available on Taranis
---- > **Notice:** For added clarity, it is recommended to use lcd.getLastRightPos()
----@return number number #(integer) x position
-function lcd.getLastPos() end
---- Returns the rightest x position from previous drawtext or drawNumber output
----
---- **Since:** 2.2.0
---- > **Notice:** Only available on Taranis
---- > **Notice:** This is strictly equivalent to former lcd.getLastPos()
----@return number number #(integer) x position
-function lcd.getLastRightPos() end
---- Returns the leftmost x position from previous drawtext or drawNumber output
----
---- **Since:** 2.2.0
---- > **Notice:** Only available on Taranis
----@return number number #(integer) x position
-function lcd.getLastLeftPos() end
 --- Draw a text beginning at (x,y)
 ---
 --- **Since:** 2.0.0
 ---@param x number #(positive numbers) starting coordinate
 ---@param y number #(positive numbers) starting coordinate
 ---@param text string #(string) text to display
----@param flags? number #(unsigned number) drawing flags. All values can be
---- combined together using the + character. ie BLINK + DBLSIZE.
---- See the [Appendix](../appendix/fonts.md) for available characters in each font set.
---- `0 or not specified` normal font
---- `XXLSIZE` jumbo sized font
---- `DBLSIZE` double size font
---- `MIDSIZE` mid sized font
---- `SMLSIZE` small font
---- `INVERS` inverted display
---- `BLINK` blinking text
---- `SHADOWED` Horus only, apply a shadow effect
-function lcd.drawText(x, y, text, flags) end
---- Display a value formatted as time at (x,y)
----
---- **Since:** 2.0.0
----@param x number #(positive numbers) starting coordinate
----@param y number #(positive numbers) starting coordinate
----@param value number #(number) time in seconds
----@param flags? number #(unsigned number) drawing flags:
---- `0 or not specified` normal representation (minutes and seconds)
---- `TIMEHOUR` display hours
---- other general LCD flag also apply
---- `SHADOWED` Horus only, apply a shadow effect
-function lcd.drawTimer(x, y, value, flags) end
---- Display a number at (x,y)
----
---- **Since:** 2.0.0
----@param x number #(positive numbers) starting coordinate
----@param y number #(positive numbers) starting coordinate
----@param value number #(number) value to display
----@param flags? number #(unsigned number) drawing flags:
---- `0 or not specified` display with no decimal (like abs())
---- `PREC1` display with one decimal place (number 386 is displayed as 38.6)
---- `PREC2` display with tow decimal places (number 386 is displayed as 3.86)
---- other general LCD flag also apply
---- `SHADOWED` Horus only, apply a shadow effect
-function lcd.drawNumber(x, y, value, flags) end
---- Display a telemetry value at (x,y)
----
---- **Since:** 2.0.6
----@param x number #(positive numbers) starting coordinate
----@param y number #(positive numbers) starting coordinate
----@param source number|string #can be a source identifier (number) or a source name (string).
---- See getValue()
----@param flags? number #(unsigned number) drawing flags
-function lcd.drawChannel(x, y, source, flags) end
---- Draw a text representation of switch at (x,y)
----
---- **Since:** 2.0.0
----@param x number #(positive numbers) starting coordinate
----@param y number #(positive numbers) starting coordinate
----@param switch number #number of switch to display, negative number
---- displays negated switch
----@param flags? number #(unsigned number) drawing flags, only SMLSIZE, BLINK and INVERS.
-function lcd.drawSwitch(x, y, switch, flags) end
---- Displays the name of the corresponding input as defined by the source at (x,y)
----
---- **Since:** 2.0.0
----@param x number #(positive numbers) starting coordinate
----@param y number #(positive numbers) starting coordinate
----@param source number #source index
----@param flags? number #(unsigned number) drawing flags
-function lcd.drawSource(x, y, source, flags) end
---- Displays a bitmap at (x,y)
----
---- **Since:** 2.2.0
---- > **Notice:** Only available on Horus
----@param bitmap any #(pointer) point to a bitmap previously opened with Bitmap.open()
----@param x number #(positive numbers) starting coordinates
----@param y number #(positive numbers) starting coordinates
----@param scale? number #(positive numbers) scale in %, 50 divides size by two, 100 is unchanged, 200 doubles size.
---- Omitting scale draws image in 1:1 scale and is faster than specifying 100 for scale.
-function lcd.drawBitmap(bitmap, x, y, scale) end
---- Draw a bitmap at (x,y)
----
---- **Since:** 2.0.0
---- > **Notice:** Maximum image size is [display width / 2] x [display height] pixels.
----@param x number #(positive numbers) starting coordinates
----@param y number #(positive numbers) starting coordinates
----@param name string #(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)
-function lcd.drawPixmap(x, y, name) end
---- Draw a rectangle from top left corner (x,y) of specified width and height
----
---- **Since:** 2.0.0
----@param x number #(positive numbers) top left corner position
----@param y number #(positive numbers) top left corner position
----@param w number #(number) width in pixels
----@param h number #(number) height in pixels
----@param flags? number #(unsigned number) drawing flags
----@param t? number #thickness in pixels, defaults to 1 (only on Horus)
-function lcd.drawRectangle(x, y, w, h, flags, t) end
---- Draw a solid rectangle from top left corner (x,y) of specified width and height
----
---- **Since:** 2.0.0
----@param x number #(positive numbers) top left corner position
----@param y number #(positive numbers) top left corner position
----@param w number #(number) width in pixels
----@param h number #(number) height in pixels
----@param flags? number #(unsigned number) drawing flags
-function lcd.drawFilledRectangle(x, y, w, h, flags) end
---- Draw a simple gauge that is filled based upon fill value
----
---- **Since:** 2.0.0
----@param x number #(positive numbers) top left corner position
----@param y number #(positive numbers) top left corner position
----@param w number #(number) width in pixels
----@param h number #(number) height in pixels
----@param fill number #amount of fill to apply
----@param maxfill number #total value of fill
----@param flags? number #(unsigned number) drawing flags
-function lcd.drawGauge(x, y, w, h, fill, maxfill, flags) end
---- Draw a title bar
----
---- **Since:** 2.0.0
---- > **Notice:** Only available on Taranis
----@param title string #(string) text for the title
----@param page number #page number
----@param pages number #total number of pages. Only used as indicator on
---- the right side of title bar. (i.e. idx=2, cnt=5, display `2/5`)
-function lcd.drawScreenTitle(title, page, pages) end
---- Draw a combo box
----
---- **Since:** 2.0.0
---- > **Notice:** Only available on Taranis
----@param x number #(positive numbers) top left corner position
----@param y number #(positive numbers) top left corner position
----@param w number #(number) width of combo box in pixels
----@param list table #combo box elements, each element is a string
----@param idx number #(integer) index of entry to highlight
----@param flags? number #(unsigned number) drawing flags, the flags can not be combined:
---- `BLINK` combo box is expanded
---- `INVERS` combo box collapsed, text inversed
---- `0 or not present` combo box collapsed, text normal
-function lcd.drawCombobox(x, y, w, list, idx, flags) end
---- Set a color for specific area
----
---- **Since:** 2.2.0
---- > **Notice:** Only available on Colorlcd radios
----@param area number #(unsigned number) specific screen area in the list bellow
---- `CUSTOM_COLOR`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_SECONDARY3`
---- `COLOR_THEME_PRIMARY2`
---- `COLOR_THEME_FOCUS`
---- `COLOR_THEME_PRIMARY3`
---- `COLOR_THEME_FOCUS`
---- `COLOR_THEME_PRIMARY2`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_PRIMARY3`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_WARNING`
---- `COLOR_THEME_ACTIVE`
---- `COLOR_THEME_DISABLED`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_DISABLED`
---- `COLOR_THEME_WARNING`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_FOCUS`
---- `COLOR_THEME_PRIMARY1`
---- `COLOR_THEME_PRIMARY2`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_PRIMARY2`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_FOCUS`
---- `COLOR_THEME_PRIMARY2`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_PRIMARY1`
---- `COLOR_THEME_SECONDARY1`
---- `COLOR_THEME_SECONDARY2`
---- `COLOR_THEME_SECONDARY3`
---- `CUSTOM_COLOR`
----@param color number #(number) color in 5/6/5 rgb format. The following prefined colors are available
---- `WHITE`
---- `GREY`
---- `LIGHTGREY`
---- `DARKGREY`
---- `BLACK`
---- `YELLOW`
---- `BLUE`
---- `RED`
---- `DARKRED`
-function lcd.setColor(area, color) end
---- Get the color for specific area : see lcd.setColor for area list
----
---- **Since:** 2.3.11
---- > **Notice:** Only available on Colorlcd radios
----@param area any
-function lcd.getColor(area) end
---- Returns a 5/6/5 rgb color code, that can be used with lcd.setColor
----
---- **Since:** 2.2.0
---- > **Notice:** Only available on Colorlcd radios
----@param r number #a number between 0x00 and 0xff that expresses te amount of red in the color
----@param g number #a number between 0x00 and 0xff that expresses te amount of green in the color
----@param b number #a number between 0x00 and 0xff that expresses te amount of blue in the color
----@return number number #(integer) rgb color expressed in 5/6/5 format
-function lcd.RGB(r, g, b) end
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html) for drawing flags and colors, and [Appendix](../../part_vii_-_appendix/fonts.md) for available characters in each font set.
+---@param inversColor? number|string #(optional with the INVERS flag) overrides the inverse text color for INVERS
+function lcd.drawText(x, y, text, flags, inversColor) end
 --- Get the width and height of a text string drawn with flags
 ---
 --- **Since:** 2.5.0
@@ -285,6 +71,60 @@ function lcd.sizeText(text, flags) end
 ---@param text string #(string) text to display
 ---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html) for drawing flags and colors, and [Appendix](../../part_vii_-_appendix/fonts.md) for available characters in each font set. RIGHT, CENTER and VCENTER are not implemented.
 function lcd.drawTextLines(x, y, w, h, text, flags) end
+--- Display a value formatted as time at (x,y)
+---
+--- **Since:** 2.0.0
+---@param x number #(positive numbers) starting coordinate
+---@param y number #(positive numbers) starting coordinate
+---@param value number #(number) time in seconds
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
+---@param inversColor? number|string #(optional with INVERS flag) overrides the inverse text color for INVERS
+function lcd.drawTimer(x, y, value, flags, inversColor) end
+--- Display a number at (x,y)
+---
+--- **Since:** 2.0.0
+---@param x number #(positive numbers) starting coordinate
+---@param y number #(positive numbers) starting coordinate
+---@param value number #(number) value to display
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
+---@param inversColor? number|string #(optional with INVERS flag) overrides the inverse text color for INVERS
+function lcd.drawNumber(x, y, value, flags, inversColor) end
+--- Display a telemetry value at (x,y)
+---
+--- **Since:** 2.0.6
+---@param x number #(positive numbers) starting coordinate
+---@param y number #(positive numbers) starting coordinate
+---@param source number|string #can be a source identifier (number) or a source name (string).
+--- See getValue()
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
+function lcd.drawChannel(x, y, source, flags) end
+--- Draw a text representation of switch at (x,y)
+---
+--- **Since:** 2.0.0
+---@param x number #(positive numbers) starting coordinate
+---@param y number #(positive numbers) starting coordinate
+---@param switch number #number of switch to display, negative number
+--- displays negated switch
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html), only SMLSIZE, BLINK and INVERS.
+function lcd.drawSwitch(x, y, switch, flags) end
+--- Displays the name of the corresponding input as defined by the source at (x,y)
+---
+--- **Since:** 2.0.0
+---@param x number #(positive numbers) starting coordinate
+---@param y number #(positive numbers) starting coordinate
+---@param source number #source index
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
+function lcd.drawSource(x, y, source, flags) end
+--- Displays a bitmap at (x,y)
+---
+--- **Since:** 2.2.0
+--- > **Notice:** Only available on Horus
+---@param bitmap any #(pointer) point to a bitmap previously opened with Bitmap.open()
+---@param x number #(positive numbers) starting coordinates
+---@param y number #(positive numbers) starting coordinates
+---@param scale? number #(positive numbers) scale in %, 50 divides size by two, 100 is unchanged, 200 doubles size.
+--- Omitting scale draws image in 1:1 scale and is faster than specifying 100 for scale.
+function lcd.drawBitmap(bitmap, x, y, scale) end
 --- Displays a bitmap pattern at (x,y)
 ---
 --- **Since:** 2.8.0
@@ -305,6 +145,27 @@ function lcd.drawBitmapPattern(bitmap, x, y, flags) end
 ---@param endAngle any #End angle
 ---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
 function lcd.drawBitmapPatternPie(bitmap, x, y, startAngle, endAngle, flags) end
+--- Draw a rectangle from top left corner (x,y) of specified width and height
+---
+--- **Since:** 2.0.0
+---@param x number #(positive numbers) top left corner position
+---@param y number #(positive numbers) top left corner position
+---@param w number #(number) width in pixels
+---@param h number #(number) height in pixels
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
+---@param t? number #thickness in pixels, defaults to 1 (only on Horus)
+---@param opacity? number #opacity defaults to 0 (only on Horus)
+function lcd.drawRectangle(x, y, w, h, flags, t, opacity) end
+--- Draw a solid rectangle from top left corner (x,y) of specified width and height
+---
+--- **Since:** 2.0.0
+---@param x number #(positive numbers) top left corner position
+---@param y number #(positive numbers) top left corner position
+---@param w number #(number) width in pixels
+---@param h number #(number) height in pixels
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
+---@param opacity? number #opacity defaults to 0 (only on Horus)
+function lcd.drawFilledRectangle(x, y, w, h, flags, opacity) end
 --- Invert a rectangle zone from top left corner (x,y) of specified width and height
 ---
 --- **Since:** 2.8.0
@@ -314,6 +175,43 @@ function lcd.drawBitmapPatternPie(bitmap, x, y, startAngle, endAngle, flags) end
 ---@param h number #(number) height in pixels
 ---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
 function lcd.invertRect(x, y, w, h, flags) end
+--- Draw a simple gauge that is filled based upon fill value
+---
+--- **Since:** 2.0.0
+---@param x number #(positive numbers) top left corner position
+---@param y number #(positive numbers) top left corner position
+---@param w number #(number) width in pixels
+---@param h number #(number) height in pixels
+---@param fill number #amount of fill to apply
+---@param maxfill number #total value of fill
+---@param flags? number #(optional) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
+function lcd.drawGauge(x, y, w, h, fill, maxfill, flags) end
+--- Change an indexed color (theme colors and CUSTOM_COLOR). Please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html#color-constants)
+--- 
+--- Please notice that changing theme colors affects not only other Lua widgets, but the entire radio interface.
+---
+--- **Since:** 2.2.0
+--- > **Notice:** Only available on radios with color display
+---@param colorIndex number
+---@param color number
+function lcd.setColor(colorIndex, color) end
+--- Get the color value from flags
+---
+--- **Since:** 2.3.11
+--- > **Notice:** Only available on radios with color display
+---@param flags? number #(flags) please see [Lcd functions overview](../lcd-functions-less-than-greater-than-luadoc-begin-lcd/lcd_functions-overview.html)
+---@return number color #(flag) only the RGB565 color value of the input
+function lcd.getColor(flags) end
+--- Returns a drawing flag with RGB color code
+---
+--- **Since:** 2.2.0
+--- > **Notice:** Only available on radios with color display. Use *either* lcd.RGB(r,g,b) *or* lcd.RGB(rgb)
+---@param r number #a number between 0 and 255 that expresses the amount of red in the color
+---@param g number #a number between 0 and 255 that expresses the amount of green in the color
+---@param b number #a number between 0 and 255 that expresses the amount of blue in the color
+---@overload fun(rgb: number): number #a number between 0 and 0xFFFFFF that expresses the RGB value (0xFF000=RED, 0x00FF00=GREEN, 0x0000FF=BLUE)
+---@return number flag #with RGB565 color
+function lcd.RGB(r, g, b) end
 --- Draw a circle at (x, y) of specified radius
 ---
 --- **Since:** 2.4.0
@@ -413,3 +311,54 @@ function lcd.drawHudRectangle(pitch, roll, xmin, xmax, ymin, ymax, flags) end
 --- **Since:** 2.5.0
 --- > **Notice:** Only available on radios with color display
 function lcd.exitFullScreen() end
+--- Returns the rightmost x position from previous output
+---
+--- **Since:** 2.0.0
+--- > **Notice:** Only available on Taranis
+--- > **Notice:** For added clarity, it is recommended to use lcd.getLastRightPos()
+---@return number number #(integer) x position
+function lcd.getLastPos() end
+--- Returns the rightest x position from previous drawtext or drawNumber output
+---
+--- **Since:** 2.2.0
+--- > **Notice:** Only available on Taranis
+--- > **Notice:** This is strictly equivalent to former lcd.getLastPos()
+---@return number number #(integer) x position
+function lcd.getLastRightPos() end
+--- Returns the leftmost x position from previous drawtext or drawNumber output
+---
+--- **Since:** 2.2.0
+--- > **Notice:** Only available on Taranis
+---@return number number #(integer) x position
+function lcd.getLastLeftPos() end
+--- Draw a bitmap at (x,y)
+---
+--- **Since:** 2.0.0
+--- > **Notice:** Maximum image size is [display width / 2] x [display height] pixels.
+---@param x number #(positive numbers) starting coordinates
+---@param y number #(positive numbers) starting coordinates
+---@param name string #(string) full path to the bitmap on SD card (i.e. “/IMAGES/test.bmp”)
+function lcd.drawPixmap(x, y, name) end
+--- Draw a title bar
+---
+--- **Since:** 2.0.0
+--- > **Notice:** Only available on Taranis
+---@param title string #(string) text for the title
+---@param page number #page number
+---@param pages number #total number of pages. Only used as indicator on
+--- the right side of title bar. (i.e. idx=2, cnt=5, display `2/5`)
+function lcd.drawScreenTitle(title, page, pages) end
+--- Draw a combo box
+---
+--- **Since:** 2.0.0
+--- > **Notice:** Only available on Taranis
+---@param x number #(positive numbers) top left corner position
+---@param y number #(positive numbers) top left corner position
+---@param w number #(number) width of combo box in pixels
+---@param list table #combo box elements, each element is a string
+---@param idx number #(integer) index of entry to highlight
+---@param flags? number #(unsigned number) drawing flags, the flags can not be combined:
+--- `BLINK` combo box is expanded
+--- `INVERS` combo box collapsed, text inversed
+--- `0 or not present` combo box collapsed, text normal
+function lcd.drawCombobox(x, y, w, list, idx, flags) end

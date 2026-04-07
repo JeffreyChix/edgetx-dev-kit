@@ -1,6 +1,6 @@
 {
   "version": "2.5",
-  "generated": "2026-04-06T17:48:56.899Z",
+  "generated": "2026-04-07T00:52:21.800Z",
   "functions": [
     {
       "entityType": "function",
@@ -1650,6 +1650,1491 @@
     },
     {
       "entityType": "function",
+      "module": "model",
+      "name": "getInfo",
+      "signature": "model.getInfo()",
+      "description": "Get current Model information",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "table",
+          "type": "table",
+          "description": "model information:\n`name` (string) model name\n`bitmap` (string) bitmap name (not present on X7)",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "model name"
+            },
+            {
+              "name": "bitmap",
+              "type": "string",
+              "description": "bitmap name (not present on X7)"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.6, changed in 2.2.0",
+      "sinceVersion": "2.0.6",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setInfo",
+      "signature": "model.setInfo(value)",
+      "description": "Set the current Model information",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number",
+          "description": "model information data, see model.getInfo()",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
+      ],
+      "status": "current Introduced in 2.0.6, changed in TODO",
+      "sinceVersion": "2.0.6",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getModule",
+      "signature": "model.getModule(index)",
+      "description": "Get RF module parameters\n\n`Type` values:\n0 NONE\n1 PPM\n2 XJT_PXX1\n3 ISRM_PXX2\n4 DSM2\n5 CROSSFIRE\n6 MULTIMODULE\n7 R9M_PXX1\n8 R9M_PXX2\n9 R9M_LITE_PXX1\n10 R9M_LITE_PXX2\n11 R9M_LITE_PRO_PXX1\n12 R9M_LITE_PRO_PXX2\n13 SBUS\n14 XJT_LITE_PXX2\n\n`subType` values for XJT_PXX1:\n-1 OFF\n0 D16\n1 D8\n2 LR12",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "number",
+          "description": "(number) module index (0 for internal, 1 for external)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested module does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "module parameters:\n`subType` (number) protocol index\n`modelId` (number) receiver number\n`firstChannel` (number) start channel (0 is CH1)\n`channelsCount` (number) number of channels sent to module\n`Type` (number) module type\nif the module type is Multi additional information are available\n`protocol` (number) protocol number (Multi only)\n`subProtocol` (number) sub-protocol number (Multi only)\n`channelsOrder` (number) first 4 channels expected order (Multi only)",
+          "fields": [
+            {
+              "name": "subType",
+              "type": "number",
+              "description": "protocol index"
+            },
+            {
+              "name": "modelId",
+              "type": "number",
+              "description": "receiver number"
+            },
+            {
+              "name": "firstChannel",
+              "type": "number",
+              "description": "start channel (0 is CH1)"
+            },
+            {
+              "name": "channelsCount",
+              "type": "number",
+              "description": "number of channels sent to module"
+            },
+            {
+              "name": "Type",
+              "type": "number",
+              "description": "module type"
+            },
+            {
+              "name": "protocol",
+              "type": "number",
+              "description": "protocol number (Multi only)"
+            },
+            {
+              "name": "subProtocol",
+              "type": "number",
+              "description": "sub-protocol number (Multi only)"
+            },
+            {
+              "name": "channelsOrder",
+              "type": "number",
+              "description": "first 4 channels expected order (Multi only)"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.2.0",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setModule",
+      "signature": "model.setModule(index, value)",
+      "description": "Set RF module parameters",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "number",
+          "description": "(number) module index (0 for internal, 1 for external)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "module parameters, see model.getModule()",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
+      ],
+      "status": "current Introduced in 2.2.0, modified in 2.3.12 (proto/subproto)",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getTimer",
+      "signature": "model.getTimer(timer)",
+      "description": "Get model timer parameters",
+      "parameters": [
+        {
+          "name": "timer",
+          "type": "number",
+          "description": "timer index (0 for Timer 1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested timer does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "timer parameters:\n`mode` (number) timer trigger source: off, abs, stk,  stk%, sw/!sw, !m_sw/!m_sw\n`start` (number) start value [seconds], 0 for up timer, 0> down timer\n`value` (number) current value [seconds]\n`countdownBeep` (number) countdown beep (0­ = silent, 1 =­ beeps, 2­ = voice)\n`minuteBeep` (boolean) minute beep\n`persistent` (number) persistent timer\n`name` (string) timer name",
+          "fields": [
+            {
+              "name": "mode",
+              "type": "number",
+              "description": "timer trigger source: off, abs, stk,  stk%, sw/!sw, !m_sw/!m_sw"
+            },
+            {
+              "name": "start",
+              "type": "number",
+              "description": "start value [seconds], 0 for up timer, 0> down timer"
+            },
+            {
+              "name": "value",
+              "type": "number",
+              "description": "current value [seconds]"
+            },
+            {
+              "name": "countdownBeep",
+              "type": "number",
+              "description": "countdown beep (0­ = silent, 1 =­ beeps, 2­ = voice)"
+            },
+            {
+              "name": "minuteBeep",
+              "type": "boolean",
+              "description": "minute beep"
+            },
+            {
+              "name": "persistent",
+              "type": "number",
+              "description": "persistent timer"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "timer name"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, name added in 2.3.6",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setTimer",
+      "signature": "model.setTimer(timer, value)",
+      "description": "Set model timer parameters",
+      "parameters": [
+        {
+          "name": "timer",
+          "type": "number",
+          "description": "timer index (0 for Timer 1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "timer parameters, see model.getTimer()",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
+      ],
+      "status": "current Introduced in 2.0.0, name added in 2.3.6",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "resetTimer",
+      "signature": "model.resetTimer(timer)",
+      "description": "Reset model timer to a startup value",
+      "parameters": [
+        {
+          "name": "timer",
+          "type": "number",
+          "description": "timer index (0 for Timer 1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in TODO",
+      "sinceVersion": "",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getInputsCount",
+      "signature": "model.getInputsCount(input)",
+      "description": "Return number of lines for given input",
+      "parameters": [
+        {
+          "name": "input",
+          "type": "number",
+          "description": "(unsigned number) input number (use 0 for Input1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "number of configured lines for given input"
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "deleteFlightModes",
+      "signature": "model.deleteFlightModes()",
+      "description": "Clear all flightModes",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.3.10",
+      "sinceVersion": "2.3.10",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getFlightMode",
+      "signature": "model.getFlightMode(index)",
+      "description": "",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "number",
+          "description": "(unsigned number) flight mode number (use 0 for FM0)\n \nReturn input data for given input and line number",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested input or line does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "input data:\n`name` (string) input line name\n`switch` (number) input switch index\n`fadeIn` (number) fade in value (in 0.1s)\n`fadeOut` (number) fade out value (in 0.1s)\n`trimsValues` (table) table of trim values:\n`key` is trim number (zero based)\n`value` is trim value\n`trimsModes` (table) table of trim mode:\n`key` is trim number (zero based)\n`value` is trim mode",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "input line name"
+            },
+            {
+              "name": "switch",
+              "type": "number",
+              "description": "input switch index"
+            },
+            {
+              "name": "fadeIn",
+              "type": "number",
+              "description": "fade in value (in 0.1s)"
+            },
+            {
+              "name": "fadeOut",
+              "type": "number",
+              "description": "fade out value (in 0.1s)"
+            },
+            {
+              "name": "trimsValues",
+              "type": "table",
+              "description": "table of trim values:"
+            },
+            {
+              "name": "key",
+              "type": "number",
+              "description": "is trim number (zero based)"
+            },
+            {
+              "name": "value",
+              "type": "unknown",
+              "description": "is trim value"
+            },
+            {
+              "name": "trimsModes",
+              "type": "table",
+              "description": "table of trim mode:"
+            },
+            {
+              "name": "key",
+              "type": "number",
+              "description": "is trim number (zero based)"
+            },
+            {
+              "name": "value",
+              "type": "unknown",
+              "description": "is trim mode"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.3.10",
+      "sinceVersion": "2.3.10",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setFlightMode",
+      "signature": "model.setFlightMode(index, params)",
+      "description": "Set Flight mode parameters",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "number",
+          "description": "(unsigned number) flight mode number (use 0 for FM0)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "params",
+          "type": "table",
+          "description": "see model.getFlightMode return format for table format.",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.3.10",
+      "sinceVersion": "2.3.10",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getInput",
+      "signature": "model.getInput(input, line)",
+      "description": "Return input data for given input and line number",
+      "parameters": [
+        {
+          "name": "input",
+          "type": "number",
+          "description": "(unsigned number) input number (use 0 for Input1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "line",
+          "type": "number",
+          "description": "(unsigned number) input line (use 0 for first line)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested input or line does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "input data:\n`name` (string) input line name\n`inputName` (string) input input name\n`source` (number) input source index\n`weight` (number) input weight\n`offset` (number) input offset\n`switch` (number) input switch index\n`curveType` (number) curve type (function, expo, custom curve)\n`curveValue` (number) curve index\n`carryTrim` (boolean) input trims applied\n'flightModes' (number) bit-mask of active flight modes",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "input line name"
+            },
+            {
+              "name": "inputName",
+              "type": "string",
+              "description": "input input name"
+            },
+            {
+              "name": "source",
+              "type": "number",
+              "description": "input source index"
+            },
+            {
+              "name": "weight",
+              "type": "number",
+              "description": "input weight"
+            },
+            {
+              "name": "offset",
+              "type": "number",
+              "description": "input offset"
+            },
+            {
+              "name": "switch",
+              "type": "number",
+              "description": "input switch index"
+            },
+            {
+              "name": "curveType",
+              "type": "number",
+              "description": "curve type (function, expo, custom curve)"
+            },
+            {
+              "name": "curveValue",
+              "type": "number",
+              "description": "curve index"
+            },
+            {
+              "name": "carryTrim",
+              "type": "boolean",
+              "description": "input trims applied"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, curveType/curveValue/carryTrim added in 2.3, inputName added 2.3.10, flighmode reworked in 2.3.11",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "insertInput",
+      "signature": "model.insertInput(input, line, value)",
+      "description": "Insert an Input at specified line",
+      "parameters": [
+        {
+          "name": "input",
+          "type": "number",
+          "description": "(unsigned number) input number (use 0 for Input1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "line",
+          "type": "number",
+          "description": "(unsigned number) input line (use 0 for first line)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(table) input data, see model.getInput()",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, curveType/curveValue/carryTrim added in 2.3, inputName added 2.3.10",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "deleteInput",
+      "signature": "model.deleteInput(input, line)",
+      "description": "Delete line from specified input",
+      "parameters": [
+        {
+          "name": "input",
+          "type": "number",
+          "description": "(unsigned number) input number (use 0 for Input1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "line",
+          "type": "number",
+          "description": "(unsigned number) input line (use 0 for first line)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "deleteInputs",
+      "signature": "model.deleteInputs()",
+      "description": "Delete all Inputs",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "defaultInputs",
+      "signature": "model.defaultInputs()",
+      "description": "Set all inputs to defaults",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getMixesCount",
+      "signature": "model.getMixesCount(channel)",
+      "description": "Get the number of Mixer lines that the specified Channel has",
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "number",
+          "description": "(unsigned number) channel number (use 0 for CH1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "number of mixes for requested channel"
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getMix",
+      "signature": "model.getMix(channel, line)",
+      "description": "Get configuration for specified Mix",
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "number",
+          "description": "(unsigned number) channel number (use 0 for CH1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "line",
+          "type": "number",
+          "description": "(unsigned number) mix number (use 0 for first line(mix))",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested channel or line does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "mix data:\n`name` (string) mix line name\n`source` (number) source index\n`weight` (number) weight (1024 == 100%) value or GVAR1..9 = 4096..4011, -GVAR1..9 = 4095..4087\n`offset` (number) offset value or GVAR1..9 = 4096..4011, -GVAR1..9 = 4095..4087\n`switch` (number) switch index\n`multiplex` (number) multiplex (0 = ADD, 1 = MULTIPLY, 2 = REPLACE)\n`curveType` (number) curve type (function, expo, custom curve)\n`curveValue` (number) curve index\n`flightModes` (number) bit-mask of active flight modes\n`carryTrim` (boolean) carry trim\n`mixWarn` (number) warning (0 = off, 1 = 1 beep, .. 3 = 3 beeps)\n`delayUp` (number) delay up (time in 1/10 s)\n`delayDown` (number) delay down\n`speedUp` (number) speed up\n`speedDown` (number) speed down",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "mix line name"
+            },
+            {
+              "name": "source",
+              "type": "number",
+              "description": "source index"
+            },
+            {
+              "name": "weight",
+              "type": "number",
+              "description": "weight (1024 == 100%) value or GVAR1..9 = 4096..4011, -GVAR1..9 = 4095..4087"
+            },
+            {
+              "name": "offset",
+              "type": "number",
+              "description": "offset value or GVAR1..9 = 4096..4011, -GVAR1..9 = 4095..4087"
+            },
+            {
+              "name": "switch",
+              "type": "number",
+              "description": "switch index"
+            },
+            {
+              "name": "multiplex",
+              "type": "number",
+              "description": "multiplex (0 = ADD, 1 = MULTIPLY, 2 = REPLACE)"
+            },
+            {
+              "name": "curveType",
+              "type": "number",
+              "description": "curve type (function, expo, custom curve)"
+            },
+            {
+              "name": "curveValue",
+              "type": "number",
+              "description": "curve index"
+            },
+            {
+              "name": "flightModes",
+              "type": "number",
+              "description": "bit-mask of active flight modes"
+            },
+            {
+              "name": "carryTrim",
+              "type": "boolean",
+              "description": "carry trim"
+            },
+            {
+              "name": "mixWarn",
+              "type": "number",
+              "description": "warning (0 = off, 1 = 1 beep, .. 3 = 3 beeps)"
+            },
+            {
+              "name": "delayUp",
+              "type": "number",
+              "description": "delay up (time in 1/10 s)"
+            },
+            {
+              "name": "delayDown",
+              "type": "number",
+              "description": "delay down"
+            },
+            {
+              "name": "speedUp",
+              "type": "number",
+              "description": "speed up"
+            },
+            {
+              "name": "speedDown",
+              "type": "number",
+              "description": "speed down"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, parameters below `multiplex` added in 2.0.13",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "insertMix",
+      "signature": "model.insertMix(channel, line, value)",
+      "description": "Insert a mixer line into Channel",
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "number",
+          "description": "(unsigned number) channel number (use 0 for CH1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "line",
+          "type": "number",
+          "description": "(unsigned number) mix number (use 0 for first line(mix))",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(table) see model.getMix() for table format",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, parameters below `multiplex` added in 2.0.13",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "deleteMix",
+      "signature": "model.deleteMix(channel, line)",
+      "description": "Delete mixer line from specified Channel",
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "number",
+          "description": "(unsigned number) channel number (use 0 for CH1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "line",
+          "type": "number",
+          "description": "(unsigned number) mix number (use 0 for first line(mix))",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "deleteMixes",
+      "signature": "model.deleteMixes()",
+      "description": "Remove all mixers",
+      "parameters": [],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getLogicalSwitch",
+      "signature": "model.getLogicalSwitch(switch)",
+      "description": "Get Logical Switch parameters",
+      "parameters": [
+        {
+          "name": "switch",
+          "type": "number",
+          "description": "(unsigned number) logical switch number (use 0 for LS1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested logical switch does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "logical switch data:\n`func` (number) function index\n`v1` (number) V1 value (index)\n`v2` (number) V2 value (index or value)\n`v3` (number) V3 value (index or value)\n`and` (number) AND switch index\n`delay` (number) delay (time in 1/10 s)\n`duration` (number) duration (time in 1/10 s)",
+          "fields": [
+            {
+              "name": "func",
+              "type": "number",
+              "description": "function index"
+            },
+            {
+              "name": "v1",
+              "type": "number",
+              "description": "V1 value (index)"
+            },
+            {
+              "name": "v2",
+              "type": "number",
+              "description": "V2 value (index or value)"
+            },
+            {
+              "name": "v3",
+              "type": "number",
+              "description": "V3 value (index or value)"
+            },
+            {
+              "name": "and",
+              "type": "number",
+              "description": "AND switch index"
+            },
+            {
+              "name": "delay",
+              "type": "number",
+              "description": "delay (time in 1/10 s)"
+            },
+            {
+              "name": "duration",
+              "type": "number",
+              "description": "duration (time in 1/10 s)"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setLogicalSwitch",
+      "signature": "model.setLogicalSwitch(switch, value)",
+      "description": "Set Logical Switch parameters",
+      "parameters": [
+        {
+          "name": "switch",
+          "type": "number",
+          "description": "(unsigned number) logical switch number (use 0 for LS1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(table) see model.getLogicalSwitch() for table format",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "If a parameter is missing from the value, then\nthat parameter remains unchanged.",
+        "To set the `and` member (which is Lua keyword)\nuse the following syntax: `model.setLogicalSwitch(30, {func=4,v1=1,v2=-99, [\"and\"]=24})`"
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getCurve",
+      "signature": "model.getCurve(curve)",
+      "description": "Get Curve parameters",
+      "parameters": [
+        {
+          "name": "curve",
+          "type": "number",
+          "description": "(unsigned number) curve number (use 0 for Curve1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested curve does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "curve data:\n`name` (string) name\n`type` (number) type\n`smooth` (boolean) smooth\n`points` (number) number of points\n`y` (table) table of Y values:\n`key` is point number (zero based)\n`value` is y value\n`x` (table) **only included for custom curve type**:\n`key` is point number (zero based)\n`value` is x value\n\n Note that functions returns the tables starting with index 0 contrary to LUA's\n usual index starting with 1",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "name"
+            },
+            {
+              "name": "type",
+              "type": "number",
+              "description": "type"
+            },
+            {
+              "name": "smooth",
+              "type": "boolean",
+              "description": "smooth"
+            },
+            {
+              "name": "points",
+              "type": "number",
+              "description": "number of points"
+            },
+            {
+              "name": "y",
+              "type": "table",
+              "description": "table of Y values:"
+            },
+            {
+              "name": "key",
+              "type": "number",
+              "description": "is point number (zero based)"
+            },
+            {
+              "name": "value",
+              "type": "unknown",
+              "description": "is y value"
+            },
+            {
+              "name": "x",
+              "type": "table",
+              "description": "**only included for custom curve type**:"
+            },
+            {
+              "name": "key",
+              "type": "number",
+              "description": "is point number (zero based)"
+            },
+            {
+              "name": "value",
+              "type": "unknown",
+              "description": "is x value"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.12",
+      "sinceVersion": "2.0.12",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setCurve",
+      "signature": "model.setCurve(curve, params)",
+      "description": "Set Curve parameters",
+      "parameters": [
+        {
+          "name": "curve",
+          "type": "number",
+          "description": "(unsigned number) curve number (use 0 for Curve1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "params",
+          "type": "number|table",
+          "description": "see model.getCurve return format for table format. setCurve uses standard\n lua array indexing and arrays start at index 1\n\nThe first and last x value must -100 and 100 and x values must be monotonically increasing",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "0",
+          "type": "number",
+          "description": "- Everything okay\n         1 - Wrong number of points\n         2 - Invalid Curve number\n         3 - Cuve does not fit anymore\n         4 - point of out of index\n         5 - x value not monotonically increasing\n         6 - y value not in range [-100;100]\n         7 - extra values for y are set\n         8 - extra values for x are set"
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.2.0\n\nExample setting a 4-point custom curve:\n```lua\n  params = {}\n  params[\"x\"] =  {-100, -34, 77, 100}\n  params[\"y\"] = {-70, 20, -89, -100}\n  params[\"smooth\"] = true\n  params[\"type\"] = 1\n  val =  model.setCurve(2, params)\n ```\nsetting a 6-point standard smoothed curve\n ```lua\n val = model.setCurve(3, {smooth=true, y={-100, -50, 0, 50, 100, 80}})\n ```",
+      "sinceVersion": "2.2.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getCustomFunction",
+      "signature": "model.getCustomFunction(function)",
+      "description": "Get Custom Function parameters",
+      "parameters": [
+        {
+          "name": "function",
+          "type": "function",
+          "description": "(unsigned number) custom function number (use 0 for CF1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested custom function does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "custom function data:\n`switch` (number) switch index\n`func` (number) function index\n`name` (string)  Name of track to play (only returned only returned if action is play track, sound or script)\n`value` (number) value (only returned only returned if action is **not** play track, sound or script)\n`mode` (number) mode (only returned only returned if action is **not** play track, sound or script)\n`param` (number) parameter (only returned only returned if action is **not** play track, sound or script)\n`active` (number) 0 = disabled, 1 = enabled",
+          "fields": [
+            {
+              "name": "switch",
+              "type": "number",
+              "description": "switch index"
+            },
+            {
+              "name": "func",
+              "type": "number",
+              "description": "function index"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Name of track to play (only returned only returned if action is play track, sound or script)"
+            },
+            {
+              "name": "value",
+              "type": "number",
+              "description": "value (only returned only returned if action is **not** play track, sound or script)"
+            },
+            {
+              "name": "mode",
+              "type": "number",
+              "description": "mode (only returned only returned if action is **not** play track, sound or script)"
+            },
+            {
+              "name": "param",
+              "type": "number",
+              "description": "parameter (only returned only returned if action is **not** play track, sound or script)"
+            },
+            {
+              "name": "active",
+              "type": "number",
+              "description": "0 = disabled, 1 = enabled"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.0, TODO rename function",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setCustomFunction",
+      "signature": "model.setCustomFunction(function, value)",
+      "description": "Set Custom Function parameters",
+      "parameters": [
+        {
+          "name": "function",
+          "type": "function",
+          "description": "(unsigned number) custom function number (use 0 for CF1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(table) custom function parameters, see model.getCustomFunction() for table format",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
+      ],
+      "status": "current Introduced in 2.0.0, TODO rename function",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getOutput",
+      "signature": "model.getOutput(index)",
+      "description": "Get servo parameters",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "number",
+          "description": "(unsigned number) output number (use 0 for CH1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested output does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "output parameters:\n`name` (string) name\n`min` (number) Minimum % * 10\n`max` (number) Maximum % * 10\n`offset` (number) Subtrim * 10\n`ppmCenter` (number) offset from PPM Center. 0 = 1500\n`symetrical` (number) linear Subtrim 0 = Off, 1 = On\n`revert` (number) irection 0 = ­­­---, 1 = INV\n`curve`\n(number) Curve number (0 for Curve1)\nor `nil` if no curve set",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "description": "name"
+            },
+            {
+              "name": "min",
+              "type": "number",
+              "description": "Minimum % * 10"
+            },
+            {
+              "name": "max",
+              "type": "number",
+              "description": "Maximum % * 10"
+            },
+            {
+              "name": "offset",
+              "type": "number",
+              "description": "Subtrim * 10"
+            },
+            {
+              "name": "ppmCenter",
+              "type": "number",
+              "description": "offset from PPM Center. 0 = 1500"
+            },
+            {
+              "name": "symetrical",
+              "type": "number",
+              "description": "linear Subtrim 0 = Off, 1 = On"
+            },
+            {
+              "name": "revert",
+              "type": "number",
+              "description": "irection 0 = ­­­---, 1 = INV"
+            },
+            {
+              "name": "curve",
+              "type": "number",
+              "description": "Curve number (0 for Curve1)"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setOutput",
+      "signature": "model.setOutput(index, value)",
+      "description": "Set servo parameters",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "number",
+          "description": "(unsigned number) channel number (use 0 for CH1)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "(table) servo parameters, see model.getOutput() for table format",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
+      ],
+      "status": "current Introduced in 2.0.0",
+      "sinceVersion": "2.0.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getGlobalVariable",
+      "signature": "model.getGlobalVariable(index, flight_mode)",
+      "description": "Return current global variable value",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "number",
+          "description": "zero based global variable index, use 0 for GV1, 8 for GV9",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flight_mode",
+          "type": "number",
+          "description": "Flight mode number (0 = FM0, 8 = FM8)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested global variable does not exist"
+        },
+        {
+          "name": "number",
+          "type": "number",
+          "description": "current value of global variable\n\nExample:\n\n```lua\n  -- get GV3 (index = 2) from Flight mode 0 (FM0)\n  val = model.getGlobalVariable(2, 0)\n```"
+        }
+      ],
+      "notices": [
+        "a simple warning or notice"
+      ],
+      "status": "",
+      "sinceVersion": "",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "setGlobalVariable",
+      "signature": "model.setGlobalVariable(index, flight_mode, value)",
+      "description": "Sets current global variable value. See also model.getGlobalVariable()",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "number",
+          "description": "zero based global variable index, use 0 for GV1, 8 for GV9",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "flight_mode",
+          "type": "number",
+          "description": "Flight mode number (0 = FM0, 8 = FM8)",
+          "optional": false,
+          "flagHints": []
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "new value for global variable. Permitted range is\nfrom -1024 to 1024.",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [],
+      "notices": [
+        "Global variable can only store integer values,\nany floating point value is converted into integer value\nby truncating everything behind a floating point."
+      ],
+      "status": "",
+      "sinceVersion": "",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "getSensor",
+      "signature": "model.getSensor(sensor)",
+      "description": "Get Telemetry Sensor parameters",
+      "parameters": [
+        {
+          "name": "sensor",
+          "type": "number",
+          "description": "(unsigned number) sensor number (use 0 for sensor 1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": "requested sensor does not exist"
+        },
+        {
+          "name": "table",
+          "type": "table",
+          "description": "with sensor data:\n`type` (number) 0 = custom, 1 = calculated\n`name` (string) Name\n`unit` (number) See list of units in the appendix of the OpenTX Lua Reference Guide\n`prec` (number) Number of decimals\n`id`   (number) Only custom sensors\n`instance` (number) Only custom sensors\n`formula` (number) Only calculated sensors. 0 = Add etc. see list of formula choices in Companion popup",
+          "fields": [
+            {
+              "name": "type",
+              "type": "number",
+              "description": "0 = custom, 1 = calculated"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Name"
+            },
+            {
+              "name": "unit",
+              "type": "number",
+              "description": "See list of units in the appendix of the OpenTX Lua Reference Guide"
+            },
+            {
+              "name": "prec",
+              "type": "number",
+              "description": "Number of decimals"
+            },
+            {
+              "name": "id",
+              "type": "number",
+              "description": "Only custom sensors"
+            },
+            {
+              "name": "instance",
+              "type": "number",
+              "description": "Only custom sensors"
+            },
+            {
+              "name": "formula",
+              "type": "number",
+              "description": "Only calculated sensors. 0 = Add etc. see list of formula choices in Companion popup"
+            }
+          ]
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.3.0",
+      "sinceVersion": "2.3.0",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
+      "module": "model",
+      "name": "resetSensor",
+      "signature": "model.resetSensor(sensor)",
+      "description": "Reset Telemetry Sensor parameters",
+      "parameters": [
+        {
+          "name": "sensor",
+          "type": "number",
+          "description": "(unsigned number) sensor number (use 0 for sensor 1)",
+          "optional": false,
+          "flagHints": []
+        }
+      ],
+      "overloadParameters": [],
+      "returns": [
+        {
+          "name": "nil",
+          "type": "nil",
+          "description": ""
+        }
+      ],
+      "notices": [],
+      "status": "current Introduced in 2.3.11",
+      "sinceVersion": "2.3.11",
+      "deprecated": false,
+      "sourceFile": "api_model.cpp"
+    },
+    {
+      "entityType": "function",
       "module": "general",
       "name": "getVersion",
       "signature": "getVersion()",
@@ -3160,7 +4645,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -3185,7 +4670,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -3209,7 +4694,7 @@
       "status": "current Introduced in 2.2.0",
       "sinceVersion": "2.2.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -3249,7 +4734,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -3289,7 +4774,7 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "NON_COLOR_LCD"
     },
     {
@@ -3350,1493 +4835,8 @@
       "status": "current Introduced in 2.0.0",
       "sinceVersion": "2.0.0",
       "deprecated": false,
-      "sourceFile": "api_lcd.cpp",
+      "sourceFile": "api_stdlcd.cpp",
       "availableOn": "NON_COLOR_LCD"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getInfo",
-      "signature": "model.getInfo()",
-      "description": "Get current Model information",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "table",
-          "type": "table",
-          "description": "model information:\n`name` (string) model name\n`bitmap` (string) bitmap name (not present on X7)",
-          "fields": [
-            {
-              "name": "name",
-              "type": "string",
-              "description": "model name"
-            },
-            {
-              "name": "bitmap",
-              "type": "string",
-              "description": "bitmap name (not present on X7)"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.6, changed in 2.2.0",
-      "sinceVersion": "2.0.6",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setInfo",
-      "signature": "model.setInfo(value)",
-      "description": "Set the current Model information",
-      "parameters": [
-        {
-          "name": "value",
-          "type": "number",
-          "description": "model information data, see model.getInfo()",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
-      ],
-      "status": "current Introduced in 2.0.6, changed in TODO",
-      "sinceVersion": "2.0.6",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getModule",
-      "signature": "model.getModule(index)",
-      "description": "Get RF module parameters\n\n`Type` values:\n0 NONE\n1 PPM\n2 XJT_PXX1\n3 ISRM_PXX2\n4 DSM2\n5 CROSSFIRE\n6 MULTIMODULE\n7 R9M_PXX1\n8 R9M_PXX2\n9 R9M_LITE_PXX1\n10 R9M_LITE_PXX2\n11 R9M_LITE_PRO_PXX1\n12 R9M_LITE_PRO_PXX2\n13 SBUS\n14 XJT_LITE_PXX2\n\n`subType` values for XJT_PXX1:\n-1 OFF\n0 D16\n1 D8\n2 LR12",
-      "parameters": [
-        {
-          "name": "index",
-          "type": "number",
-          "description": "(number) module index (0 for internal, 1 for external)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested module does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "module parameters:\n`subType` (number) protocol index\n`modelId` (number) receiver number\n`firstChannel` (number) start channel (0 is CH1)\n`channelsCount` (number) number of channels sent to module\n`Type` (number) module type\nif the module type is Multi additional information are available\n`protocol` (number) protocol number (Multi only)\n`subProtocol` (number) sub-protocol number (Multi only)\n`channelsOrder` (number) first 4 channels expected order (Multi only)",
-          "fields": [
-            {
-              "name": "subType",
-              "type": "number",
-              "description": "protocol index"
-            },
-            {
-              "name": "modelId",
-              "type": "number",
-              "description": "receiver number"
-            },
-            {
-              "name": "firstChannel",
-              "type": "number",
-              "description": "start channel (0 is CH1)"
-            },
-            {
-              "name": "channelsCount",
-              "type": "number",
-              "description": "number of channels sent to module"
-            },
-            {
-              "name": "Type",
-              "type": "number",
-              "description": "module type"
-            },
-            {
-              "name": "protocol",
-              "type": "number",
-              "description": "protocol number (Multi only)"
-            },
-            {
-              "name": "subProtocol",
-              "type": "number",
-              "description": "sub-protocol number (Multi only)"
-            },
-            {
-              "name": "channelsOrder",
-              "type": "number",
-              "description": "first 4 channels expected order (Multi only)"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.2.0",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setModule",
-      "signature": "model.setModule(index, value)",
-      "description": "Set RF module parameters",
-      "parameters": [
-        {
-          "name": "index",
-          "type": "number",
-          "description": "(number) module index (0 for internal, 1 for external)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "module parameters, see model.getModule()",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
-      ],
-      "status": "current Introduced in 2.2.0, modified in 2.3.12 (proto/subproto)",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getTimer",
-      "signature": "model.getTimer(timer)",
-      "description": "Get model timer parameters",
-      "parameters": [
-        {
-          "name": "timer",
-          "type": "number",
-          "description": "timer index (0 for Timer 1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested timer does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "timer parameters:\n`mode` (number) timer trigger source: off, abs, stk,  stk%, sw/!sw, !m_sw/!m_sw\n`start` (number) start value [seconds], 0 for up timer, 0> down timer\n`value` (number) current value [seconds]\n`countdownBeep` (number) countdown beep (0­ = silent, 1 =­ beeps, 2­ = voice)\n`minuteBeep` (boolean) minute beep\n`persistent` (number) persistent timer\n`name` (string) timer name",
-          "fields": [
-            {
-              "name": "mode",
-              "type": "number",
-              "description": "timer trigger source: off, abs, stk,  stk%, sw/!sw, !m_sw/!m_sw"
-            },
-            {
-              "name": "start",
-              "type": "number",
-              "description": "start value [seconds], 0 for up timer, 0> down timer"
-            },
-            {
-              "name": "value",
-              "type": "number",
-              "description": "current value [seconds]"
-            },
-            {
-              "name": "countdownBeep",
-              "type": "number",
-              "description": "countdown beep (0­ = silent, 1 =­ beeps, 2­ = voice)"
-            },
-            {
-              "name": "minuteBeep",
-              "type": "boolean",
-              "description": "minute beep"
-            },
-            {
-              "name": "persistent",
-              "type": "number",
-              "description": "persistent timer"
-            },
-            {
-              "name": "name",
-              "type": "string",
-              "description": "timer name"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, name added in 2.3.6",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setTimer",
-      "signature": "model.setTimer(timer, value)",
-      "description": "Set model timer parameters",
-      "parameters": [
-        {
-          "name": "timer",
-          "type": "number",
-          "description": "timer index (0 for Timer 1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "timer parameters, see model.getTimer()",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
-      ],
-      "status": "current Introduced in 2.0.0, name added in 2.3.6",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "resetTimer",
-      "signature": "model.resetTimer(timer)",
-      "description": "Reset model timer to a startup value",
-      "parameters": [
-        {
-          "name": "timer",
-          "type": "number",
-          "description": "timer index (0 for Timer 1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in TODO",
-      "sinceVersion": "",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getInputsCount",
-      "signature": "model.getInputsCount(input)",
-      "description": "Return number of lines for given input",
-      "parameters": [
-        {
-          "name": "input",
-          "type": "number",
-          "description": "(unsigned number) input number (use 0 for Input1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "number of configured lines for given input"
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "deleteFlightModes",
-      "signature": "model.deleteFlightModes()",
-      "description": "Clear all flightModes",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.3.10",
-      "sinceVersion": "2.3.10",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getFlightMode",
-      "signature": "model.getFlightMode(index)",
-      "description": "",
-      "parameters": [
-        {
-          "name": "index",
-          "type": "number",
-          "description": "(unsigned number) flight mode number (use 0 for FM0)\n \nReturn input data for given input and line number",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested input or line does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "input data:\n`name` (string) input line name\n`switch` (number) input switch index\n`fadeIn` (number) fade in value (in 0.1s)\n`fadeOut` (number) fade out value (in 0.1s)\n`trimsValues` (table) table of trim values:\n`key` is trim number (zero based)\n`value` is trim value\n`trimsModes` (table) table of trim mode:\n`key` is trim number (zero based)\n`value` is trim mode",
-          "fields": [
-            {
-              "name": "name",
-              "type": "string",
-              "description": "input line name"
-            },
-            {
-              "name": "switch",
-              "type": "number",
-              "description": "input switch index"
-            },
-            {
-              "name": "fadeIn",
-              "type": "number",
-              "description": "fade in value (in 0.1s)"
-            },
-            {
-              "name": "fadeOut",
-              "type": "number",
-              "description": "fade out value (in 0.1s)"
-            },
-            {
-              "name": "trimsValues",
-              "type": "table",
-              "description": "table of trim values:"
-            },
-            {
-              "name": "key",
-              "type": "number",
-              "description": "is trim number (zero based)"
-            },
-            {
-              "name": "value",
-              "type": "unknown",
-              "description": "is trim value"
-            },
-            {
-              "name": "trimsModes",
-              "type": "table",
-              "description": "table of trim mode:"
-            },
-            {
-              "name": "key",
-              "type": "number",
-              "description": "is trim number (zero based)"
-            },
-            {
-              "name": "value",
-              "type": "unknown",
-              "description": "is trim mode"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.3.10",
-      "sinceVersion": "2.3.10",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setFlightMode",
-      "signature": "model.setFlightMode(index, params)",
-      "description": "Set Flight mode parameters",
-      "parameters": [
-        {
-          "name": "index",
-          "type": "number",
-          "description": "(unsigned number) flight mode number (use 0 for FM0)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "params",
-          "type": "table",
-          "description": "see model.getFlightMode return format for table format.",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.3.10",
-      "sinceVersion": "2.3.10",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getInput",
-      "signature": "model.getInput(input, line)",
-      "description": "Return input data for given input and line number",
-      "parameters": [
-        {
-          "name": "input",
-          "type": "number",
-          "description": "(unsigned number) input number (use 0 for Input1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "line",
-          "type": "number",
-          "description": "(unsigned number) input line (use 0 for first line)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested input or line does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "input data:\n`name` (string) input line name\n`inputName` (string) input input name\n`source` (number) input source index\n`weight` (number) input weight\n`offset` (number) input offset\n`switch` (number) input switch index\n`curveType` (number) curve type (function, expo, custom curve)\n`curveValue` (number) curve index\n`carryTrim` (boolean) input trims applied\n'flightModes' (number) bit-mask of active flight modes",
-          "fields": [
-            {
-              "name": "name",
-              "type": "string",
-              "description": "input line name"
-            },
-            {
-              "name": "inputName",
-              "type": "string",
-              "description": "input input name"
-            },
-            {
-              "name": "source",
-              "type": "number",
-              "description": "input source index"
-            },
-            {
-              "name": "weight",
-              "type": "number",
-              "description": "input weight"
-            },
-            {
-              "name": "offset",
-              "type": "number",
-              "description": "input offset"
-            },
-            {
-              "name": "switch",
-              "type": "number",
-              "description": "input switch index"
-            },
-            {
-              "name": "curveType",
-              "type": "number",
-              "description": "curve type (function, expo, custom curve)"
-            },
-            {
-              "name": "curveValue",
-              "type": "number",
-              "description": "curve index"
-            },
-            {
-              "name": "carryTrim",
-              "type": "boolean",
-              "description": "input trims applied"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, curveType/curveValue/carryTrim added in 2.3, inputName added 2.3.10, flighmode reworked in 2.3.11",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "insertInput",
-      "signature": "model.insertInput(input, line, value)",
-      "description": "Insert an Input at specified line",
-      "parameters": [
-        {
-          "name": "input",
-          "type": "number",
-          "description": "(unsigned number) input number (use 0 for Input1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "line",
-          "type": "number",
-          "description": "(unsigned number) input line (use 0 for first line)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(table) input data, see model.getInput()",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, curveType/curveValue/carryTrim added in 2.3, inputName added 2.3.10",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "deleteInput",
-      "signature": "model.deleteInput(input, line)",
-      "description": "Delete line from specified input",
-      "parameters": [
-        {
-          "name": "input",
-          "type": "number",
-          "description": "(unsigned number) input number (use 0 for Input1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "line",
-          "type": "number",
-          "description": "(unsigned number) input line (use 0 for first line)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "deleteInputs",
-      "signature": "model.deleteInputs()",
-      "description": "Delete all Inputs",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "defaultInputs",
-      "signature": "model.defaultInputs()",
-      "description": "Set all inputs to defaults",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getMixesCount",
-      "signature": "model.getMixesCount(channel)",
-      "description": "Get the number of Mixer lines that the specified Channel has",
-      "parameters": [
-        {
-          "name": "channel",
-          "type": "number",
-          "description": "(unsigned number) channel number (use 0 for CH1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": "number of mixes for requested channel"
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getMix",
-      "signature": "model.getMix(channel, line)",
-      "description": "Get configuration for specified Mix",
-      "parameters": [
-        {
-          "name": "channel",
-          "type": "number",
-          "description": "(unsigned number) channel number (use 0 for CH1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "line",
-          "type": "number",
-          "description": "(unsigned number) mix number (use 0 for first line(mix))",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested channel or line does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "mix data:\n`name` (string) mix line name\n`source` (number) source index\n`weight` (number) weight (1024 == 100%) value or GVAR1..9 = 4096..4011, -GVAR1..9 = 4095..4087\n`offset` (number) offset value or GVAR1..9 = 4096..4011, -GVAR1..9 = 4095..4087\n`switch` (number) switch index\n`multiplex` (number) multiplex (0 = ADD, 1 = MULTIPLY, 2 = REPLACE)\n`curveType` (number) curve type (function, expo, custom curve)\n`curveValue` (number) curve index\n`flightModes` (number) bit-mask of active flight modes\n`carryTrim` (boolean) carry trim\n`mixWarn` (number) warning (0 = off, 1 = 1 beep, .. 3 = 3 beeps)\n`delayUp` (number) delay up (time in 1/10 s)\n`delayDown` (number) delay down\n`speedUp` (number) speed up\n`speedDown` (number) speed down",
-          "fields": [
-            {
-              "name": "name",
-              "type": "string",
-              "description": "mix line name"
-            },
-            {
-              "name": "source",
-              "type": "number",
-              "description": "source index"
-            },
-            {
-              "name": "weight",
-              "type": "number",
-              "description": "weight (1024 == 100%) value or GVAR1..9 = 4096..4011, -GVAR1..9 = 4095..4087"
-            },
-            {
-              "name": "offset",
-              "type": "number",
-              "description": "offset value or GVAR1..9 = 4096..4011, -GVAR1..9 = 4095..4087"
-            },
-            {
-              "name": "switch",
-              "type": "number",
-              "description": "switch index"
-            },
-            {
-              "name": "multiplex",
-              "type": "number",
-              "description": "multiplex (0 = ADD, 1 = MULTIPLY, 2 = REPLACE)"
-            },
-            {
-              "name": "curveType",
-              "type": "number",
-              "description": "curve type (function, expo, custom curve)"
-            },
-            {
-              "name": "curveValue",
-              "type": "number",
-              "description": "curve index"
-            },
-            {
-              "name": "flightModes",
-              "type": "number",
-              "description": "bit-mask of active flight modes"
-            },
-            {
-              "name": "carryTrim",
-              "type": "boolean",
-              "description": "carry trim"
-            },
-            {
-              "name": "mixWarn",
-              "type": "number",
-              "description": "warning (0 = off, 1 = 1 beep, .. 3 = 3 beeps)"
-            },
-            {
-              "name": "delayUp",
-              "type": "number",
-              "description": "delay up (time in 1/10 s)"
-            },
-            {
-              "name": "delayDown",
-              "type": "number",
-              "description": "delay down"
-            },
-            {
-              "name": "speedUp",
-              "type": "number",
-              "description": "speed up"
-            },
-            {
-              "name": "speedDown",
-              "type": "number",
-              "description": "speed down"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, parameters below `multiplex` added in 2.0.13",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "insertMix",
-      "signature": "model.insertMix(channel, line, value)",
-      "description": "Insert a mixer line into Channel",
-      "parameters": [
-        {
-          "name": "channel",
-          "type": "number",
-          "description": "(unsigned number) channel number (use 0 for CH1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "line",
-          "type": "number",
-          "description": "(unsigned number) mix number (use 0 for first line(mix))",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(table) see model.getMix() for table format",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, parameters below `multiplex` added in 2.0.13",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "deleteMix",
-      "signature": "model.deleteMix(channel, line)",
-      "description": "Delete mixer line from specified Channel",
-      "parameters": [
-        {
-          "name": "channel",
-          "type": "number",
-          "description": "(unsigned number) channel number (use 0 for CH1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "line",
-          "type": "number",
-          "description": "(unsigned number) mix number (use 0 for first line(mix))",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "deleteMixes",
-      "signature": "model.deleteMixes()",
-      "description": "Remove all mixers",
-      "parameters": [],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getLogicalSwitch",
-      "signature": "model.getLogicalSwitch(switch)",
-      "description": "Get Logical Switch parameters",
-      "parameters": [
-        {
-          "name": "switch",
-          "type": "number",
-          "description": "(unsigned number) logical switch number (use 0 for LS1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested logical switch does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "logical switch data:\n`func` (number) function index\n`v1` (number) V1 value (index)\n`v2` (number) V2 value (index or value)\n`v3` (number) V3 value (index or value)\n`and` (number) AND switch index\n`delay` (number) delay (time in 1/10 s)\n`duration` (number) duration (time in 1/10 s)",
-          "fields": [
-            {
-              "name": "func",
-              "type": "number",
-              "description": "function index"
-            },
-            {
-              "name": "v1",
-              "type": "number",
-              "description": "V1 value (index)"
-            },
-            {
-              "name": "v2",
-              "type": "number",
-              "description": "V2 value (index or value)"
-            },
-            {
-              "name": "v3",
-              "type": "number",
-              "description": "V3 value (index or value)"
-            },
-            {
-              "name": "and",
-              "type": "number",
-              "description": "AND switch index"
-            },
-            {
-              "name": "delay",
-              "type": "number",
-              "description": "delay (time in 1/10 s)"
-            },
-            {
-              "name": "duration",
-              "type": "number",
-              "description": "duration (time in 1/10 s)"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setLogicalSwitch",
-      "signature": "model.setLogicalSwitch(switch, value)",
-      "description": "Set Logical Switch parameters",
-      "parameters": [
-        {
-          "name": "switch",
-          "type": "number",
-          "description": "(unsigned number) logical switch number (use 0 for LS1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(table) see model.getLogicalSwitch() for table format",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "If a parameter is missing from the value, then\nthat parameter remains unchanged.",
-        "To set the `and` member (which is Lua keyword)\nuse the following syntax: `model.setLogicalSwitch(30, {func=4,v1=1,v2=-99, [\"and\"]=24})`"
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getCurve",
-      "signature": "model.getCurve(curve)",
-      "description": "Get Curve parameters",
-      "parameters": [
-        {
-          "name": "curve",
-          "type": "number",
-          "description": "(unsigned number) curve number (use 0 for Curve1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested curve does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "curve data:\n`name` (string) name\n`type` (number) type\n`smooth` (boolean) smooth\n`points` (number) number of points\n`y` (table) table of Y values:\n`key` is point number (zero based)\n`value` is y value\n`x` (table) **only included for custom curve type**:\n`key` is point number (zero based)\n`value` is x value\n\n Note that functions returns the tables starting with index 0 contrary to LUA's\n usual index starting with 1",
-          "fields": [
-            {
-              "name": "name",
-              "type": "string",
-              "description": "name"
-            },
-            {
-              "name": "type",
-              "type": "number",
-              "description": "type"
-            },
-            {
-              "name": "smooth",
-              "type": "boolean",
-              "description": "smooth"
-            },
-            {
-              "name": "points",
-              "type": "number",
-              "description": "number of points"
-            },
-            {
-              "name": "y",
-              "type": "table",
-              "description": "table of Y values:"
-            },
-            {
-              "name": "key",
-              "type": "number",
-              "description": "is point number (zero based)"
-            },
-            {
-              "name": "value",
-              "type": "unknown",
-              "description": "is y value"
-            },
-            {
-              "name": "x",
-              "type": "table",
-              "description": "**only included for custom curve type**:"
-            },
-            {
-              "name": "key",
-              "type": "number",
-              "description": "is point number (zero based)"
-            },
-            {
-              "name": "value",
-              "type": "unknown",
-              "description": "is x value"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.12",
-      "sinceVersion": "2.0.12",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setCurve",
-      "signature": "model.setCurve(curve, params)",
-      "description": "Set Curve parameters",
-      "parameters": [
-        {
-          "name": "curve",
-          "type": "number",
-          "description": "(unsigned number) curve number (use 0 for Curve1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "params",
-          "type": "number|table",
-          "description": "see model.getCurve return format for table format. setCurve uses standard\n lua array indexing and arrays start at index 1\n\nThe first and last x value must -100 and 100 and x values must be monotonically increasing",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "0",
-          "type": "number",
-          "description": "- Everything okay\n         1 - Wrong number of points\n         2 - Invalid Curve number\n         3 - Cuve does not fit anymore\n         4 - point of out of index\n         5 - x value not monotonically increasing\n         6 - y value not in range [-100;100]\n         7 - extra values for y are set\n         8 - extra values for x are set"
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.2.0\n\nExample setting a 4-point custom curve:\n```lua\n  params = {}\n  params[\"x\"] =  {-100, -34, 77, 100}\n  params[\"y\"] = {-70, 20, -89, -100}\n  params[\"smooth\"] = true\n  params[\"type\"] = 1\n  val =  model.setCurve(2, params)\n ```\nsetting a 6-point standard smoothed curve\n ```lua\n val = model.setCurve(3, {smooth=true, y={-100, -50, 0, 50, 100, 80}})\n ```",
-      "sinceVersion": "2.2.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getCustomFunction",
-      "signature": "model.getCustomFunction(function)",
-      "description": "Get Custom Function parameters",
-      "parameters": [
-        {
-          "name": "function",
-          "type": "function",
-          "description": "(unsigned number) custom function number (use 0 for CF1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested custom function does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "custom function data:\n`switch` (number) switch index\n`func` (number) function index\n`name` (string)  Name of track to play (only returned only returned if action is play track, sound or script)\n`value` (number) value (only returned only returned if action is **not** play track, sound or script)\n`mode` (number) mode (only returned only returned if action is **not** play track, sound or script)\n`param` (number) parameter (only returned only returned if action is **not** play track, sound or script)\n`active` (number) 0 = disabled, 1 = enabled",
-          "fields": [
-            {
-              "name": "switch",
-              "type": "number",
-              "description": "switch index"
-            },
-            {
-              "name": "func",
-              "type": "number",
-              "description": "function index"
-            },
-            {
-              "name": "name",
-              "type": "string",
-              "description": "Name of track to play (only returned only returned if action is play track, sound or script)"
-            },
-            {
-              "name": "value",
-              "type": "number",
-              "description": "value (only returned only returned if action is **not** play track, sound or script)"
-            },
-            {
-              "name": "mode",
-              "type": "number",
-              "description": "mode (only returned only returned if action is **not** play track, sound or script)"
-            },
-            {
-              "name": "param",
-              "type": "number",
-              "description": "parameter (only returned only returned if action is **not** play track, sound or script)"
-            },
-            {
-              "name": "active",
-              "type": "number",
-              "description": "0 = disabled, 1 = enabled"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.0, TODO rename function",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setCustomFunction",
-      "signature": "model.setCustomFunction(function, value)",
-      "description": "Set Custom Function parameters",
-      "parameters": [
-        {
-          "name": "function",
-          "type": "function",
-          "description": "(unsigned number) custom function number (use 0 for CF1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(table) custom function parameters, see model.getCustomFunction() for table format",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
-      ],
-      "status": "current Introduced in 2.0.0, TODO rename function",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getOutput",
-      "signature": "model.getOutput(index)",
-      "description": "Get servo parameters",
-      "parameters": [
-        {
-          "name": "index",
-          "type": "number",
-          "description": "(unsigned number) output number (use 0 for CH1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested output does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "output parameters:\n`name` (string) name\n`min` (number) Minimum % * 10\n`max` (number) Maximum % * 10\n`offset` (number) Subtrim * 10\n`ppmCenter` (number) offset from PPM Center. 0 = 1500\n`symetrical` (number) linear Subtrim 0 = Off, 1 = On\n`revert` (number) irection 0 = ­­­---, 1 = INV\n`curve`\n(number) Curve number (0 for Curve1)\nor `nil` if no curve set",
-          "fields": [
-            {
-              "name": "name",
-              "type": "string",
-              "description": "name"
-            },
-            {
-              "name": "min",
-              "type": "number",
-              "description": "Minimum % * 10"
-            },
-            {
-              "name": "max",
-              "type": "number",
-              "description": "Maximum % * 10"
-            },
-            {
-              "name": "offset",
-              "type": "number",
-              "description": "Subtrim * 10"
-            },
-            {
-              "name": "ppmCenter",
-              "type": "number",
-              "description": "offset from PPM Center. 0 = 1500"
-            },
-            {
-              "name": "symetrical",
-              "type": "number",
-              "description": "linear Subtrim 0 = Off, 1 = On"
-            },
-            {
-              "name": "revert",
-              "type": "number",
-              "description": "irection 0 = ­­­---, 1 = INV"
-            },
-            {
-              "name": "curve",
-              "type": "number",
-              "description": "Curve number (0 for Curve1)"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setOutput",
-      "signature": "model.setOutput(index, value)",
-      "description": "Set servo parameters",
-      "parameters": [
-        {
-          "name": "index",
-          "type": "number",
-          "description": "(unsigned number) channel number (use 0 for CH1)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "(table) servo parameters, see model.getOutput() for table format",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "If a parameter is missing from the value, then\nthat parameter remains unchanged."
-      ],
-      "status": "current Introduced in 2.0.0",
-      "sinceVersion": "2.0.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getGlobalVariable",
-      "signature": "model.getGlobalVariable(index, flight_mode)",
-      "description": "Return current global variable value",
-      "parameters": [
-        {
-          "name": "index",
-          "type": "number",
-          "description": "zero based global variable index, use 0 for GV1, 8 for GV9",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flight_mode",
-          "type": "number",
-          "description": "Flight mode number (0 = FM0, 8 = FM8)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested global variable does not exist"
-        },
-        {
-          "name": "number",
-          "type": "number",
-          "description": "current value of global variable\n\nExample:\n\n```lua\n  -- get GV3 (index = 2) from Flight mode 0 (FM0)\n  val = model.getGlobalVariable(2, 0)\n```"
-        }
-      ],
-      "notices": [
-        "a simple warning or notice"
-      ],
-      "status": "",
-      "sinceVersion": "",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "setGlobalVariable",
-      "signature": "model.setGlobalVariable(index, flight_mode, value)",
-      "description": "Sets current global variable value. See also model.getGlobalVariable()",
-      "parameters": [
-        {
-          "name": "index",
-          "type": "number",
-          "description": "zero based global variable index, use 0 for GV1, 8 for GV9",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "flight_mode",
-          "type": "number",
-          "description": "Flight mode number (0 = FM0, 8 = FM8)",
-          "optional": false,
-          "flagHints": []
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": "new value for global variable. Permitted range is\nfrom -1024 to 1024.",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [],
-      "notices": [
-        "Global variable can only store integer values,\nany floating point value is converted into integer value\nby truncating everything behind a floating point."
-      ],
-      "status": "",
-      "sinceVersion": "",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "getSensor",
-      "signature": "model.getSensor(sensor)",
-      "description": "Get Telemetry Sensor parameters",
-      "parameters": [
-        {
-          "name": "sensor",
-          "type": "number",
-          "description": "(unsigned number) sensor number (use 0 for sensor 1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": "requested sensor does not exist"
-        },
-        {
-          "name": "table",
-          "type": "table",
-          "description": "with sensor data:\n`type` (number) 0 = custom, 1 = calculated\n`name` (string) Name\n`unit` (number) See list of units in the appendix of the OpenTX Lua Reference Guide\n`prec` (number) Number of decimals\n`id`   (number) Only custom sensors\n`instance` (number) Only custom sensors\n`formula` (number) Only calculated sensors. 0 = Add etc. see list of formula choices in Companion popup",
-          "fields": [
-            {
-              "name": "type",
-              "type": "number",
-              "description": "0 = custom, 1 = calculated"
-            },
-            {
-              "name": "name",
-              "type": "string",
-              "description": "Name"
-            },
-            {
-              "name": "unit",
-              "type": "number",
-              "description": "See list of units in the appendix of the OpenTX Lua Reference Guide"
-            },
-            {
-              "name": "prec",
-              "type": "number",
-              "description": "Number of decimals"
-            },
-            {
-              "name": "id",
-              "type": "number",
-              "description": "Only custom sensors"
-            },
-            {
-              "name": "instance",
-              "type": "number",
-              "description": "Only custom sensors"
-            },
-            {
-              "name": "formula",
-              "type": "number",
-              "description": "Only calculated sensors. 0 = Add etc. see list of formula choices in Companion popup"
-            }
-          ]
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.3.0",
-      "sinceVersion": "2.3.0",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
-    },
-    {
-      "entityType": "function",
-      "module": "model",
-      "name": "resetSensor",
-      "signature": "model.resetSensor(sensor)",
-      "description": "Reset Telemetry Sensor parameters",
-      "parameters": [
-        {
-          "name": "sensor",
-          "type": "number",
-          "description": "(unsigned number) sensor number (use 0 for sensor 1)",
-          "optional": false,
-          "flagHints": []
-        }
-      ],
-      "overloadParameters": [],
-      "returns": [
-        {
-          "name": "nil",
-          "type": "nil",
-          "description": ""
-        }
-      ],
-      "notices": [],
-      "status": "current Introduced in 2.3.11",
-      "sinceVersion": "2.3.11",
-      "deprecated": false,
-      "sourceFile": "api_model.cpp"
     }
   ],
   "constants": [
