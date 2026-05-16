@@ -1,6 +1,8 @@
 .vscode/**
 .vscode-test/**
 src/**
+webview/simulator/node_modules/**
+webview/simulator/src/**
 .gitignore
 .yarnrc
 vsc-extension-quickstart.md

@@ -9,7 +9,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@edgetx/simulator-ui": "*",
+    "@edgetx/simulator-ui": "^0.1.0",
     "react": "^18",
     "react-dom": "^18"
   },
