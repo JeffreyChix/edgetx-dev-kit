@@ -6,6 +6,45 @@ All notable changes to EdgeTX Dev Kit are documented here.
 
 Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-kit) to stay up to date.
 
+## [2.0.0] — 2026-05-16
+
+### Added
+
+- **Built-in EdgeTX simulator** — The actual EdgeTX firmware compiled to WebAssembly runs directly inside VS Code via `EdgeTX: Open Simulator`. No EdgeTX Companion or external tools required. The simulator displays the radio LCD and responds to all inputs in real time.
+
+- **Script simulation** — `EdgeTX: Simulate Script` reads the `---@type` annotation of the active Lua file, auto-deploys it to the SD card, and launches it in the simulator immediately. Widget scripts appear on the main screen; telemetry scripts run standalone. Both color LCD and monochrome (B&W) radios are supported.
+
+- **Watch mode** — `EdgeTX: Watch Script` combines simulation with live reload. Every file save triggers an automatic redeploy and simulator restart. A **● WATCHING** badge in the simulator header confirms watch mode is active.
+
+- **`---@simulate` annotation** — Widget scripts can declare a specific layout and zone to simulate in, matching the exact screen area they will occupy on the radio:
+  ```lua
+  ---@simulate Layout2x2 zone=1
+  ```
+  Omitting the annotation defaults to a full-screen zone.
+
+- **Controls panel** — A collapsible panel in the simulator exposes the full radio control set: dual gimbals with spring physics, switches, buttons, pots, sliders, and trim buttons. All inputs are wired live to the running firmware.
+
+- **Telemetry streaming** — A dedicated Telemetry panel streams simulated CRSF telemetry frames to the firmware at 10 Hz across five tabs: Link, GPS, Attitude, Battery, and Flight. Values are editable per-field and streaming can be toggled on or off independently of the simulation.
+
+- **Audio support** — Simulator audio (beeps, alerts, speech) is captured from the firmware and played back through the host audio context.
+
+- **WASM caching with ETag validation** — The WASM firmware binary is downloaded once and cached to disk. On subsequent launches the extension performs a lightweight HEAD request to check for a newer build; re-download only happens when a new firmware version is detected.
+
+- **Simulator session persistence** — Radio model settings and any changes made during a simulation session (configured models, stored settings) are saved to disk and restored on the next boot, giving continuity across sessions.
+
+- **Model backup and restore** — When `Simulate Script` injects a widget into the active model, the original model state is backed up and restored automatically when the simulator panel closes, so subsequent plain simulator opens start from a clean state.
+
+- **Simulator UI state persistence** — Show/Hide Controls and Telemetry panel open/closed states are remembered across sessions via `globalState`.
+
+
+### Changed
+
+- **Radio profile IDs updated** — Supported radio definitions have been revised and some radio identifiers have changed. **Existing users must run `EdgeTX: Set Radio Profile` after upgrading** to reselect their radio and clear any stale profile data.
+
+- **`sdCardPath` now also drives the simulator filesystem** — When an SD card path is configured, the simulator reads and writes from that path directly, keeping simulation in sync with real radio data.
+
+---
+
 ## [1.1.2] — 2026-04-06
 
 ### Added
@@ -44,8 +83,9 @@ Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-k
 
 ---
 
-[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.0...HEAD
-[1.1.2]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.0.0...v1.1.2
-[1.1.1]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.0.0...v1.1.1
+[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.2...v2.0.0
+[1.1.2]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/JeffreyChix/edgetx-dev-kit/releases/tag/v1.0.0

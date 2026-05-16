@@ -171,7 +171,7 @@ export class SDCardWatcher {
     return path.join(sdPath, ...segments);
   }
 
-  private getWidgetName(
+  getWidgetName(
     document: vscode.TextDocument,
     profileVersion: string,
   ): string {

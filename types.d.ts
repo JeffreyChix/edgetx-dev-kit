@@ -6,7 +6,6 @@ interface RadioDefinition {
   display: ScreenDisplayType;
   screenWidth: number;
   screenHeight: number;
-  hasTouch: boolean;
   minSupportedVersion: string;
   maxSupportedVersion: string | null;
 }
@@ -161,4 +160,74 @@ interface ScriptTypeDefinition {
   description: string;
   notices: string[];
   versions: ScriptVersion[];
+}
+
+
+interface RadioDisplay {
+  w: number;
+  h: number;
+  depth: number; // 1 = monochrome, 4 = grayscale, 16 = color RGB565
+}
+
+interface RadioInput {
+  name: string;
+  type: "STICK" | "FLEX";
+  label: string;
+  default?: string; // POT | POT_CENTER | SLIDER | MULTIPOS | NONE
+}
+
+interface RadioSwitch {
+  name: string;
+  type: "2POS" | "3POS";
+  default: string; // 2POS | 3POS | TOGGLE | NONE
+}
+
+interface RadioTrim {
+  name: string;
+}
+
+interface RadioKey {
+  key: string; // KEY_MODEL | KEY_SYS | KEY_TELE | KEY_EXIT | KEY_ENTER | KEY_PAGEUP | KEY_PAGEDN | KEY_MENU
+  label: string;
+  side: "L" | "R";
+}
+
+interface RadioProfile {
+  name: string;
+  wasm: string; // e.g. "edgetx-tx16s-simulator.wasm"
+  display: RadioDisplay;
+  inputs: RadioInput[];
+  switches: RadioSwitch[];
+  trims: RadioTrim[];
+  keys: RadioKey[];
+}
+
+interface SimulatorExports {
+  memory: WebAssembly.Memory;
+  malloc: (size: number) => number;
+  free: (ptr: number) => void;
+  simuInit: () => void;
+  simuStart: (tests: number) => void;
+  simuStop: () => void;
+  simuFatfsSetPaths: (sdPath: number, settingsPath: number) => void;
+  simuCreateDefaults?: () => void;
+  simuSetKey: (key: number, state: number) => void;
+  simuSetTrim: (trim: number, state: number) => void;
+  simuSetSwitch: (swtch: number, state: number) => void;
+  simuTouchDown: (x: number, y: number) => void;
+  simuTouchUp: () => void;
+  simuRotaryEncoderEvent: (steps: number) => void;
+  simuInjectChar: (c: number) => void;
+  simuLcdChanged: () => number;
+  simuLcdCopy: (buf: number, maxLen: number) => number;
+  simuLcdGetWidth: () => number;
+  simuLcdGetHeight: () => number;
+  simuLcdGetDepth: () => number;
+  simuLcdFlushed: () => void;
+  simuIsTextKeyboardActive: () => number;
+  simuIsNumberKeyboardActive: () => number;
+  simuSendTelemetry: (module: number, protocol: number, dataPtr: number, len: number) => void;
+  simuRunScriptContent?: (contentPtr: number, len: number, namePtr: number) => void;
+  simuLoadWidget?: (namePtr: number) => void;
+  simuLoadWidgetByLayout?: (namePtr: number, layoutPtr: number, zoneIndex: number) => void;
 }

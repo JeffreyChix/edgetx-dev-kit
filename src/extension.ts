@@ -10,6 +10,8 @@ import { VersionManager } from "./versionManager";
 import { getEdgeTXConfig } from "./utils/general";
 import { EdgeTXStatusBar } from "./edgetxStatusBar";
 import { SDCardWatcher } from "./sdCardWatcher";
+import { SimulatorPanel } from "./simulatorPanel";
+import { ScriptSimulator } from "./scriptSimulator";
 
 let edgetxManager: EdgeTXManager;
 
@@ -37,6 +39,13 @@ export async function activate(context: vscode.ExtensionContext) {
     profileManager,
     statusBar,
     diagnosticsProvider,
+  );
+
+  const scriptSimulator = new ScriptSimulator(
+    context,
+    profileManager,
+    diagnosticsProvider,
+    sdCardWatcher,
   );
 
   sdCardWatcher.register(context);
@@ -87,6 +96,7 @@ export async function activate(context: vscode.ExtensionContext) {
       statusBar.refresh();
       diagnosticsProvider.refresh();
       apiSearchPanel.refresh();
+      SimulatorPanel.updateProfile(profileManager);
     }),
 
     vscode.commands.registerCommand("edgetx.newScript", async () => {
@@ -159,34 +169,41 @@ export async function activate(context: vscode.ExtensionContext) {
       await sdCardWatcher.deploy(activeEditor.document);
     }),
 
-    // coming soon
-    vscode.commands.registerCommand("edgetx.simulate", () => {
-      vscode.window
-        .showInformationMessage(
-          "EdgeTX: Live simulation is coming soon 😃 Follow the project to stay up to date.",
-          "View on GitHub",
-          "Dismiss",
-        )
-        .then((action) => {
-          if (action === "View on GitHub") {
-            vscode.env.openExternal(
-              vscode.Uri.parse("https://github.com/JeffreyChix/edgetx-dev-kit"),
-            );
-          }
-        });
+    vscode.commands.registerCommand("edgetx.openSimulator", () => {
+      const profile = profileManager.getProfile();
+      if (!profile) {
+        vscode.window
+          .showErrorMessage(
+            "EdgeTX: Set a radio profile first before opening the simulator.",
+            "Set Profile",
+          )
+          .then((action) => {
+            if (action === "Set Profile") {
+              vscode.commands.executeCommand("edgetx.setProfile");
+            }
+          });
+        return;
+      }
+      SimulatorPanel.open(context, profileManager);
+    }),
+
+    vscode.commands.registerCommand("edgetx.simulate", async () => {
+      await scriptSimulator.run({ watch: false });
+    }),
+
+    vscode.commands.registerCommand("edgetx.watchScript", async () => {
+      await scriptSimulator.run({ watch: true });
     }),
   );
 
-  const config = getEdgeTXConfig();
-
   if (
-    config.get("autoActivateOnStart") &&
+    getEdgeTXConfig().get("autoActivateOnStart") &&
     vscode.window.activeTextEditor?.document.languageId === "lua"
   ) {
     await edgetxManager.activate();
   }
 
-  if (config.get("checkUpdatesOnStart")) {
+  if (getEdgeTXConfig().get("checkUpdatesOnStart")) {
     versionManager
       .syncStubs()
       .then((synced) => {
@@ -213,3 +230,4 @@ export async function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
   edgetxManager?.deactivate();
 }
+

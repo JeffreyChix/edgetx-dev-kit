@@ -1,19 +1,28 @@
-# EdgeTX Dev Kit
+# EdgeTX Dev Kit 2.0
 
-> A VS Code extension for writing EdgeTX Lua scripts with IntelliSense, diagnostics, script generation, and SD card deployment — built for the RC community.
+> A VS Code extension for writing, diagnosing, deploying, and simulating EdgeTX Lua scripts — built for the RC community.
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.85+-blue)](https://code.visualstudio.com)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+![EdgeTX Dev Kit 2.0](bundled/images/edgetx-dev-kit-2.0.png)
+
 EdgeTX Dev Kit brings a proper development environment to EdgeTX Lua scripting. If you've ever written a widget or telemetry script in a plain text editor, copy-pasted it to an SD card, flashed it to your radio, and stared at a blank screen wondering what went wrong, then this extension is for you.
 
-It connects to auto-generated stubs from the EdgeTX source, gives you real IntelliSense for every API, catches mistakes before you ever touch your radio, and deploys directly to your SD card on save.
+It connects to auto-generated stubs from the EdgeTX source, gives you real IntelliSense for every API, catches mistakes before you ever touch your radio, deploys directly to your SD card on save — and now lets you run your scripts live in a built-in EdgeTX simulator, right inside VS Code.
 
 ## Requirements
 
 - [VS Code](https://code.visualstudio.com/) 1.85 or later
 - [Lua Language Server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) (`sumneko.lua`) — installed automatically as a dependency
-- [EdgeTX Companion](https://edgetx.org) (optional, recommended for simulation)
+
+## Upgrading from 1.x
+
+> **⚠️ Action required if you're upgrading from a previous version.**
+>
+> Supported radio profiles have been updated in 2.0 and some radio IDs have changed. If you were on 1.x, your saved profile may no longer match a valid radio and the simulator or diagnostics may not work correctly.
+>
+> Run **`EdgeTX: Set Radio Profile`** after upgrading to select your radio again and clear any stale profile data.
 
 ## Getting Started
 
@@ -161,6 +170,80 @@ Before deploying, the extension checks for errors in the current file. If blocki
 
 If the SD card path doesn't exist or the card is ejected, you will be notified.
 
+### Simulator
+
+![EdgeTX Dev Kit 2.0](bundled/images/simulator.png)
+
+EdgeTX Dev Kit 2.0 includes a built-in simulator powered by the actual EdgeTX WASM firmware — the same firmware that runs on your radio, compiled to WebAssembly and running directly in VS Code. No EdgeTX Companion required.
+
+> **Prerequisites:** Set your radio profile (`EdgeTX: Set Radio Profile`) and SD card path (`edgetx.sdCardPath`) before using the simulator.
+
+#### Opening the Simulator
+
+Run `EdgeTX: Open Simulator` from the command palette to open the simulator panel. The panel shows the radio LCD display and, optionally, the full controls panel.
+
+The WASM binary is downloaded and cached on first launch. Subsequent opens load instantly from disk and only re-download when a new firmware build is available.
+
+> **Tip — high-resolution displays:** Radios with large screens (such as the TX16S MK3 at 800 px wide) render at full firmware resolution. For the sharpest image, drag the panel splitter to widen the simulator, or drag the panel tab into a separate editor group to give it more space. Constraining the panel width causes the browser to downscale the WebGL canvas, which reduces clarity.
+
+#### Controls Panel
+
+Click **Show Controls** in the simulator header to reveal the full radio control set — dual gimbals with spring physics, switches, buttons, pots, sliders, and trim buttons. All inputs are wired to the live firmware; move a stick and the radio responds in real time.
+
+Click **Hide Controls** to collapse the panel and focus on the display.
+
+![Controls](bundled/images/controls.png)
+
+#### Simulate Script
+
+With a widget or telemetry script open in the editor, run `EdgeTX: Simulate Script` (or right-click → **Simulate Script**).
+
+The extension reads the `---@type` annotation, deploys the script to the SD card, boots the simulator, and launches the script automatically — no menu navigation required.
+
+- **Widget scripts** — the widget is loaded and rendered on the main screen immediately after the firmware boots.
+- **Telemetry scripts** — the script is executed as a standalone Lua program and takes over the display.
+
+![Simulate Script](bundled/images/widget.png)
+
+**Simulate in a specific zone:**
+
+By default, widgets simulate at full-screen size. Add a `---@simulate` annotation to target a specific layout and zone — useful when your widget is designed for a corner or half-screen slot:
+
+```lua
+---@type WidgetScript
+---@simulate Layout2x2 zone=1
+```
+
+Valid layout names match the layouts available on your radio (e.g. `Layout1x1`, `Layout2x2`). If the annotation is absent or the layout isn't recognised, the widget falls back to the full main area.
+
+#### Watch Script
+
+Run `EdgeTX: Watch Script` to simulate with live reload. Every time you save the file, the extension automatically redeploys and restarts the simulation with your latest changes — no manual re-triggering.
+
+A **● WATCHING** badge appears in the simulator header while watch mode is active. Close the simulator panel to stop watching.
+
+![Watch Script Mode](/bundled/images/watching.png)
+
+#### Telemetry Streaming
+
+Open the **Telemetry** panel in the simulator header to inject fake telemetry data into the running firmware at 10 Hz. Adjust values across five tabs:
+
+| Tab          | Sensors                                                   |
+| ------------ | --------------------------------------------------------- |
+| **Link**     | 1RSS, 2RSS, Rqly, RSNR, RFMD, ANT, TPWR, TRSS, TQly, TSNR |
+| **GPS**      | Lat, Lon, Alt, Sats, Hdg                                  |
+| **Attitude** | Ptch, Roll, Yaw                                           |
+| **Battery**  | RXBt, Curr, Capa                                          |
+| **Flight**   | FM, VSPD                                                  |
+
+Toggle **STREAMING** on to start sending frames. Toggle it off to pause. Values persist for the session.
+
+![Telemetry](/bundled/images/telemetry.png)
+
+#### Persistence
+
+Radio settings, model configuration, and any changes made during a simulation session are saved to disk and restored on the next boot. The simulated SD card state (models, scripts, settings) persists between sessions when using your configured SD card path.
+
 ### Radio Profile
 
 Run `EdgeTX: Set Radio Profile` to configure:
@@ -172,7 +255,7 @@ Run `EdgeTX: Set Radio Profile` to configure:
 The active profile is shown in the status bar:
 
 ```
-EdgeTX: Jumper T20 2.10
+EdgeTX: tx16s • 2.12
 ```
 
 ### Stub Sync
@@ -184,7 +267,6 @@ Run `EdgeTX: Check for API Updates and Sync` to force a manual sync.
 `SUPPORTED_MANIFEST_VERSION = 2`
 
 The base URL is configurable if you host your own stubs:
-PLEASE BE CAREFUL HERE.
 
 ```json
 "edgetx.stubsRawBaseUrl": "https://raw.githubusercontent.com/JeffreyChix/edgetx-stubs/main"
@@ -192,32 +274,34 @@ PLEASE BE CAREFUL HERE.
 
 ## Commands
 
-All commands are available via `Ctrl+Shift+P` and prefixed with `EdgeTX:`.
+All commands are available via `Ctrl+Shift+P` and prefixed with `EdgeTX:`. Most are also available in the right-click context menu when a Lua file is open.
 
-| Command                                  | Description                                                 |
-| ---------------------------------------- | ----------------------------------------------------------- |
-| `EdgeTX: Toggle EdgeTX Mode`             | Enable or disable EdgeTX mode for the current workspace     |
-| `EdgeTX: Set Radio Profile`              | Configure your radio's EdgeTX version and display type      |
-| `EdgeTX: New Script (Wizard)`            | Open the guided script generation wizard                    |
-| `EdgeTX: New Widget Script`              | Generate a widget script template in the active editor      |
-| `EdgeTX: New Telemetry Script`           | Generate a telemetry script template                        |
-| `EdgeTX: New Function Script`            | Generate a function script template                         |
-| `EdgeTX: New Mix Script`                 | Generate a mix script template                              |
-| `EdgeTX: New OneTime Script`             | Generate a one-time script template                         |
-| `EdgeTX: Search API`                     | Open the API search panel                                   |
-| `EdgeTX: Deploy Script to SD Card`       | Deploy the active script to the configured SD card path     |
-| `EdgeTX: Check for API Updates and Sync` | Force a stub sync against the remote pipeline               |
-| `EdgeTX: Simulate Script`                | _(Coming soon)_ Live script simulation via EdgeTX Companion |
+| Command                                  | Description                                                                     |
+| ---------------------------------------- | ------------------------------------------------------------------------------- |
+| `EdgeTX: Toggle EdgeTX Mode`             | Enable or disable EdgeTX mode for the current workspace                         |
+| `EdgeTX: Set Radio Profile`              | Configure your radio's EdgeTX version and display type                          |
+| `EdgeTX: New Script (Wizard)`            | Open the guided script generation wizard                                        |
+| `EdgeTX: New Widget Script`              | Generate a widget script template in the active editor                          |
+| `EdgeTX: New Telemetry Script`           | Generate a telemetry script template                                            |
+| `EdgeTX: New Function Script`            | Generate a function script template                                             |
+| `EdgeTX: New Mix Script`                 | Generate a mix script template                                                  |
+| `EdgeTX: New OneTime Script`             | Generate a one-time script template                                             |
+| `EdgeTX: Search API`                     | Open the API search panel                                                       |
+| `EdgeTX: Deploy Script to SD Card`       | Deploy the active script to the configured SD card path                         |
+| `EdgeTX: Check for API Updates and Sync` | Force a stub sync against the remote pipeline                                   |
+| `EdgeTX: Open Simulator`                 | Open the EdgeTX simulator panel                                                 |
+| `EdgeTX: Simulate Script`                | Simulate the active widget or telemetry script in the built-in simulator        |
+| `EdgeTX: Watch Script`                   | Simulate with live reload — restarts the simulation automatically on every save |
 
 ## Extension Settings
 
-| Setting                      | Type      | Default        | Description                                                     |
-| ---------------------------- | --------- | -------------- | --------------------------------------------------------------- |
-| `edgetx.autoActivateOnStart` | `boolean` | `false`        | Automatically enable EdgeTX mode on start if a Lua file is open |
-| `edgetx.autoDeployOnSave`    | `boolean` | `false`        | Deploy to SD card automatically on every save                   |
-| `edgetx.sdCardPath`          | `string`  | —              | Absolute path to your EdgeTX SD card root                       |
-| `edgetx.checkUpdatesOnStart` | `boolean` | `true`         | Check for stub updates when the extension activates             |
-| `edgetx.stubsRawBaseUrl`     | `string`  | GitHub raw URL | Base URL for stub file hosting                                  |
+| Setting                      | Type      | Default        | Description                                                                       |
+| ---------------------------- | --------- | -------------- | --------------------------------------------------------------------------------- |
+| `edgetx.autoActivateOnStart` | `boolean` | `false`        | Automatically enable EdgeTX mode on start if a Lua file is open                   |
+| `edgetx.autoDeployOnSave`    | `boolean` | `false`        | Deploy to SD card automatically on every save                                     |
+| `edgetx.sdCardPath`          | `string`  | —              | Absolute path to your EdgeTX SD card root — also used as the simulator filesystem |
+| `edgetx.checkUpdatesOnStart` | `boolean` | `true`         | Check for stub updates when the extension activates                               |
+| `edgetx.stubsRawBaseUrl`     | `string`  | GitHub raw URL | Base URL for stub file hosting                                                    |
 
 ## Script Types
 
@@ -242,20 +326,6 @@ Custom mix that reads inputs and produces outputs. Requires `run`. Optional: `in
 ### One-Time Script
 
 Runs once when activated. Useful for setup or configuration. Requires `run`. Optional: `init`.
-
-## Release Notes
-
-### 1.0.0
-
-Initial release.
-
-- LuaLS IntelliSense via versioned auto-generated stubs
-- Version-aware diagnostics (structural, lint, widget constraints)
-- Script generation wizard and inline `!w`, `!t`, `!f`, `!m`, `!o` shortcuts
-- API Search sidebar and panel
-- Radio profile management
-- SD card auto-deploy
-- Stub sync pipeline integration
 
 ## Contributing
 

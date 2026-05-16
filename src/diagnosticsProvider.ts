@@ -58,7 +58,7 @@ export class DiagnosticsProvider {
   private getReturnStatement(
     ast: luaparse.Chunk,
   ): luaparse.ReturnStatement | undefined {
-    return ast.body.reverse().find((n) => n.type === "ReturnStatement");
+    return ast.body.find((n) => n.type === "ReturnStatement");
   }
 
   private getReturnedKeys(
@@ -100,9 +100,7 @@ export class DiagnosticsProvider {
   ): luaparse.TableConstructorExpression | null {
     let tableExpr: luaparse.TableConstructorExpression | null = null;
 
-    const returnStmt = [...ast.body]
-      .reverse()
-      .find((n): n is luaparse.ReturnStatement => n.type === "ReturnStatement");
+    const returnStmt = this.getReturnStatement(ast);
 
     if (!returnStmt || returnStmt.arguments.length === 0) {
       return null;
@@ -160,6 +158,32 @@ export class DiagnosticsProvider {
                 loc: v.loc,
               });
             }
+          });
+        }
+
+        if (
+          node.type === "FunctionDeclaration" &&
+          node.identifier &&
+          node.identifier.type === "MemberExpression" &&
+          node.identifier.indexer === "." &&
+          node.identifier.base.type === "Identifier" &&
+          node.identifier.base.name === (returnExpr as luaparse.Identifier).name
+        ) {
+          if (!tableExpr) {
+            tableExpr = { type: "TableConstructorExpression", fields: [] };
+          }
+
+          const key = node.identifier.identifier.name;
+
+          tableExpr.fields = tableExpr.fields.filter(
+            (f) => f.type === "TableKeyString" && f.key.name !== key,
+          );
+
+          tableExpr.fields.push({
+            type: "TableKeyString",
+            key: node.identifier.identifier,
+            value: node,
+            loc: node.identifier.loc,
           });
         }
       }
@@ -476,7 +500,7 @@ export class DiagnosticsProvider {
     table: luaparse.TableConstructorExpression | null,
   ): vscode.Diagnostic[] {
     const diagnostics: vscode.Diagnostic[] = [];
-    console.log(table);
+
     const lines = source.split("\n");
 
     const unavailableApis = this.getUnavailableApis(

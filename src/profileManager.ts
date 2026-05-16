@@ -30,7 +30,7 @@ export class ProfileManager {
     const radioItems = SUPPORTED_RADIOS.map((r) => ({
       label: r.name,
       description: `${r.display === "color" ? "🎨 Color" : "⬛ B&W"} ${r.screenWidth}×${r.screenHeight}`,
-      detail: r.hasTouch ? "Touch screen" : undefined,
+      // detail: r.hasTouch ? "Touch screen" : undefined,
       radio: r,
     }));
 
