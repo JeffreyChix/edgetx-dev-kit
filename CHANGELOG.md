@@ -6,6 +6,35 @@ All notable changes to EdgeTX Dev Kit are documented here.
 
 Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-kit) to stay up to date.
 
+## [2.1.0] — 2026-05-23
+
+### Added
+
+- **Multi-file watch mode** — Watch mode now reacts to saves across all open `.lua` files, not just the entry point. Editing a helper script that your widget or telemetry script depends on now triggers an automatic reload just like editing the main file would.
+
+- **Manual reload button** — A `↻` icon button in the simulator header lets you restart the simulation at any time without saving a file or re-running a command.
+
+- **Keyboard shortcuts** — Six commands now have default keybindings. Script-specific shortcuts are scoped to Lua files with EdgeTX mode active:
+  | Command | Windows / Linux | Mac |
+  |---|---|---|
+  | Watch Script | `Ctrl+Alt+W` | `Cmd+Alt+W` |
+  | Simulate Script | `Ctrl+Alt+S` | `Cmd+Alt+S` |
+  | Deploy Script | `Ctrl+Alt+D` | `Cmd+Alt+D` |
+  | Search API | `Ctrl+Alt+A` | `Cmd+Alt+A` |
+  | Open Simulator | `Ctrl+Alt+O` | `Cmd+Alt+O` |
+  | Set Radio Profile | `Ctrl+Alt+P` | `Cmd+Alt+P` |
+
+
+### Changed
+
+- **Wide-screen radios open in a full-width tab** — Radios with a screen width greater than 490px (e.g. RadioMaster TX16S MK3) now open the simulator as a tab in the active editor group instead of a split side panel, giving the larger display the space it needs.
+
+### Fixed
+
+- **Simulator panel jumps back to side panel on watch reload** — When the simulator was moved to a standalone tab, a watch-triggered reload would force it back to the side panel. The panel now stays wherever the user placed it.
+
+---
+
 ## [2.0.0] — 2026-05-16
 
 ### Added
@@ -83,7 +112,8 @@ Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-k
 
 ---
 
-[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.2...v2.0.0
 [1.1.2]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.0...v1.1.1

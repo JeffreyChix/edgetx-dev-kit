@@ -84,14 +84,14 @@ export class ScriptSimulator {
       SimulatorPanel.setWatchMode(true);
       this.watchDisposable = vscode.workspace.onDidSaveTextDocument(
         async (saved) => {
-          if (saved.uri.fsPath !== script.sourceFilePath) { return; }
+          if (saved.languageId !== "lua") { return; }
           if (!SimulatorPanel.isOpen()) {
             this.watchDisposable?.dispose();
             this.watchDisposable = undefined;
             return;
           }
           const updatedScript = this.buildScriptContext(
-            saved,
+            editor.document,
             profile,
             sdCardPath,
             script.type,
@@ -101,7 +101,6 @@ export class ScriptSimulator {
           SimulatorPanel.setWatchMode(true);
         },
       );
-      this.context.subscriptions.push(this.watchDisposable);
     }
   }
 

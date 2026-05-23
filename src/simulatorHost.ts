@@ -180,7 +180,7 @@ export interface ScriptContext {
   wasiPath: string;
   /** Absolute path on disk — used to read the file content in Node.js */
   physicalPath: string;
-  /** Original source file in the workspace — used by watch mode to detect saves */
+  /** Original source file in the workspace */
   sourceFilePath: string;
   /** Widget internal name (from the Lua `name` field), only for widget type */
   widgetName?: string;

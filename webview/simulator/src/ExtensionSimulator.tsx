@@ -40,6 +40,7 @@ interface Props {
   onShowTelemetryChange: (value: boolean) => void;
   streamingEnabled: boolean;
   onStreamingEnabledChange: (value: boolean) => void;
+  onReload: () => void;
 }
 
 // ── Helpers (same as Simulator.tsx) ──────────────────────────────────────────
@@ -169,6 +170,7 @@ export function ExtensionSimulator({
   onShowTelemetryChange,
   streamingEnabled,
   onStreamingEnabledChange,
+  onReload,
 }: Props) {
   const analogRef = useRef<number[]>([]);
   const switchRef = useRef<number[]>([]);
@@ -528,6 +530,7 @@ export function ExtensionSimulator({
             ⌨ {keyboardMode === "text" ? "TYPE" : "NUM"}
           </span>
         )}
+
         {isReady && (
           <button
             onClick={() => onShowControlsChange(!showControls)}
@@ -556,9 +559,14 @@ export function ExtensionSimulator({
             style={{
               fontSize: 11,
               padding: "3px 10px",
-              background: showTelemetry ? "var(--vscode-button-background)" : "transparent",
-              color: showTelemetry ? "var(--vscode-button-foreground)" : "var(--vscode-foreground)",
-              border: "1px solid var(--vscode-button-border, var(--vscode-panel-border))",
+              background: showTelemetry
+                ? "var(--vscode-button-background)"
+                : "transparent",
+              color: showTelemetry
+                ? "var(--vscode-button-foreground)"
+                : "var(--vscode-foreground)",
+              border:
+                "1px solid var(--vscode-button-border, var(--vscode-panel-border))",
               borderRadius: 3,
               cursor: "pointer",
               whiteSpace: "nowrap",
@@ -568,16 +576,37 @@ export function ExtensionSimulator({
             }}
           >
             {streamingEnabled && (
-              <span style={{
-                width: 6, height: 6, borderRadius: "50%",
-                background: "var(--vscode-progressBar-background, #007acc)",
-                flexShrink: 0,
-                animation: "pulse 1.2s infinite",
-              }} />
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: "var(--vscode-progressBar-background, #007acc)",
+                  flexShrink: 0,
+                  animation: "pulse 1.2s infinite",
+                }}
+              />
             )}
             Telemetry
           </button>
         )}
+        <button
+          onClick={onReload}
+          title="Reload simulation"
+          style={{
+            fontSize: 16,
+            lineHeight: 1,
+            padding: "2px 6px",
+            background: "transparent",
+            color: "var(--vscode-foreground)",
+            border:
+              "1px solid var(--vscode-button-border, var(--vscode-panel-border))",
+            borderRadius: 3,
+            cursor: "pointer",
+          }}
+        >
+          ↻
+        </button>
       </div>
       <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}`}</style>
 
@@ -674,270 +703,279 @@ export function ExtensionSimulator({
 
       {/* ── Scrollable area: controls + telemetry ──────────────────────────── */}
       <div style={{ flex: 1, overflowY: "auto" }}>
-      {/* Controls Panel */}
-      {isReady && showControls && (
-        <div
-          style={{
-            borderTop: "1px solid var(--vscode-panel-border)",
-            padding: "14px 12px 20px",
-            display: "flex",
-            flexDirection: "column",
-            gap: 20,
-          }}
-        >
-          {/* Buttons */}
-          {(leftKeys.length > 0 || rightKeys.length > 0) && (
-            <div>
-              <SectionLabel label="Buttons" />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  gap: 12,
-                }}
-              >
-                {leftKeys.length > 0 && (
-                  <div
-                    style={{ display: "flex", flexDirection: "column", gap: 6 }}
-                  >
-                    {leftKeys.map((k) => (
-                      <RadioBtn
-                        key={k.key}
-                        label={k.label}
-                        keyCode={KEY_MAP[k.key] ?? 0}
-                        onInput={onInput}
-                      />
-                    ))}
-                  </div>
-                )}
-                {rightKeys.length > 0 && (
-                  <div
-                    style={{ display: "flex", flexDirection: "column", gap: 6 }}
-                  >
-                    {rightKeys.map((k) => (
-                      <RadioBtn
-                        key={k.key}
-                        label={k.label}
-                        keyCode={KEY_MAP[k.key] ?? 0}
-                        onInput={onInput}
-                      />
-                    ))}
-                  </div>
-                )}
+        {/* Controls Panel */}
+        {isReady && showControls && (
+          <div
+            style={{
+              borderTop: "1px solid var(--vscode-panel-border)",
+              padding: "14px 12px 20px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+            }}
+          >
+            {/* Buttons */}
+            {(leftKeys.length > 0 || rightKeys.length > 0) && (
+              <div>
+                <SectionLabel label="Buttons" />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                    gap: 12,
+                  }}
+                >
+                  {leftKeys.length > 0 && (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 6,
+                      }}
+                    >
+                      {leftKeys.map((k) => (
+                        <RadioBtn
+                          key={k.key}
+                          label={k.label}
+                          keyCode={KEY_MAP[k.key] ?? 0}
+                          onInput={onInput}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {rightKeys.length > 0 && (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 6,
+                      }}
+                    >
+                      {rightKeys.map((k) => (
+                        <RadioBtn
+                          key={k.key}
+                          label={k.label}
+                          keyCode={KEY_MAP[k.key] ?? 0}
+                          onInput={onInput}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Switches */}
-          {switches.length > 0 && (
-            <div>
-              <SectionLabel label="Switches" />
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 12,
-                  justifyContent: "center",
-                }}
-              >
-                {switches.map(({ sw, index }) => (
-                  <SwitchWidget
-                    key={sw.name}
-                    name={sw.name}
-                    type={sw.default === "TOGGLE" ? "MOMENT" : sw.type}
-                    onChange={(pos) => updateSwitch(index, pos)}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Sticks */}
-          {(si.lh >= 0 || si.lv >= 0 || si.rh >= 0 || si.rv >= 0) && (
-            <div>
-              <SectionLabel label="Sticks" />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  gap: 12,
-                }}
-              >
-                {(si.lh >= 0 || si.lv >= 0) && (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: 4,
-                    }}
-                  >
-                    <span style={{ fontSize: 9, opacity: 0.5 }}>LEFT</span>
-                    <Joystick
-                      springX
-                      springY={false}
-                      initialY={1}
-                      size={100}
-                      onInput={(nx, ny) => applyGimbal("left", nx, ny)}
-                      onRelease={() => releaseGimbal("left")}
+            {/* Switches */}
+            {switches.length > 0 && (
+              <div>
+                <SectionLabel label="Switches" />
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 12,
+                    justifyContent: "center",
+                  }}
+                >
+                  {switches.map(({ sw, index }) => (
+                    <SwitchWidget
+                      key={sw.name}
+                      name={sw.name}
+                      type={sw.default === "TOGGLE" ? "MOMENT" : sw.type}
+                      onChange={(pos) => updateSwitch(index, pos)}
                     />
-                  </div>
-                )}
-                {(si.rh >= 0 || si.rv >= 0) && (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: 4,
-                    }}
-                  >
-                    <span style={{ fontSize: 9, opacity: 0.5 }}>RIGHT</span>
-                    <Joystick
-                      springX
-                      springY
-                      size={100}
-                      onInput={(nx, ny) => applyGimbal("right", nx, ny)}
-                      onRelease={() => releaseGimbal("right")}
-                    />
-                  </div>
-                )}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Pots & Sliders */}
-          {(pots.length > 0 || sliders.length > 0) && (
-            <div>
-              <SectionLabel label="Pots & Sliders" />
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 16,
-                  justifyContent: "center",
-                  alignItems: "flex-end",
-                }}
-              >
-                {pots.map(({ input, index }) => (
-                  <PotKnob
-                    key={input.name}
-                    id={index}
-                    name={input.label}
-                    onValue={(v) =>
-                      updateAnalog(index, Math.round((v / 100 + 1) * 2048))
-                    }
-                  />
-                ))}
-                {sliders.map(({ input, index }) => (
-                  <PotSlider
-                    key={input.name}
-                    id={index}
-                    name={input.label}
-                    onValue={(v) =>
-                      updateAnalog(index, Math.round((v / 100 + 1) * 2048))
-                    }
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* MultiPos */}
-          {multipos && (
-            <div>
-              <SectionLabel label="Multi-Position" />
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <MultiPosSwitch
-                  id={multipos.index}
-                  name={multipos.input.label}
-                  onValue={(pos) =>
-                    updateAnalog(multipos.index, Math.round((pos * 4096) / 5))
-                  }
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Trims */}
-          {radio.trims.length > 0 && (
-            <div>
-              <SectionLabel label="Trims" />
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 10,
-                  justifyContent: "center",
-                }}
-              >
-                {radio.trims.map((trim, i) => (
-                  <div
-                    key={trim.name}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: 4,
-                    }}
-                  >
-                    <span style={{ fontSize: 9, opacity: 0.5 }}>
-                      {trim.name}
-                    </span>
-                    <div style={{ display: "flex", gap: 4 }}>
-                      <TrimButton
-                        label="−"
-                        onPress={() =>
-                          onInput({
-                            type: "simTrim",
-                            trim: trimSwitchIndex(i, "dec"),
-                            state: 1,
-                          })
-                        }
-                        onRelease={() =>
-                          onInput({
-                            type: "simTrim",
-                            trim: trimSwitchIndex(i, "dec"),
-                            state: 0,
-                          })
-                        }
-                      />
-                      <TrimButton
-                        label="+"
-                        onPress={() =>
-                          onInput({
-                            type: "simTrim",
-                            trim: trimSwitchIndex(i, "inc"),
-                            state: 1,
-                          })
-                        }
-                        onRelease={() =>
-                          onInput({
-                            type: "simTrim",
-                            trim: trimSwitchIndex(i, "inc"),
-                            state: 0,
-                          })
-                        }
+            {/* Sticks */}
+            {(si.lh >= 0 || si.lv >= 0 || si.rh >= 0 || si.rv >= 0) && (
+              <div>
+                <SectionLabel label="Sticks" />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                    gap: 12,
+                  }}
+                >
+                  {(si.lh >= 0 || si.lv >= 0) && (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: 4,
+                      }}
+                    >
+                      <span style={{ fontSize: 9, opacity: 0.5 }}>LEFT</span>
+                      <Joystick
+                        springX
+                        springY={false}
+                        initialY={1}
+                        size={100}
+                        onInput={(nx, ny) => applyGimbal("left", nx, ny)}
+                        onRelease={() => releaseGimbal("left")}
                       />
                     </div>
-                  </div>
-                ))}
+                  )}
+                  {(si.rh >= 0 || si.rv >= 0) && (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: 4,
+                      }}
+                    >
+                      <span style={{ fontSize: 9, opacity: 0.5 }}>RIGHT</span>
+                      <Joystick
+                        springX
+                        springY
+                        size={100}
+                        onInput={(nx, ny) => applyGimbal("right", nx, ny)}
+                        onRelease={() => releaseGimbal("right")}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
 
-      {/* Telemetry Panel */}
-      {isReady && showTelemetry && (
-        <ExtensionTelemetry
-          onInput={onInput}
-          enabled={streamingEnabled}
-          onEnabledChange={onStreamingEnabledChange}
-        />
-      )}
-      </div>{/* end shared scrollable */}
+            {/* Pots & Sliders */}
+            {(pots.length > 0 || sliders.length > 0) && (
+              <div>
+                <SectionLabel label="Pots & Sliders" />
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 16,
+                    justifyContent: "center",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  {pots.map(({ input, index }) => (
+                    <PotKnob
+                      key={input.name}
+                      id={index}
+                      name={input.label}
+                      onValue={(v) =>
+                        updateAnalog(index, Math.round((v / 100 + 1) * 2048))
+                      }
+                    />
+                  ))}
+                  {sliders.map(({ input, index }) => (
+                    <PotSlider
+                      key={input.name}
+                      id={index}
+                      name={input.label}
+                      onValue={(v) =>
+                        updateAnalog(index, Math.round((v / 100 + 1) * 2048))
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* MultiPos */}
+            {multipos && (
+              <div>
+                <SectionLabel label="Multi-Position" />
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <MultiPosSwitch
+                    id={multipos.index}
+                    name={multipos.input.label}
+                    onValue={(pos) =>
+                      updateAnalog(multipos.index, Math.round((pos * 4096) / 5))
+                    }
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Trims */}
+            {radio.trims.length > 0 && (
+              <div>
+                <SectionLabel label="Trims" />
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 10,
+                    justifyContent: "center",
+                  }}
+                >
+                  {radio.trims.map((trim, i) => (
+                    <div
+                      key={trim.name}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: 4,
+                      }}
+                    >
+                      <span style={{ fontSize: 9, opacity: 0.5 }}>
+                        {trim.name}
+                      </span>
+                      <div style={{ display: "flex", gap: 4 }}>
+                        <TrimButton
+                          label="−"
+                          onPress={() =>
+                            onInput({
+                              type: "simTrim",
+                              trim: trimSwitchIndex(i, "dec"),
+                              state: 1,
+                            })
+                          }
+                          onRelease={() =>
+                            onInput({
+                              type: "simTrim",
+                              trim: trimSwitchIndex(i, "dec"),
+                              state: 0,
+                            })
+                          }
+                        />
+                        <TrimButton
+                          label="+"
+                          onPress={() =>
+                            onInput({
+                              type: "simTrim",
+                              trim: trimSwitchIndex(i, "inc"),
+                              state: 1,
+                            })
+                          }
+                          onRelease={() =>
+                            onInput({
+                              type: "simTrim",
+                              trim: trimSwitchIndex(i, "inc"),
+                              state: 0,
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Telemetry Panel */}
+        {isReady && showTelemetry && (
+          <ExtensionTelemetry
+            onInput={onInput}
+            enabled={streamingEnabled}
+            onEnabledChange={onStreamingEnabledChange}
+          />
+        )}
+      </div>
+      {/* end shared scrollable */}
     </div>
   );
 }

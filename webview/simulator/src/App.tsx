@@ -156,6 +156,10 @@ export function App() {
     vscode?.postMessage({ type: "setStreamingEnabled", value });
   }, []);
 
+  const handleReload = useCallback(() => {
+    vscode?.postMessage({ type: "reload" });
+  }, []);
+
   // Blank until the first message arrives — prevents "No radio profile set"
   // from flashing during the ready round-trip on panel open.
   if (!initialized) {
@@ -216,6 +220,7 @@ export function App() {
         onShowTelemetryChange={handleShowTelemetryChange}
         streamingEnabled={streamingEnabled}
         onStreamingEnabledChange={handleStreamingEnabledChange}
+        onReload={handleReload}
       />
     </SimulatorThemeProvider>
   );

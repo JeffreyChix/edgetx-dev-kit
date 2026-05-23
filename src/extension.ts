@@ -96,7 +96,7 @@ export async function activate(context: vscode.ExtensionContext) {
       statusBar.refresh();
       diagnosticsProvider.refresh();
       apiSearchPanel.refresh();
-      SimulatorPanel.updateProfile(profileManager);
+      SimulatorPanel.refresh();
     }),
 
     vscode.commands.registerCommand("edgetx.newScript", async () => {

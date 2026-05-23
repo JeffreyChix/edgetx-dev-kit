@@ -21,10 +21,14 @@ export class SimulatorPanel {
     scriptContext?: ScriptContext,
   ) {
     this.scriptContext = scriptContext;
+    const profile = profileManager.getProfile();
+    const viewColumn = profile && profile.screenWidth > 490
+      ? vscode.ViewColumn.Active
+      : vscode.ViewColumn.Beside;
     this.panel = vscode.window.createWebviewPanel(
       SimulatorPanel.viewType,
       "EdgeTX Simulator",
-      vscode.ViewColumn.Beside,
+      viewColumn,
       {
         enableScripts: true,
         retainContextWhenHidden: true,
@@ -38,6 +42,7 @@ export class SimulatorPanel {
         ],
       },
     );
+    this.panel.iconPath = vscode.Uri.joinPath(context.extensionUri, "bundled", "images", "icon.png");
 
     getWebviewContent(context, this.panel.webview).then((html) => {
       this.panel.webview.html = html;
@@ -67,6 +72,10 @@ export class SimulatorPanel {
         }
         if (msg.type === "setProfile") {
           vscode.commands.executeCommand("edgetx.setProfile");
+          return;
+        }
+        if (msg.type === "reload") {
+          this.sendRadioProfile();
           return;
         }
         if (msg.type === "setShowControls") {
@@ -123,7 +132,7 @@ export class SimulatorPanel {
     if (SimulatorPanel.instance) {
       // Restart simulation with the new script context
       SimulatorPanel.instance.scriptContext = script;
-      SimulatorPanel.instance.panel.reveal(vscode.ViewColumn.Beside);
+      SimulatorPanel.instance.panel.reveal();
       SimulatorPanel.instance.sendRadioProfile();
       return;
     }
@@ -145,9 +154,8 @@ export class SimulatorPanel {
     });
   }
 
-  static updateProfile(profileManager: ProfileManager) {
+  static refresh() {
     if (SimulatorPanel.instance) {
-      SimulatorPanel.instance.profileManager === profileManager;
       SimulatorPanel.instance.sendRadioProfile();
     }
   }
