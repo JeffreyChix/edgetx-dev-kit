@@ -6,6 +6,26 @@ All notable changes to EdgeTX Dev Kit are documented here.
 
 Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-kit) to stay up to date.
 
+## [2.2.0] — 2026-06-09
+
+### Added
+
+- **Simulator log viewer** — A **Logs** panel in the simulator header captures all output from the running firmware and your Lua scripts in real time. Up to 1000 entries are retained per session and the log clears automatically on each new simulation start.
+
+- **Log level tagging** — Every log entry is tagged with a colored source label: `lua` (standard output from scripts), `fw` (internal EdgeTX firmware trace messages), and `err` (Lua runtime errors and stderr). Colors follow the active VS Code theme via CSS variables.
+
+- **Log filtering and search** — Toggle source chips (**Lua**, **FW**, **Err**) to show or hide each log level independently. A search bar filters entries by text, case-insensitively, on top of the active source filters. Hover a chip to see a tooltip describing what it captures.
+
+- **Auto-scroll toggle** — A **↓** button in the log panel header enables or disables automatic scrolling to the latest entry. When disabled, the view stays locked so you can scroll back freely.
+
+- **Log panel state persistence** — The open/closed state of the log panel is saved to `globalState` and restored when the simulator is reopened, consistent with Controls and Telemetry panel persistence.
+
+### Fixed
+
+- **Keyboard input leaking into search bar** — Simulator keyboard shortcuts (stick movements, switch toggles, etc.) no longer fire when focus is inside the log search bar or any other text input in the simulator panel.
+
+---
+
 ## [2.1.0] — 2026-05-23
 
 ### Added
@@ -112,7 +132,8 @@ Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-k
 
 ---
 
-[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.2...v2.0.0
 [1.1.2]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.1...v1.1.2

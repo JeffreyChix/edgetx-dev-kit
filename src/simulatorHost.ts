@@ -501,10 +501,10 @@ export class SimulatorHost {
       fs: stubFs as any,
       preopens: { "/": "/" },
       print: (s: string) => {
-        /* suppress */ void s;
+        if (s && !this.stopped) this.postMessage({ type: "simLog", text: s, level: "lua" });
       },
       printErr: (s: string) => {
-        void s;
+        if (s && !this.stopped) this.postMessage({ type: "simLog", text: s, level: "error" });
       },
     });
 
@@ -534,8 +534,8 @@ export class SimulatorHost {
               type: "simAudio",
               samples: msg.samples,
             });
-          } else if (msg?.type === "trace") {
-            // console.log(msg.text);
+          } else if (msg?.type === "trace" && msg.text && !this.stopped) {
+            this.postMessage({ type: "simLog", text: msg.text, level: msg.level ?? "firmware" });
           }
         });
         return worker as any;
@@ -570,7 +570,8 @@ export class SimulatorHost {
           this.panel.webview.postMessage({ type: "simAudio", samples: copy });
         },
         simuTrace: (ptr: number): void => {
-          void readCStr(ptr);
+          const text = readCStr(ptr);
+          if (text && !this.stopped) this.postMessage({ type: "simLog", text, level: "firmware" });
         },
         simuLcdNotify: (): void => {
           Atomics.add(this.lcdSync, 0, 1);
@@ -608,6 +609,7 @@ export class SimulatorHost {
     ex.simuCreateDefaults?.();
     ex.simuStart(0);
 
+    this.postMessage({ type: "simLogClear" });
     this.postMessage({ type: "simRunning" });
 
     // Step 6: Start LCD loop and keyboard polling

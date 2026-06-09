@@ -42,6 +42,8 @@ export function App() {
   const [watching, setWatching] = useState(false);
   const [showTelemetry, setShowTelemetry] = useState(false);
   const [streamingEnabled, setStreamingEnabled] = useState(false);
+  const [logs, setLogs] = useState<{ text: string; time: number; level: "lua" | "firmware" | "error" }[]>([]);
+  const [showLogs, setShowLogs] = useState(false);
   // False until the first message from the extension arrives, preventing the
   // "No radio profile set" screen from flashing during the ready round-trip.
   const [initialized, setInitialized] = useState(false);
@@ -58,6 +60,7 @@ export function App() {
         case "setRadio":
           setRadio(msg.radio);
           setFrameData(null);
+          setLogs([]);
           // Keep loading:true so ExtensionSimulator shows the bar immediately,
           // without waiting for the first simStatus from the host
           setSimState({ loading: true, error: null, progress: 0, status: "Starting…" });
@@ -93,6 +96,16 @@ export function App() {
         case "simRunning":
           setSimState((s) => ({ ...s, loading: false }));
           break;
+        case "simLog":
+          setLogs((prev) => {
+            const entry = { text: String(msg.text), time: Date.now(), level: (msg.level ?? "firmware") as "lua" | "firmware" | "error" };
+            const next = prev.length >= 1000 ? prev.slice(1) : prev;
+            return [...next, entry];
+          });
+          break;
+        case "simLogClear":
+          setLogs([]);
+          break;
         case "simKeyboardMode":
           setKeyboardMode(msg.mode);
           break;
@@ -100,6 +113,7 @@ export function App() {
           if (typeof msg.showControls === "boolean") setShowControls(msg.showControls);
           if (typeof msg.showTelemetry === "boolean") setShowTelemetry(msg.showTelemetry);
           if (typeof msg.streamingEnabled === "boolean") setStreamingEnabled(msg.streamingEnabled);
+          if (typeof msg.showLogs === "boolean") setShowLogs(msg.showLogs);
           break;
         case "setWatching":
           setWatching(!!msg.active);
@@ -158,6 +172,15 @@ export function App() {
 
   const handleReload = useCallback(() => {
     vscode?.postMessage({ type: "reload" });
+  }, []);
+
+  const handleShowLogsChange = useCallback((value: boolean) => {
+    setShowLogs(value);
+    vscode?.postMessage({ type: "setShowLogs", value });
+  }, []);
+
+  const handleClearLogs = useCallback(() => {
+    setLogs([]);
   }, []);
 
   // Blank until the first message arrives — prevents "No radio profile set"
@@ -221,6 +244,10 @@ export function App() {
         streamingEnabled={streamingEnabled}
         onStreamingEnabledChange={handleStreamingEnabledChange}
         onReload={handleReload}
+        logs={logs}
+        showLogs={showLogs}
+        onShowLogsChange={handleShowLogsChange}
+        onClearLogs={handleClearLogs}
       />
     </SimulatorThemeProvider>
   );

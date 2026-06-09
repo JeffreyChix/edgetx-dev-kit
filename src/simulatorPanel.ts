@@ -67,6 +67,7 @@ export class SimulatorPanel {
             showControls: this.context.globalState.get<boolean>("simulator.showControls", false),
             showTelemetry: this.context.globalState.get<boolean>("simulator.showTelemetry", false),
             streamingEnabled: this.context.globalState.get<boolean>("simulator.streamingEnabled", false),
+            showLogs: this.context.globalState.get<boolean>("simulator.showLogs", false),
           });
           return;
         }
@@ -88,6 +89,10 @@ export class SimulatorPanel {
         }
         if (msg.type === "setStreamingEnabled") {
           this.context.globalState.update("simulator.streamingEnabled", msg.value);
+          return;
+        }
+        if (msg.type === "setShowLogs") {
+          this.context.globalState.update("simulator.showLogs", msg.value);
           return;
         }
         if (msg.type === "simTelemetryBatch") {

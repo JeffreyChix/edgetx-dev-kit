@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ExtensionTelemetry } from "./ExtensionTelemetry";
 import {
   RadioScreen,
@@ -27,6 +27,12 @@ interface SimState {
   status: string;
 }
 
+interface LogEntry {
+  text: string;
+  time: number;
+  level: "lua" | "firmware" | "error";
+}
+
 interface Props {
   radio: RadioProfile;
   frameData: FrameData | null;
@@ -41,6 +47,10 @@ interface Props {
   streamingEnabled: boolean;
   onStreamingEnabledChange: (value: boolean) => void;
   onReload: () => void;
+  logs: LogEntry[];
+  showLogs: boolean;
+  onShowLogsChange: (value: boolean) => void;
+  onClearLogs: () => void;
 }
 
 // ── Helpers (same as Simulator.tsx) ──────────────────────────────────────────
@@ -155,6 +165,275 @@ function SectionLabel({ label }: { label: string }) {
   );
 }
 
+// ── Log panel ─────────────────────────────────────────────────────────────────
+
+function formatTime(ms: number): string {
+  const d = new Date(ms);
+  return (
+    String(d.getHours()).padStart(2, "0") +
+    ":" +
+    String(d.getMinutes()).padStart(2, "0") +
+    ":" +
+    String(d.getSeconds()).padStart(2, "0") +
+    "." +
+    String(d.getMilliseconds()).padStart(3, "0")
+  );
+}
+
+const LEVEL_STYLE: Record<"lua" | "firmware" | "error", { label: string; color: string }> = {
+  lua:      { label: "lua", color: "var(--vscode-terminal-ansiGreen, #4ec994)" },
+  firmware: { label: "fw",  color: "var(--vscode-terminal-ansiBlue, #569cd6)"  },
+  error:    { label: "err", color: "var(--vscode-errorForeground, #f48771)"    },
+};
+
+function FilterChip({
+  label,
+  color,
+  active,
+  onToggle,
+  title,
+}: {
+  label: string;
+  color: string;
+  active: boolean;
+  onToggle: () => void;
+  title: string;
+}) {
+  return (
+    <button
+      onClick={onToggle}
+      title={title}
+      style={{
+        fontSize: 9,
+        padding: "1px 6px",
+        borderRadius: 3,
+        cursor: "pointer",
+        letterSpacing: "0.08em",
+        border: `1px solid ${active ? color : "var(--vscode-panel-border)"}`,
+        background: "transparent",
+        color: active ? color : "var(--vscode-descriptionForeground)",
+        fontWeight: active ? 600 : 400,
+        opacity: active ? 1 : 0.5,
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
+function LogPanel({
+  logs,
+  onClear,
+}: {
+  logs: LogEntry[];
+  onClear: () => void;
+}) {
+  const endRef = useRef<HTMLDivElement>(null);
+  const [search, setSearch] = useState("");
+  const [showLua, setShowLua] = useState(true);
+  const [showFirmware, setShowFirmware] = useState(true);
+  const [showError, setShowError] = useState(true);
+  const [autoScroll, setAutoScroll] = useState(true);
+
+  const filtered = useMemo(() => {
+    const noneActive = !showLua && !showFirmware && !showError;
+    const q = search.toLowerCase();
+    return logs.filter((entry) => {
+      const levelMatch =
+        noneActive ||
+        (showLua && entry.level === "lua") ||
+        (showFirmware && entry.level === "firmware") ||
+        (showError && entry.level === "error");
+      const textMatch = !q || entry.text.toLowerCase().includes(q);
+      return levelMatch && textMatch;
+    });
+  }, [logs, search, showLua, showFirmware, showError]);
+
+  useEffect(() => {
+    if (autoScroll) {
+      endRef.current?.scrollIntoView({ behavior: "instant" as ScrollBehavior });
+    }
+  }, [filtered, autoScroll]);
+
+  return (
+    <div
+      style={{
+        borderTop: "1px solid var(--vscode-panel-border)",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          padding: "8px 12px 6px",
+          gap: 6,
+        }}
+      >
+        <span
+          style={{
+            fontSize: 9,
+            fontWeight: 600,
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            color: "var(--vscode-descriptionForeground)",
+            flex: 1,
+          }}
+        >
+          Simulator Log
+        </span>
+        <FilterChip
+          label="Lua"
+          color="var(--vscode-terminal-ansiGreen, #4ec994)"
+          active={showLua}
+          onToggle={() => setShowLua((v) => !v)}
+          title="Lua — standard output from your Lua scripts"
+        />
+        <FilterChip
+          label="FW"
+          color="var(--vscode-terminal-ansiBlue, #569cd6)"
+          active={showFirmware}
+          onToggle={() => setShowFirmware((v) => !v)}
+          title="FW — internal EdgeTX firmware trace messages"
+        />
+        <FilterChip
+          label="Err"
+          color="var(--vscode-errorForeground, #f48771)"
+          active={showError}
+          onToggle={() => setShowError((v) => !v)}
+          title="Err — Lua runtime errors and stderr output"
+        />
+        <button
+          onClick={() => setAutoScroll((v) => !v)}
+          title={autoScroll ? "Auto-scroll on — click to disable" : "Auto-scroll off — click to enable"}
+          style={{
+            fontSize: 9,
+            padding: "2px 8px",
+            background: "transparent",
+            color: autoScroll
+              ? "var(--vscode-terminal-ansiGreen, #4ec994)"
+              : "var(--vscode-descriptionForeground)",
+            border: `1px solid ${autoScroll ? "var(--vscode-terminal-ansiGreen, #4ec994)" : "var(--vscode-panel-border)"}`,
+            borderRadius: 3,
+            cursor: "pointer",
+            opacity: autoScroll ? 1 : 0.5,
+          }}
+        >
+          ↓
+        </button>
+        <button
+          onClick={onClear}
+          style={{
+            fontSize: 9,
+            padding: "2px 8px",
+            background: "transparent",
+            color: "var(--vscode-descriptionForeground)",
+            border: "1px solid var(--vscode-panel-border)",
+            borderRadius: 3,
+            cursor: "pointer",
+            letterSpacing: "0.08em",
+          }}
+        >
+          Clear
+        </button>
+      </div>
+
+      {/* Search */}
+      <div style={{ padding: "0 12px 6px" }}>
+        <input
+          type="text"
+          placeholder="Search logs…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            width: "100%",
+            boxSizing: "border-box" as const,
+            background: "var(--vscode-input-background)",
+            color: "var(--vscode-input-foreground)",
+            border:
+              "1px solid var(--vscode-input-border, var(--vscode-panel-border))",
+            borderRadius: 3,
+            padding: "3px 8px",
+            fontSize: 11,
+            outline: "none",
+          }}
+        />
+      </div>
+
+      {/* Entries */}
+      <div
+        style={{
+          fontFamily: "var(--vscode-editor-font-family, monospace)",
+          fontSize: 11,
+          lineHeight: 1.5,
+          padding: "4px 12px 12px",
+          overflowY: "auto",
+          maxHeight: 200,
+        }}
+      >
+        {filtered.length === 0 ? (
+          <span
+            style={{
+              color: "var(--vscode-descriptionForeground)",
+              fontSize: 10,
+              opacity: 0.6,
+            }}
+          >
+            {logs.length === 0
+              ? "No log output yet."
+              : "No results for current search or filters."}
+          </span>
+        ) : (
+          filtered.map((entry, i) => {
+            const ls = LEVEL_STYLE[entry.level];
+            return (
+              <div key={i} style={{ display: "flex", gap: 8, minWidth: 0 }}>
+                <span
+                  style={{
+                    color: "var(--vscode-descriptionForeground)",
+                    flexShrink: 0,
+                    fontSize: 10,
+                    userSelect: "none",
+                  }}
+                >
+                  {formatTime(entry.time)}
+                </span>
+                <span
+                  style={{
+                    color: ls.color,
+                    flexShrink: 0,
+                    fontSize: 9,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                    userSelect: "none",
+                    minWidth: 22,
+                  }}
+                >
+                  {ls.label}
+                </span>
+                <span
+                  style={{
+                    color: "var(--vscode-foreground)",
+                    wordBreak: "break-all",
+                    whiteSpace: "pre-wrap",
+                    minWidth: 0,
+                    flex: 1,
+                  }}
+                >
+                  {entry.text}
+                </span>
+              </div>
+            );
+          })
+        )}
+        <div ref={endRef} />
+      </div>
+    </div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export function ExtensionSimulator({
@@ -171,6 +450,10 @@ export function ExtensionSimulator({
   streamingEnabled,
   onStreamingEnabledChange,
   onReload,
+  logs,
+  showLogs,
+  onShowLogsChange,
+  onClearLogs,
 }: Props) {
   const analogRef = useRef<number[]>([]);
   const switchRef = useRef<number[]>([]);
@@ -215,6 +498,8 @@ export function ExtensionSimulator({
 
     function handleKey(e: KeyboardEvent) {
       if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+      const active = document.activeElement;
+      if (active instanceof HTMLInputElement || active instanceof HTMLTextAreaElement) return;
       const down = e.type === "keydown";
 
       if (keyboardMode === "text") {
@@ -588,6 +873,45 @@ export function ExtensionSimulator({
               />
             )}
             Telemetry
+          </button>
+        )}
+        {isReady && (
+          <button
+            onClick={() => onShowLogsChange(!showLogs)}
+            style={{
+              fontSize: 11,
+              padding: "3px 10px",
+              background: showLogs
+                ? "var(--vscode-button-background)"
+                : "transparent",
+              color: showLogs
+                ? "var(--vscode-button-foreground)"
+                : "var(--vscode-foreground)",
+              border:
+                "1px solid var(--vscode-button-border, var(--vscode-panel-border))",
+              borderRadius: 3,
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+            }}
+          >
+            {logs.length > 0 && (
+              <span
+                style={{
+                  fontSize: 9,
+                  padding: "0 4px",
+                  borderRadius: 3,
+                  background: "var(--vscode-badge-background)",
+                  color: "var(--vscode-badge-foreground)",
+                  lineHeight: "16px",
+                }}
+              >
+                {logs.length > 999 ? "999+" : logs.length}
+              </span>
+            )}
+            Logs
           </button>
         )}
         <button
@@ -973,6 +1297,11 @@ export function ExtensionSimulator({
             enabled={streamingEnabled}
             onEnabledChange={onStreamingEnabledChange}
           />
+        )}
+
+        {/* Log Panel */}
+        {isReady && showLogs && (
+          <LogPanel logs={logs} onClear={onClearLogs} />
         )}
       </div>
       {/* end shared scrollable */}

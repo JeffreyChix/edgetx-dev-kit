@@ -63,8 +63,8 @@ export class ScriptWizard {
       : typeName;
     const scriptName = `${scriptType}Script`;
 
-    let source = `---@type ${annotation}\n`;
-    source += `local ${scriptName}\n\n`;
+    let source = `---@type ${annotation}\n\n`;
+    source += `local ${scriptName} = {}\n\n`;
 
     for (const [name, field] of Object.entries(entry.fields)) {
       const isFunction = field.signature.startsWith("fun");

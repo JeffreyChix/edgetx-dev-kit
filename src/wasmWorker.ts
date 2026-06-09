@@ -437,7 +437,8 @@ const handler = new ThreadMessageHandler({
   postMessage: (msg: any, transfer?: Transferable[]) =>
     parentPort!.postMessage(msg, transfer as any),
   async onLoad({ wasmModule, wasmMemory }) {
-    const post = (s: string) => parentPort!.postMessage({ type: "trace", text: s + "\n" });
+    const postLua = (s: string) => parentPort!.postMessage({ type: "trace", text: s + "\n", level: "lua" });
+    const postErr = (s: string) => parentPort!.postMessage({ type: "trace", text: s + "\n", level: "error" });
 
     if (!fsClient) {
       throw new Error("No fs-channel received before thread start");
@@ -450,11 +451,11 @@ const handler = new ThreadMessageHandler({
         version: "preview1",
         fs: fs as any,
         preopens: { "/": "/" },
-        print: post,
-        printErr: post,
+        print: postLua,
+        printErr: postErr,
       });
     } catch (e: any) {
-      post("[worker] WASI init error: " + (e?.stack ?? e?.message ?? e));
+      postErr("[worker] WASI init error: " + (e?.stack ?? e?.message ?? e));
       throw e;
     }
 
@@ -473,7 +474,13 @@ const handler = new ThreadMessageHandler({
           const copy = new Uint8Array(wasmMemory.buffer, buf, len).slice(0).buffer;
           parentPort!.postMessage({ type: "audio", samples: copy }, [copy]);
         },
-        simuTrace: (_ptr: number): void => {},
+        simuTrace: (ptr: number): void => {
+          const view = new Uint8Array(wasmMemory.buffer);
+          let end = ptr;
+          while (view[end] !== 0) end++;
+          const text = new TextDecoder().decode(view.subarray(ptr, end));
+          if (text) parentPort!.postMessage({ type: "trace", text, level: "firmware" });
+        },
         simuLcdNotify: (): void => {
           if (lcdSync) {
             Atomics.add(lcdSync, 0, 1);

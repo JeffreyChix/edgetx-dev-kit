@@ -5,7 +5,7 @@
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.85+-blue)](https://code.visualstudio.com)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-![EdgeTX Dev Kit 2.0](bundled/images/edgetx-dev-kit-2.0.png)
+![EdgeTX Dev Kit 2.0](bundled/images/hero.png)
 
 EdgeTX Dev Kit brings a proper development environment to EdgeTX Lua scripting. If you've ever written a widget or telemetry script in a plain text editor, copy-pasted it to an SD card, flashed it to your radio, and stared at a blank screen wondering what went wrong, then this extension is for you.
 
@@ -239,6 +239,35 @@ Open the **Telemetry** panel in the simulator header to inject fake telemetry da
 Toggle **STREAMING** on to start sending frames. Toggle it off to pause. Values persist for the session.
 
 ![Telemetry](/bundled/images/telemetry.png)
+
+#### Simulator Log
+
+![Simulator Log](bundled/images/logview.png)
+
+Click **Logs** in the simulator header to open the log panel. It captures all output from the running firmware and your Lua scripts in real time, with up to 1000 entries retained per session.
+
+Each log entry is tagged with a color-coded level label:
+
+| Tag | Source | Color |
+| --- | ------- | ----- |
+| **lua** | Standard output from your Lua scripts (`print()`) | Green |
+| **fw** | Internal EdgeTX firmware trace messages | Blue |
+| **err** | Lua runtime errors and stderr output | Red |
+
+Colors follow your active VS Code theme automatically.
+
+**Filtering and search:**
+
+- Click the **Lua**, **FW**, or **Err** chips to show or hide each log source independently. Hover a chip to see what it captures.
+- Type in the search bar to filter entries by text. Filtering is case-insensitive and applies on top of the active source filters.
+
+**Auto-scroll:**
+
+The **↓** button in the log panel header toggles auto-scroll. When active, the panel scrolls to the latest entry automatically as new logs arrive. Click it again to lock the view in place and scroll freely.
+
+**Clear:**
+
+Click **Clear** to discard all current log entries. Logs are also cleared automatically each time a new simulation starts.
 
 #### Persistence
 
