@@ -2,7 +2,7 @@
   "name": "edgetx-dev-kit",
   "displayName": "EdgeTX Dev Kit",
   "description": "Lua scripting toolkit for EdgeTX RC radio firmware — IntelliSense, diagnostics, simulation, script generation, and API search.",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "engines": {
     "vscode": "^1.85.0"
   },

@@ -6,6 +6,14 @@ All notable changes to EdgeTX Dev Kit are documented here.
 
 Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-kit) to stay up to date.
 
+## [2.2.1] — 2026-06-09
+
+### Fixed
+
+- New wasm builds and bug fixes.
+
+---
+
 ## [2.2.0] — 2026-06-09
 
 ### Added
@@ -133,6 +141,7 @@ Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-k
 ---
 
 [Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.2.0...HEAD
+[2.2.1]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v1.1.2...v2.0.0

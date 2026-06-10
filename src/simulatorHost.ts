@@ -577,6 +577,12 @@ export class SimulatorHost {
           Atomics.add(this.lcdSync, 0, 1);
           Atomics.notify(this.lcdSync, 0);
         },
+        // Aux serial bridge (firmware -> host). No host-side serial device
+        // yet, so these are no-ops — matches the native build's stubs.
+        simuAuxSerialStart: (): void => {},
+        simuAuxSerialStop: (): void => {},
+        simuAuxSerialSetBaudrate: (): void => {},
+        simuAuxSerialSendBuffer: (): void => {},
       } as WebAssembly.ModuleImports,
     } as WebAssembly.Imports;
 
