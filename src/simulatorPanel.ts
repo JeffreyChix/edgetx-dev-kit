@@ -3,9 +3,6 @@ import { getWebviewContent } from "./getWebviewContent";
 import { ProfileManager } from "./profileManager";
 import { SimulatorHost, ScriptContext } from "./simulatorHost";
 
-const WASM_BASE_URL =
-  "https://ypwfws8ckruh03m1.public.blob.vercel-storage.com/wasm";
-
 export class SimulatorPanel {
   public static readonly viewType = "edgetx.simulator";
   private static instance: SimulatorPanel | undefined;
@@ -207,7 +204,7 @@ export class SimulatorPanel {
 
     // Fire-and-forget; errors are posted as simError by the host
     newHost
-      .start(radioProfile, WASM_BASE_URL, this.scriptContext)
+      .start(radioProfile, this.scriptContext)
       .catch(() => {});
   }
 

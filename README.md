@@ -356,6 +356,12 @@ Custom mix that reads inputs and produces outputs. Requires `run`. Optional: `in
 
 Runs once when activated. Useful for setup or configuration. Requires `run`. Optional: `init`.
 
+## Support
+
+If EdgeTX Dev Kit saves you time, consider buying me a coffee <br>
+
+<a href='https://ko-fi.com/J4Y524C1X3' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 ## Contributing
 
 Found a bug or have a feature request? Open an issue with as much context as you can provide.

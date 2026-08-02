@@ -231,6 +231,12 @@ export class SimulatorHost {
   private radioStoragePath = "";
   private modelBackup: Map<string, Buffer> | null = null;
 
+  private static releaseAssetsCache: {
+    data: Map<string, { digest: string; url: string }>;
+    fetchedAt: number;
+  } | null = null;
+  private static readonly RELEASE_CACHE_TTL_MS = 20 * 60 * 1000; // 20 min
+
   constructor(panel: vscode.WebviewPanel, storagePath: string) {
     this.panel = panel;
     this.storagePath = storagePath;
@@ -242,13 +248,12 @@ export class SimulatorHost {
 
   async start(
     radio: RadioProfile,
-    wasmBaseUrl: string,
     script?: ScriptContext,
   ): Promise<void> {
     this.scriptContext = script;
     this.scriptLaunched = false;
     try {
-      await this._start(radio, wasmBaseUrl);
+      await this._start(radio);
     } catch (err: any) {
       if (!this.stopped) {
         this.postMessage({
@@ -298,12 +303,18 @@ export class SimulatorHost {
 
   sendTelemetryFrames(frames: number[][]): void {
     const ex = this.exports;
-    if (!ex?.simuSendTelemetry) { return; }
+    if (!ex?.simuSendTelemetry) {
+      return;
+    }
     for (const frameData of frames) {
-      if (!frameData.length) { continue; }
+      if (!frameData.length) {
+        continue;
+      }
       const bytes = new Uint8Array(frameData);
       const ptr = ex.malloc(bytes.length);
-      if (!ptr) { continue; }
+      if (!ptr) {
+        continue;
+      }
       new Uint8Array(ex.memory.buffer).set(bytes, ptr);
       ex.simuSendTelemetry(0, 2, ptr, bytes.length); // module=0 (internal), protocol=2 (CRSF)
       ex.free(ptr);
@@ -345,71 +356,62 @@ export class SimulatorHost {
 
   private async _start(
     radio: RadioProfile,
-    wasmBaseUrl: string,
   ): Promise<void> {
     const wasmFile = radio.wasm;
-    const wasmUrl = `${wasmBaseUrl}/${wasmFile}`;
     const radioKey = wasmFile
       .replace(/\.wasm$/, "")
       .replace(/^edgetx-/, "")
       .replace(/-simulator$/, "");
 
     // Step 1: Load WASM — use cache when available, re-download only if the
-    // server ETag has changed (new EdgeTX build), or if no cache exists yet.
+    // sha256 digest has changed (new EdgeTX build), or if no cache exists yet.
     const wasmCacheDir = path.join(this.storagePath, "wasm");
     const wasmCachePath = path.join(wasmCacheDir, wasmFile);
-    const wasmETagPath = wasmCachePath + ".etag";
+    const wasmDigestPath = wasmCachePath + ".sha256";
 
     let wasmBytes: Uint8Array;
 
-    if (fs.existsSync(wasmCachePath)) {
-      const storedETag = fs.existsSync(wasmETagPath)
-        ? fs.readFileSync(wasmETagPath, "utf8").trim()
-        : null;
+    // Look up current digest + download URL from the Releases API.
+    // Falls back to cache silently if offline or API fails.
+    let remote: { digest: string; url: string } | null = null;
+    try {
+      remote = await this.getReleaseAsset(wasmFile);
+    } catch {
+      // offline or API error — fall through to cache-only logic below
+    }
 
-      let serverETag: string | null = null;
-      try {
-        serverETag = await this.fetchETag(wasmUrl);
-      } catch {
-        // Offline or server error — silently fall back to cache.
-      }
+    const cacheExists = fs.existsSync(wasmCachePath);
+    const storedDigest = fs.existsSync(wasmDigestPath)
+      ? fs.readFileSync(wasmDigestPath, "utf8").trim()
+      : null;
 
-      const cacheIsFresh =
-        !serverETag || !storedETag || serverETag === storedETag;
+    const cacheIsFresh =
+      cacheExists &&
+      (!remote || !storedDigest || remote.digest === storedDigest);
 
-      if (cacheIsFresh) {
-        this.postMessage({
-          type: "simStatus",
-          progress: 5,
-          status: "Loading firmware…",
-        });
-        wasmBytes = new Uint8Array(fs.readFileSync(wasmCachePath));
-      } else {
-        this.postMessage({
-          type: "simStatus",
-          progress: 5,
-          status: "Updating firmware…",
-        });
-        const { bytes, etag } = await this.downloadWasmWithETag(wasmUrl);
-        wasmBytes = bytes;
-        fs.writeFileSync(wasmCachePath, wasmBytes);
-        if (etag) {
-          fs.writeFileSync(wasmETagPath, etag, "utf8");
-        }
-      }
-    } else {
+    if (cacheIsFresh) {
       this.postMessage({
         type: "simStatus",
         progress: 5,
-        status: "Downloading firmware…",
+        status: "Loading firmware…",
+      });
+      wasmBytes = new Uint8Array(fs.readFileSync(wasmCachePath));
+    } else {
+      if (!remote) {
+        // No cache and no network — nothing we can do.
+        throw new Error(
+          `WASM not cached and release metadata unavailable for ${wasmFile}`,
+        );
+      }
+      this.postMessage({
+        type: "simStatus",
+        progress: 5,
+        status: cacheExists ? "Updating firmware…" : "Downloading firmware…",
       });
       fs.mkdirSync(wasmCacheDir, { recursive: true });
-      const { bytes, etag } = await this.downloadWasmWithETag(wasmUrl);
-      wasmBytes = bytes;
+      wasmBytes = await this.downloadWasm(remote.url);
       fs.writeFileSync(wasmCachePath, wasmBytes);
-      if (etag) {
-        fs.writeFileSync(wasmETagPath, etag, "utf8");
-      }
+      fs.writeFileSync(wasmDigestPath, remote.digest, "utf8");
     }
 
     if (this.stopped) {
@@ -501,10 +503,12 @@ export class SimulatorHost {
       fs: stubFs as any,
       preopens: { "/": "/" },
       print: (s: string) => {
-        if (s && !this.stopped) this.postMessage({ type: "simLog", text: s, level: "lua" });
+        if (s && !this.stopped)
+          this.postMessage({ type: "simLog", text: s, level: "lua" });
       },
       printErr: (s: string) => {
-        if (s && !this.stopped) this.postMessage({ type: "simLog", text: s, level: "error" });
+        if (s && !this.stopped)
+          this.postMessage({ type: "simLog", text: s, level: "error" });
       },
     });
 
@@ -535,7 +539,11 @@ export class SimulatorHost {
               samples: msg.samples,
             });
           } else if (msg?.type === "trace" && msg.text && !this.stopped) {
-            this.postMessage({ type: "simLog", text: msg.text, level: msg.level ?? "firmware" });
+            this.postMessage({
+              type: "simLog",
+              text: msg.text,
+              level: msg.level ?? "firmware",
+            });
           }
         });
         return worker as any;
@@ -571,7 +579,8 @@ export class SimulatorHost {
         },
         simuTrace: (ptr: number): void => {
           const text = readCStr(ptr);
-          if (text && !this.stopped) this.postMessage({ type: "simLog", text, level: "firmware" });
+          if (text && !this.stopped)
+            this.postMessage({ type: "simLog", text, level: "firmware" });
         },
         simuLcdNotify: (): void => {
           Atomics.add(this.lcdSync, 0, 1);
@@ -769,7 +778,9 @@ export class SimulatorHost {
   private _backupModels(): void {
     const modelsDir = path.join(this.radioStoragePath, "MODELS");
     try {
-      if (!fs.existsSync(modelsDir)) { return; }
+      if (!fs.existsSync(modelsDir)) {
+        return;
+      }
       const files = fs.readdirSync(modelsDir).filter((f) => f.endsWith(".yml"));
       this.modelBackup = new Map();
       for (const file of files) {
@@ -782,7 +793,9 @@ export class SimulatorHost {
   }
 
   private _restoreModels(): void {
-    if (!this.modelBackup) { return; }
+    if (!this.modelBackup) {
+      return;
+    }
     for (const [filePath, content] of this.modelBackup) {
       try {
         fs.writeFileSync(filePath, content);
@@ -800,7 +813,11 @@ export class SimulatorHost {
   private _launchScript(script: ScriptContext): void {
     if (script.type === "widget" && script.widgetName) {
       if (script.zone) {
-        this._loadWidgetByLayout(script.widgetName, script.zone.layout, script.zone.index);
+        this._loadWidgetByLayout(
+          script.widgetName,
+          script.zone.layout,
+          script.zone.index,
+        );
       } else {
         this._loadWidget(script.widgetName);
       }
@@ -839,7 +856,9 @@ export class SimulatorHost {
 
   private _loadWidget(widgetName: string): void {
     const ex = this.exports;
-    if (!ex?.simuLoadWidget) { return; }
+    if (!ex?.simuLoadWidget) {
+      return;
+    }
     const ptr = this._allocCStr(widgetName);
     try {
       ex.simuLoadWidget(ptr);
@@ -848,7 +867,11 @@ export class SimulatorHost {
     }
   }
 
-  private _loadWidgetByLayout(widgetName: string, layoutId: string, zoneIndex: number): void {
+  private _loadWidgetByLayout(
+    widgetName: string,
+    layoutId: string,
+    zoneIndex: number,
+  ): void {
     const ex = this.exports;
     if (!ex?.simuLoadWidgetByLayout) {
       this._loadWidget(widgetName);
@@ -894,6 +917,32 @@ export class SimulatorHost {
   // Private: helpers
   // -------------------------------------------------------------------------
 
+  private async getReleaseAsset(
+    wasmFile: string,
+  ): Promise<{ digest: string; url: string } | null> {
+    const now = Date.now();
+    const cache = SimulatorHost.releaseAssetsCache;
+    if (cache && now - cache.fetchedAt < SimulatorHost.RELEASE_CACHE_TTL_MS) {
+      return cache.data.get(wasmFile) ?? null;
+    }
+
+    const res = await fetch(
+      "https://api.github.com/repos/JeffreyChix/edgetx/releases/tags/wasm-latest",
+    );
+    const json = await res.json();
+    const map = new Map<string, { digest: string; url: string }>();
+    for (const asset of json.assets ?? []) {
+      if (asset.digest && asset.browser_download_url) {
+        map.set(asset.name, {
+          digest: asset.digest as string, // "sha256:..."
+          url: asset.browser_download_url as string,
+        });
+      }
+    }
+    SimulatorHost.releaseAssetsCache = { data: map, fetchedAt: now };
+    return map.get(wasmFile) ?? null;
+  }
+
   private postMessage(msg: any): void {
     try {
       this.panel.webview.postMessage(msg);
@@ -902,53 +951,44 @@ export class SimulatorHost {
     }
   }
 
-  private fetchETag(url: string): Promise<string | null> {
+  private downloadWasm(url: string, redirectsLeft = 5): Promise<Uint8Array> {
     return new Promise((resolve, reject) => {
       const client = url.startsWith("https://") ? https : http;
-      const req = (client as typeof https).request(
+      const req = (client as typeof https).get(
         url,
-        { method: "HEAD" },
+        { headers: { "User-Agent": "edgetx-dev-kit-vscode-extension" } },
         (res) => {
-          res.resume();
-          if (res.statusCode !== 200) {
-            resolve(null);
+          // Follow redirects (GitHub release assets 302 to the CDN)
+          if (
+            res.statusCode &&
+            [301, 302, 303, 307, 308].includes(res.statusCode) &&
+            res.headers.location &&
+            redirectsLeft > 0
+          ) {
+            res.resume();
+            this.downloadWasm(res.headers.location, redirectsLeft - 1)
+              .then(resolve)
+              .catch(reject);
             return;
           }
-          resolve((res.headers["etag"] as string) ?? null);
+          if (res.statusCode !== 200) {
+            reject(
+              new Error(
+                `Failed to download WASM: HTTP ${res.statusCode} for ${url}`,
+              ),
+            );
+            res.resume();
+            return;
+          }
+          const chunks: Buffer[] = [];
+          res.on("data", (chunk: Buffer) => chunks.push(chunk));
+          res.on("end", () => {
+            const buf = Buffer.concat(chunks);
+            resolve(new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength));
+          });
+          res.on("error", reject);
         },
       );
-      req.on("error", reject);
-      req.end();
-    });
-  }
-
-  private downloadWasmWithETag(
-    url: string,
-  ): Promise<{ bytes: Uint8Array; etag: string | null }> {
-    return new Promise((resolve, reject) => {
-      const client = url.startsWith("https://") ? https : http;
-      const req = (client as typeof https).get(url, (res) => {
-        if (res.statusCode !== 200) {
-          reject(
-            new Error(
-              `Failed to download WASM: HTTP ${res.statusCode} for ${url}`,
-            ),
-          );
-          res.resume();
-          return;
-        }
-        const etag = (res.headers["etag"] as string) ?? null;
-        const chunks: Buffer[] = [];
-        res.on("data", (chunk: Buffer) => chunks.push(chunk));
-        res.on("end", () => {
-          const buf = Buffer.concat(chunks);
-          resolve({
-            bytes: new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength),
-            etag,
-          });
-        });
-        res.on("error", reject);
-      });
       req.on("error", reject);
     });
   }

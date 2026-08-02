@@ -6,6 +6,19 @@ All notable changes to EdgeTX Dev Kit are documented here.
 
 Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-kit) to stay up to date.
 
+## [2.2.2] — 2026-08-02
+
+### Changed
+
+- WASM simulator modules are now downloaded from GitHub Releases instead of Vercel Blob storage, improving reliability and removing bandwidth limits that could interrupt downloads during high-traffic periods.
+- Simulator caching now uses content digests (SHA-256) instead of ETags to detect when a newer firmware build is available, ensuring cached files stay in sync with the latest release.
+
+### Added
+
+- A "Support" item in the status bar lets users to support development.
+
+---
+
 ## [2.2.1] — 2026-06-09
 
 ### Fixed
@@ -140,7 +153,8 @@ Nothing yet. Follow the [repository](https://github.com/JeffreyChix/edgetx-dev-k
 
 ---
 
-[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.2.2...HEAD
+[2.2.2]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/JeffreyChix/edgetx-dev-kit/compare/v2.0.0...v2.1.0

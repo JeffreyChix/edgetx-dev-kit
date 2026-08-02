@@ -194,6 +194,11 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("edgetx.watchScript", async () => {
       await scriptSimulator.run({ watch: true });
     }),
+
+    vscode.commands.registerCommand("edgetx.supportProject", async () => {
+      const sponsorUrl = "https://ko-fi.com/jeffreynwankwo";
+      await vscode.env.openExternal(vscode.Uri.parse(sponsorUrl));
+    }),
   );
 
   if (
@@ -225,9 +230,37 @@ export async function activate(context: vscode.ExtensionContext) {
       }
     }),
   );
+
+  const supportButton = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Right,
+    100,
+  );
+  supportButton.text = "$(coffee) Support";
+  supportButton.tooltip = "Buy me a coffee — support EdgeTX Dev Kit";
+  supportButton.command = "edgetx-dev-kit.support";
+  supportButton.show();
+
+  context.subscriptions.push(supportButton);
+
+  const supportCommand = vscode.commands.registerCommand(
+    "edgetx-dev-kit.support",
+    async () => {
+      const choice = await vscode.window.showInformationMessage(
+        "EdgeTX Dev Kit is free and open source. If it's saved you time, consider buying me a coffee ☕",
+        "Okay",
+        "Not now",
+      );
+      if (choice === "Okay") {
+        vscode.env.openExternal(
+          vscode.Uri.parse("https://ko-fi.com/jeffreynwankwo"),
+        );
+      }
+    },
+  );
+
+  context.subscriptions.push(supportCommand);
 }
 
 export function deactivate() {
   edgetxManager?.deactivate();
 }
-
